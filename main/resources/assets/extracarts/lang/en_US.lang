@@ -1,0 +1,19 @@
+item.EnderChestCart.name=Minecart with Ender Chest
+item.IronChestCart.name=Minecart with Iron Chest
+item.GoldChestCart.name=Minecart with Gold Chest
+item.DiamondChestCart.name=Minecart with Diamond Chest
+item.CopperChestCart.name=Minecart with Copper Chest
+item.SilverChestCart.name=Minecart with Silver Chest
+item.CrystalChestCart.name=Minecart with Crystal Chest
+item.ObsidianChestCart.name=Minecart with Obsidian Chest
+item.DirtChestCart.name=Minecart with Dirt Chest 9000!
+
+entity.extracarts.EntityEnderChestCart.name=Minecart with Ender Chest
+entity.extracarts.EntityIronChestCart.name=Minecart with Iron Chest
+entity.extracarts.EntityGoldChestCart.name=Minecart with Gold Chest
+entity.extracarts.EntityDiamondChestCart.name=Minecart with Diamond Chest
+entity.extracarts.EntityCopperChestCart.name=Minecart with Copper Chest
+entity.extracarts.EntitySilverChestCart.name=Minecart with Silver Chest
+entity.extracarts.EntityCrystalChestCart.name=Minecart with Crystal Chest
+entity.extracarts.EntityObsidianChestCart.name=Minecart with Obsidian Chest
+entity.extracarts.EntityDirtChestCart.name=Minecart with Dirt Chest 9000!

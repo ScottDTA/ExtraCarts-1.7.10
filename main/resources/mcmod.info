@@ -1,0 +1,16 @@
+[
+{
+  "modid": "extracarts",
+  "name": "Extra Carts",
+  "description": "Adding more carts.  Putting all the things in carts.",
+  "version": "b0.4.0",
+  "mcversion": "1.6.4",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["Scott DTA"],
+  "credits": "By DTA, based on Iron Chests by cpw.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
