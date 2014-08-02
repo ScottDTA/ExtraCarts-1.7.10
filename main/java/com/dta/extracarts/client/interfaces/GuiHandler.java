@@ -25,6 +25,9 @@ import com.dta.extracarts.modcompat.ironchest.entities.EntityGoldChestCart;
 import com.dta.extracarts.modcompat.ironchest.entities.EntityIronChestCart;
 import com.dta.extracarts.modcompat.ironchest.entities.EntityObsidianChestCart;
 import com.dta.extracarts.modcompat.ironchest.entities.EntitySilverChestCart;
+import com.dta.extracarts.modcompat.mfr.client.interfaces.ContainerDSUCart;
+import com.dta.extracarts.modcompat.mfr.client.interfaces.GuiDSUCart;
+import com.dta.extracarts.modcompat.mfr.entities.EntityDSUCart;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -73,6 +76,11 @@ public class GuiHandler implements IGuiHandler {
 					return new ContainerDirtChestCart(player.inventory, (EntityDirtChestCart) entity);
 				}
 				break;
+			case 6:
+				if (entity != null && entity instanceof EntityDSUCart) {
+					return new ContainerDSUCart(player.inventory, (EntityDSUCart) entity);
+				}
+				break;
 		}
 		return null;
 	}
@@ -113,6 +121,11 @@ public class GuiHandler implements IGuiHandler {
 			case 5:
 				if (entity != null && entity instanceof EntityDirtChestCart) {
 					return new GuiDirtChestCart(player.inventory, (EntityDirtChestCart) entity);
+				}
+				break;
+			case 6:
+				if (entity != null && entity instanceof EntityDSUCart) {
+					return new GuiDSUCart(player.inventory, (EntityDSUCart) entity);
 				}
 				break;
 		}

@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class EntityExtraCartContainer  extends EntityMinecart implements IInventory{
 
-	private ItemStack[] minecartContainerItems = new ItemStack[108];
+	public ItemStack[] minecartContainerItems = new ItemStack[108];
 
     private boolean dropContentsWhenDead = true;
 
@@ -68,6 +68,16 @@ public class EntityExtraCartContainer  extends EntityMinecart implements IInvent
         
         
     }
+    
+    public void killMinecartNoDrop(DamageSource damageSource) {
+    	super.killMinecart(damageSource);
+    }
+    
+     
+    protected void onInventoryChanged()
+	{
+	}
+
 
     @Override
     public ItemStack getStackInSlot(int p_70301_1_)

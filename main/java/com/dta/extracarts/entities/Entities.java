@@ -10,9 +10,5 @@ public class Entities {
 
 	public static void init() {
 		EntityRegistry.registerModEntity(EntityEnderChestCart.class, "EntityEnderChestCart", 0, ExtraCarts.instance, 80, 3, true);
-		
-		if (Loader.isModLoaded("IronChest")) {
-			IronChestEntities.init();
-		}
 	}
 }
