@@ -7,28 +7,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerDiamondChestCart extends ContainerExtraChestCart {
-	private IInventory cart;
-	private int ySize;
-	private int xSize;
-	
 	public ContainerDiamondChestCart (IInventory invPlayer, IInventory cart) {
-		this.cart = cart;
-		this.ySize = 256;//202
-		this.xSize = 238;//184
-		int leftOffset = (xSize - 162)/2 +1;
-		for (int x = 0; x < 9; x++) {
-			addSlotToContainer(new Slot(invPlayer, x, leftOffset + 18 * x, ySize-24));
-		}
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 9; x++) {
-				addSlotToContainer(new Slot(invPlayer, x + y * 9 + 9, leftOffset + 18 * x, ySize - (4 - y) * 18 - 10));
-			}
-		}
-		for (int y = 0; y < 9; y++){
-			for (int x = 0; x < 12; x++){
-				addSlotToContainer(new Slot(cart, x + y * 9, 12 + 18 * x, 8 + 18 * y));
-			}
-		}
+        super(invPlayer, cart, 238, 256, 9, 12);
 	}
 
 	@Override
@@ -44,7 +24,7 @@ public class ContainerDiamondChestCart extends ContainerExtraChestCart {
                 if (!mergeItemStack(stack, 0, 36, false)) {
                     return null;
                 }
-            } else if (!mergeItemStack(stack, 36, 36 + cart.getSizeInventory(), false)) {
+            } else if (!mergeItemStack(stack, 36, 36 + getCart().getSizeInventory(), false)) {
                 return null;
             }
             if (stack.stackSize == 0) {

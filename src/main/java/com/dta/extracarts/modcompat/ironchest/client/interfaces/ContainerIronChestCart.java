@@ -9,32 +9,8 @@ import net.minecraft.item.ItemStack;
 import com.dta.extracarts.modcompat.ironchest.entities.EntityIronChestCart;
 
 public class ContainerIronChestCart extends ContainerExtraChestCart {
-	
-	private IInventory cart;
-	private int ySize;
-	private int xSize;
-	
 	public ContainerIronChestCart (IInventory invPlayer, IInventory cart) {
-		this.cart = cart;
-		this.ySize = 202;//202
-		this.xSize = 184;//184
-		int leftOffset = (xSize - 162)/2 +1;
-		for (int x = 0; x < 9; x++) {
-			addSlotToContainer(new Slot(invPlayer, x, leftOffset + 18 * x, ySize-24));
-		}
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 9; x++) {
-				addSlotToContainer(new Slot(invPlayer, x + y * 9 + 9, leftOffset + 18 * x, ySize - (4 - y) * 18 - 10));
-			}
-		}
-		for (int y = 0; y < 6; y++){
-			for (int x = 0; x < 9; x++){
-				addSlotToContainer(new Slot(cart, x + y * 9, 12 + 18 * x, 8 + 18 * y));
-			}
-		}
-
-		
-		
+        super(invPlayer, cart, 184, 202, 6);
 	}
 
 	@Override
@@ -50,7 +26,7 @@ public class ContainerIronChestCart extends ContainerExtraChestCart {
                 if (!mergeItemStack(stack, 0, 36, false)) {
                     return null;
                 }
-            } else if (!mergeItemStack(stack, 36, 36 + cart.getSizeInventory(), false)) {
+            } else if (!mergeItemStack(stack, 36, 36 + getCart().getSizeInventory(), false)) {
                 return null;
             }
             if (stack.stackSize == 0) {
