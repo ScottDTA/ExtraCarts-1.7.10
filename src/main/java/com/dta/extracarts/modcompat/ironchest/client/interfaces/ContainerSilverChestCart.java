@@ -1,12 +1,12 @@
 package com.dta.extracarts.modcompat.ironchest.client.interfaces;
 
+import com.dta.extracarts.client.interfaces.ContainerExtraChestCart;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerSilverChestCart extends Container {
+public class ContainerSilverChestCart extends ContainerExtraChestCart {
 	private IInventory cart;
 	private int ySize;
 	private int xSize;
@@ -29,15 +29,6 @@ public class ContainerSilverChestCart extends Container {
 				addSlotToContainer(new Slot(cart, x + y * 9, 12 + 18 * x, 8 + 18 * y));
 			}
 		}
-
-		
-		
-	}
-	
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return cart.isUseableByPlayer(entityplayer);
-		
 	}
 
 	@Override
