@@ -23,9 +23,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = ModInfo.MODID,
      name = ModInfo.NAME,
-     version = ModInfo.VERSION,
-     dependencies = "after:IronChest;"
-     		      + "after:MineFactoryReloaded")
+     version = ModInfo.VERSION)
 public class ExtraCarts {
 	
 	@SidedProxy(clientSide = "com.dta.extracarts.proxies.ClientProxy", serverSide = "com.dta.extracarts.proxies.CommonProxy")
