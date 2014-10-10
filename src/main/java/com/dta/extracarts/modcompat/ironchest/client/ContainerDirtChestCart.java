@@ -21,6 +21,7 @@ public class ContainerDirtChestCart extends ContainerExtraChestCart {
 		}
 		addSlotToContainer(new SlotDirt(cart, 0, 12 + 4 * 18, 8 + 2 * 18));
 	}
+
 	//If not overriden, crashes. Only dirtcart does this. No idea why. Just leave alone.
 	@Override
 	public boolean canInteractWith(EntityPlayer entityPlayer) {
