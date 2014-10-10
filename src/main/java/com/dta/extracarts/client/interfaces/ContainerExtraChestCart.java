@@ -42,9 +42,8 @@ public abstract class ContainerExtraChestCart extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer entityplayer) {
-        return cart.isUseableByPlayer(entityplayer);
-
+    public boolean canInteractWith(EntityPlayer entityPlayer) {
+        return cart.isUseableByPlayer(entityPlayer);
     }
 
     public IInventory getCart() {

@@ -2,6 +2,7 @@ package com.dta.extracarts.modcompat.ironchest.client.interfaces;
 
 import com.dta.extracarts.client.interfaces.ContainerExtraChestCart;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -26,10 +27,14 @@ public class ContainerDirtChestCart extends ContainerExtraChestCart {
 		}
 		addSlotToContainer(new SlotDirt(cart, 0, 12 + 4 * 18, 8 + 2 * 18));
 	}
+	//If not overriden, crashes. Only dirtcart does this. No idea where. Just leave alone.
+	@Override
+	public boolean canInteractWith(EntityPlayer entityPlayer) {
+		return cart.isUseableByPlayer(entityPlayer);
+	}
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
-		
         Slot slot = (Slot) inventorySlots.get(i);
         
         if (slot != null && slot.getHasStack())
@@ -53,10 +58,6 @@ public class ContainerDirtChestCart extends ContainerExtraChestCart {
             slot.onPickupFromSlot(player, stack);
             return result;
         }
-        
-        
-        return null;
-        
-        
+    	return null;
     }
 }
