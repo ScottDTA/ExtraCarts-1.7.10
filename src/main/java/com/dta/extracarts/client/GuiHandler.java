@@ -1,22 +1,22 @@
-package com.dta.extracarts.client.interfaces;
+package com.dta.extracarts.client;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.ContainerCopperChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.ContainerDiamondChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.ContainerDirtChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.ContainerGoldChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.ContainerIronChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.ContainerSilverChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.GuiCopperChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.GuiDiamondChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.GuiDirtChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.GuiGoldChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.GuiIronChestCart;
-import com.dta.extracarts.modcompat.ironchest.client.interfaces.GuiSilverChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.ContainerCopperChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.ContainerDiamondChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.ContainerDirtChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.ContainerGoldChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.ContainerIronChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.ContainerSilverChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.GuiCopperChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.GuiDiamondChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.GuiDirtChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.GuiGoldChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.GuiIronChestCart;
+import com.dta.extracarts.modcompat.ironchest.client.GuiSilverChestCart;
 import com.dta.extracarts.modcompat.ironchest.entities.EntityCopperChestCart;
 import com.dta.extracarts.modcompat.ironchest.entities.EntityCrystalChestCart;
 import com.dta.extracarts.modcompat.ironchest.entities.EntityDiamondChestCart;

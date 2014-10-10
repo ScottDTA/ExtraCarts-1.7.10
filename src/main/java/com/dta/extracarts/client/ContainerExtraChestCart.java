@@ -1,4 +1,4 @@
-package com.dta.extracarts.client.interfaces;
+package com.dta.extracarts.client;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

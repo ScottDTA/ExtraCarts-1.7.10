@@ -1,4 +1,4 @@
-package com.dta.extracarts.modcompat.ironchest.client.interfaces;
+package com.dta.extracarts.modcompat.ironchest.client;
 
 import org.lwjgl.opengl.GL11;
 

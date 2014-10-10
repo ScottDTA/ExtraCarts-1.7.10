@@ -1,4 +1,4 @@
-package com.dta.extracarts.modcompat.ironchest.client.interfaces;
+package com.dta.extracarts.modcompat.ironchest.client;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;

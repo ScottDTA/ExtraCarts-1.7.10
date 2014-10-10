@@ -1,4 +1,4 @@
-package com.dta.extracarts.client.interfaces;
+package com.dta.extracarts.client;
 
 /**
  * Created by Skylar on 10/9/2014.

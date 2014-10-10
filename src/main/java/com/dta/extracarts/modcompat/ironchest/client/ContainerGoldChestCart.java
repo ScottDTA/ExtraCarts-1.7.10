@@ -1,6 +1,6 @@
-package com.dta.extracarts.modcompat.ironchest.client.interfaces;
+package com.dta.extracarts.modcompat.ironchest.client;
 
-import com.dta.extracarts.client.interfaces.ContainerExtraChestCart;
+import com.dta.extracarts.client.ContainerExtraChestCart;
 import net.minecraft.inventory.IInventory;
 
 public class ContainerGoldChestCart extends ContainerExtraChestCart {
