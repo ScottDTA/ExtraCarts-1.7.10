@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityExtraCartContainer  extends EntityMinecart implements IInventory {
+public class EntityExtraCartContainer extends EntityMinecart implements IInventory {
 
 	private ItemStack[] minecartContainerItems = new ItemStack[108];
 

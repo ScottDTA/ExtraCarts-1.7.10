@@ -5,29 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.mods.ironchest.client.ContainerCopperChestCart;
-import com.dta.extracarts.mods.ironchest.client.ContainerDiamondChestCart;
-import com.dta.extracarts.mods.ironchest.client.ContainerDirtChestCart;
-import com.dta.extracarts.mods.ironchest.client.ContainerGoldChestCart;
-import com.dta.extracarts.mods.ironchest.client.ContainerIronChestCart;
-import com.dta.extracarts.mods.ironchest.client.ContainerSilverChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiCopperChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiDirtChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiGoldChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiIronChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiSilverChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityCopperChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityCrystalChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityDiamondChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityDirtChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityGoldChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityObsidianChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntitySilverChestCart;
-import com.dta.extracarts.mods.mfr.client.ContainerDSUCart;
-import com.dta.extracarts.mods.mfr.client.GuiDSUCart;
-import com.dta.extracarts.mods.mfr.entities.EntityDSUCart;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -41,46 +18,8 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		Entity entity = world.getEntityByID(x);
-		switch(ID) {
-			case 0:
-				if (entity != null && entity instanceof EntityIronChestCart) {
-					return new ContainerIronChestCart(player.inventory, (EntityIronChestCart) entity);
-				}
-				break;
-			case 1:
-				if (entity != null && entity instanceof EntityGoldChestCart) {
-					return new ContainerGoldChestCart(player.inventory, (EntityGoldChestCart) entity);
-				}
-				break;
-			case 2:
-				if (entity != null && entity instanceof EntityDiamondChestCart) {
-					return new ContainerDiamondChestCart(player.inventory, (EntityDiamondChestCart) entity);
-				} else if (entity instanceof EntityCrystalChestCart) {
-					return new ContainerDiamondChestCart(player.inventory, (EntityCrystalChestCart) entity);
-				} else if (entity instanceof EntityObsidianChestCart) {
-					return new ContainerDiamondChestCart(player.inventory, (EntityObsidianChestCart) entity);
-				}
-				break;
-			case 3:
-				if (entity != null && entity instanceof EntityCopperChestCart) {
-					return new ContainerCopperChestCart(player.inventory, (EntityCopperChestCart) entity);
-				}
-				break;
-			case 4:
-				if (entity != null && entity instanceof EntitySilverChestCart) {
-					return new ContainerSilverChestCart(player.inventory, (EntitySilverChestCart) entity);
-				}
-				break;
-			case 5:
-				if (entity != null && entity instanceof EntityDirtChestCart) {
-					return new ContainerDirtChestCart(player.inventory, (EntityDirtChestCart) entity);
-				}
-				break;
-			case 6:
-				if (entity != null && entity instanceof EntityDSUCart) {
-					return new ContainerDSUCart(player.inventory, (EntityDSUCart) entity);
-				}
-				break;
+		if(entity instanceof OpenableGUI) {
+			return ((OpenableGUI) entity).getServerGuiElement(ID, player, world, x, y, z);
 		}
 		return null;
 	}
@@ -88,46 +27,8 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) {
 		Entity entity = world.getEntityByID(x);
-		switch(ID) {
-			case 0:
-				if (entity != null && entity instanceof EntityIronChestCart) {
-					return new GuiIronChestCart(player.inventory, (EntityIronChestCart) entity);
-				}
-				break;
-			case 1:
-				if (entity != null && entity instanceof EntityGoldChestCart) {
-					return new GuiGoldChestCart(player.inventory, (EntityGoldChestCart) entity);
-				}
-				break;
-			case 2:
-				if (entity != null && entity instanceof EntityDiamondChestCart) {
-					return new GuiDiamondChestCart(player.inventory, (EntityDiamondChestCart) entity);
-				} else if (entity instanceof EntityCrystalChestCart) {
-					return new GuiDiamondChestCart(player.inventory, (EntityCrystalChestCart) entity);
-				} else if (entity instanceof EntityObsidianChestCart) {
-					return new GuiDiamondChestCart(player.inventory, (EntityObsidianChestCart) entity);
-				}
-				break;
-			case 3:
-				if (entity != null && entity instanceof EntityCopperChestCart) {
-					return new GuiCopperChestCart(player.inventory, (EntityCopperChestCart) entity);
-				}
-				break;
-			case 4:
-				if (entity != null && entity instanceof EntitySilverChestCart) {
-					return new GuiSilverChestCart(player.inventory, (EntitySilverChestCart) entity);
-				}
-				break;
-			case 5:
-				if (entity != null && entity instanceof EntityDirtChestCart) {
-					return new GuiDirtChestCart(player.inventory, (EntityDirtChestCart) entity);
-				}
-				break;
-			case 6:
-				if (entity != null && entity instanceof EntityDSUCart) {
-					return new GuiDSUCart(player.inventory, (EntityDSUCart) entity);
-				}
-				break;
+		if(entity instanceof OpenableGUI) {
+			return ((OpenableGUI) entity).getClientGuiElement(ID, player, world, x, y, z);
 		}
 		return null;
 	}

@@ -1,5 +1,8 @@
 package com.dta.extracarts.mods.mfr.entities;
 
+import com.dta.extracarts.client.OpenableGUI;
+import com.dta.extracarts.mods.mfr.client.ContainerDSUCart;
+import com.dta.extracarts.mods.mfr.client.GuiDSUCart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,13 +17,11 @@ import com.dta.extracarts.entities.EntityExtraCartContainer;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class EntityDSUCart extends EntityExtraCartContainer {
-	
+public class EntityDSUCart extends EntityExtraCartContainer implements OpenableGUI {
 	private ItemStack storedItem = null;
 	private int storedQty = 0;
 	private NBTTagCompound compound = null;
 	private Block dsu = GameRegistry.findBlock("MineFactoryReloaded", "tile.mfr.machine.1");
-	
 	
 	public EntityDSUCart(World world) {
 		super(world);
@@ -36,7 +37,6 @@ public class EntityDSUCart extends EntityExtraCartContainer {
 	@Override
 	public boolean interactFirst(EntityPlayer player) {
 	    if (!this.worldObj.isRemote) {
-	    	System.out.println("Open Says Me!");
 	    	FMLNetworkHandler.openGui(player, ExtraCarts.instance, 6, player.worldObj, this.getEntityId(), 0, 0);
 	    }
         return true;
@@ -100,8 +100,7 @@ public class EntityDSUCart extends EntityExtraCartContainer {
 		stack.stackSize = 1;
 		this.storedItem = stack;
 	}
-	
-	@Override
+
     public void onInventoryChanged() {
 		if (worldObj.isRemote) {
 			return;
@@ -209,4 +208,13 @@ public class EntityDSUCart extends EntityExtraCartContainer {
 	    return Math.min(64, (Integer.MAX_VALUE - (storedQty + this.getMinecartContainerItems()[2].stackSize)));
 	}
 
+	@Override
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		return new GuiDSUCart(player.inventory, this);
+	}
+
+	@Override
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		return new ContainerDSUCart(player.inventory, this);
+	}
 }

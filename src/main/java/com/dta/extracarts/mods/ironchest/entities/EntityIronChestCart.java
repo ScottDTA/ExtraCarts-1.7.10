@@ -1,5 +1,8 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
+import com.dta.extracarts.client.OpenableGUI;
+import com.dta.extracarts.mods.ironchest.client.ContainerIronChestCart;
+import com.dta.extracarts.mods.ironchest.client.GuiIronChestCart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -13,7 +16,7 @@ import com.dta.extracarts.entities.EntityExtraCartContainer;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class EntityIronChestCart extends EntityExtraCartContainer {
+public class EntityIronChestCart extends EntityExtraCartContainer implements OpenableGUI {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item IronGoldUpgrade = GameRegistry.findItem("IronChest", "ironGoldUpgrade");
@@ -68,4 +71,14 @@ public class EntityIronChestCart extends EntityExtraCartContainer {
         return true;
     }
 
+
+	@Override
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		return new GuiIronChestCart(player.inventory, this);
+	}
+
+	@Override
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		return new ContainerIronChestCart(player.inventory, this);
+	}
 }
