@@ -4,7 +4,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import com.dta.extracarts.client.GuiHandler;
 import com.dta.extracarts.config.ConfigHandler;
-import com.dta.extracarts.entities.Entities;
+import com.dta.extracarts.mods.extracarts.Entities;
 import com.dta.extracarts.events.ECEventHandler;
 import com.dta.extracarts.mods.ironchest.IronChestItems;
 import com.dta.extracarts.mods.ironchest.entities.IronChestEntities;
