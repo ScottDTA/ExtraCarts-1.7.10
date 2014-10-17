@@ -10,7 +10,6 @@ import com.dta.extracarts.modcompat.ironchest.IronChestItems;
 import com.dta.extracarts.modcompat.ironchest.entities.IronChestEntities;
 import com.dta.extracarts.modcompat.mfr.MFRItems;
 import com.dta.extracarts.modcompat.mfr.entities.MFREntities;
-import com.dta.extracarts.proxies.CommonProxy;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -21,19 +20,11 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = ModInfo.MODID,
-     name = ModInfo.NAME,
-     version = ModInfo.VERSION)
+@Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class ExtraCarts {
-	
-	@SidedProxy(clientSide = "com.dta.extracarts.proxies.ClientProxy", serverSide = "com.dta.extracarts.proxies.CommonProxy")
-	public static CommonProxy proxy;
-	
 	@Instance(ModInfo.MODID)
 	public static ExtraCarts instance;
-	
-	
-	
+
 	@EventHandler
 	public void init(FMLPreInitializationEvent event) {
 		ConfigHandler.init(event.getSuggestedConfigurationFile());
@@ -42,9 +33,6 @@ public class ExtraCarts {
 			ModItems.init();
 			ModItems.registerItems();
 		}
-		
-		
-	
 	}
 	
 	@EventHandler
