@@ -1,36 +1,20 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+.gradle
+build/
 
-# Folder config file
-Desktop.ini
+# Ignore Gradle GUI config
+gradle-app.setting
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+*.class
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
 
-# =========================
-# Operating System Files
-# =========================
+# Package Files #
+*.jar
+*.war
+*.ear
 
-# OSX
-# =========================
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
 
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must ends with two \r.
-Icon
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
+run/
