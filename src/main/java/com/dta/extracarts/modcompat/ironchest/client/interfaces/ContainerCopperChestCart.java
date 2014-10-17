@@ -1,20 +1,20 @@
 package com.dta.extracarts.modcompat.ironchest.client.interfaces;
 
+import com.dta.extracarts.client.interfaces.ContainerExtraChestCart;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerDiamondChestCart extends Container {
+public class ContainerCopperChestCart extends ContainerExtraChestCart {
 	private IInventory cart;
 	private int ySize;
 	private int xSize;
 	
-	public ContainerDiamondChestCart (IInventory invPlayer, IInventory cart) {
+	public ContainerCopperChestCart (IInventory invPlayer, IInventory cart) {
 		this.cart = cart;
-		this.ySize = 256;//202
-		this.xSize = 238;//184
+		this.ySize = 184;//202
+		this.xSize = 184;//184
 		int leftOffset = (xSize - 162)/2 +1;
 		for (int x = 0; x < 9; x++) {
 			addSlotToContainer(new Slot(invPlayer, x, leftOffset + 18 * x, ySize-24));
@@ -24,20 +24,11 @@ public class ContainerDiamondChestCart extends Container {
 				addSlotToContainer(new Slot(invPlayer, x + y * 9 + 9, leftOffset + 18 * x, ySize - (4 - y) * 18 - 10));
 			}
 		}
-		for (int y = 0; y < 9; y++){
-			for (int x = 0; x < 12; x++){
+		for (int y = 0; y < 5; y++){
+			for (int x = 0; x < 9; x++){
 				addSlotToContainer(new Slot(cart, x + y * 9, 12 + 18 * x, 8 + 18 * y));
 			}
 		}
-
-		
-		
-	}
-	
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return cart.isUseableByPlayer(entityplayer);
-		
 	}
 
 	@Override
