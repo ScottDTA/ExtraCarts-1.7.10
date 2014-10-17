@@ -1,17 +1,14 @@
 package com.dta.extracarts;
 
+import com.dta.extracarts.mods.extracarts.ExtraCartsSubMod;
+import com.dta.extracarts.mods.ironchest.IronChestSubMod;
+import com.dta.extracarts.mods.mfr.MFRSubMod;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.dta.extracarts.client.GuiHandler;
 import com.dta.extracarts.config.ConfigHandler;
-import com.dta.extracarts.mods.extracarts.Entities;
 import com.dta.extracarts.events.ECEventHandler;
-import com.dta.extracarts.mods.ironchest.IronChestItems;
-import com.dta.extracarts.mods.ironchest.entities.IronChestEntities;
-import com.dta.extracarts.mods.mfr.MFRItems;
-import com.dta.extracarts.mods.mfr.entities.MFREntities;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -19,45 +16,41 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
+import java.util.ArrayList;
+
 @Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class ExtraCarts {
 	@Instance(ModInfo.MODID)
 	public static ExtraCarts instance;
 
+	public static ArrayList<SubMod> subMods = new ArrayList<SubMod>();
+
 	@EventHandler
 	public void init(FMLPreInitializationEvent event) {
 		ConfigHandler.init(event.getSuggestedConfigurationFile());
-		
-		if (ModInfo.ENDER_CART_ENABLED) {
-			ModItems.init();
-			ModItems.registerItems();
+
+		subMods.add(new ExtraCartsSubMod());
+		subMods.add(new IronChestSubMod());
+		subMods.add(new MFRSubMod());
+
+		for(SubMod subMod: subMods) {
+			subMod.init(event);
 		}
 	}
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-		if (ModInfo.ENDER_CART_ENABLED) {
-			ModItems.registerRecipes();
-			Entities.init();
-		}
 	    new GuiHandler();
 	    MinecraftForge.EVENT_BUS.register(new ECEventHandler());
+		for(SubMod subMod: subMods) {
+			subMod.load(event);
+		}
 	}
 	    
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		if (Loader.isModLoaded("IronChest") && ModInfo.IRON_CHEST_ENABLED) {
-			IronChestItems.init();
-			IronChestItems.registerItems();
-			IronChestItems.registerRecipes();
-			IronChestEntities.init();
-		}
-		if (Loader.isModLoaded("MineFactoryReloaded") && ModInfo.DSU_ENABLED) {
-			System.out.println("MFR is loaded");
-			MFRItems.init();
-			MFRItems.registerItems();
-			MFRItems.registerRecipes();
-			MFREntities.init();
+		for(SubMod subMod: subMods) {
+			subMod.postInit(event);
 		}
 	}
 }

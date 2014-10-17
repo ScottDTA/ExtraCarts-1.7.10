@@ -49,7 +49,6 @@ public abstract class ContainerExtraChestCart extends Container {
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
-
 		Slot slot = (Slot) inventorySlots.get(i);
 
 		if (slot != null && slot.getHasStack())
