@@ -2,7 +2,6 @@ package com.dta.extracarts.mods.ironchest;
 
 import com.dta.extracarts.ModInfo;
 import com.dta.extracarts.SubMod;
-import com.dta.extracarts.mods.ironchest.entities.IronChestEntities;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
