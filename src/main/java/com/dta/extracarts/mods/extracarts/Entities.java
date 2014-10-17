@@ -1,4 +1,4 @@
-package com.dta.extracarts.entities;
+package com.dta.extracarts.mods.extracarts;
 
 import com.dta.extracarts.ExtraCarts;
 
