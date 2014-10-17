@@ -1,7 +1,8 @@
-package com.dta.extracarts.mods.ironchest.entities;
+package com.dta.extracarts.mods.ironchest;
 
 import com.dta.extracarts.ExtraCarts;
 
+import com.dta.extracarts.mods.ironchest.entities.*;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class IronChestEntities {
