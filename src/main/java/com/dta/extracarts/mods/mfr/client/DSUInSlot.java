@@ -19,8 +19,8 @@ public class DSUInSlot extends Slot {
 		ItemStack copy = stack.copy();
 		copy.stackSize = 1;
 		int storedQty = 0;
-		if (cart.minecartContainerItems[2] != null) {
-			ItemStack slot2 = cart.minecartContainerItems[2].copy();
+		if (cart.getMinecartContainerItems()[2] != null) {
+			ItemStack slot2 = cart.getMinecartContainerItems()[2].copy();
 			storedQty += slot2.stackSize;
 			storedQty += cart.getQuantity();
 			slot2.stackSize = 1;
@@ -37,8 +37,8 @@ public class DSUInSlot extends Slot {
 	@Override
 	public int getSlotStackLimit() {
 		int storedQty = 0;
-		if (cart.minecartContainerItems[2] != null) {
-			storedQty += cart.minecartContainerItems[2].stackSize;
+		if (cart.getMinecartContainerItems()[2] != null) {
+			storedQty += cart.getMinecartContainerItems()[2].stackSize;
 			storedQty += cart.getQuantity();
 		}  
 	    return Math.min(cart.getInventoryStackLimit(), (Integer.MAX_VALUE - storedQty));

@@ -25,6 +25,7 @@ public class EntityDSUCart extends EntityExtraCartContainer {
 	public EntityDSUCart(World world) {
 		super(world);
 		this.setDisplayTileData(3);
+		this.setDropContentsWhenDead(false);
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class EntityDSUCart extends EntityExtraCartContainer {
 		compound = new NBTTagCompound();
 		if (storedItem != null)	{
 			compound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
-			compound.setInteger("storedQuantity", storedQty + this.minecartContainerItems[2].stackSize);
+			compound.setInteger("storedQuantity", storedQty + this.getMinecartContainerItems()[2].stackSize);
 		} else {
 			compound.setInteger("storedQuantity", 0);
 		}
@@ -106,49 +107,49 @@ public class EntityDSUCart extends EntityExtraCartContainer {
 			return;
 		}
 		
-		if ((this.minecartContainerItems[2] == null) & storedItem != null & storedQty == 0) {
+		if ((this.getMinecartContainerItems()[2] == null) & storedItem != null & storedQty == 0) {
 			storedItem = null;
 		}
 		
-		if (this.minecartContainerItems[0] != null) {
-			ItemStack stack = this.minecartContainerItems[0].copy();
+		if (this.getMinecartContainerItems()[0] != null) {
+			ItemStack stack = this.getMinecartContainerItems()[0].copy();
 			stack.stackSize = 1;
 			if (storedQty == 0 && (storedItem == null || ItemStack.areItemStacksEqual(storedItem, stack))) {
-				storedItem = this.minecartContainerItems[0].copy();
+				storedItem = this.getMinecartContainerItems()[0].copy();
 				storedItem.stackSize = 1;
-				storedQty = this.minecartContainerItems[0].stackSize;
-				this.minecartContainerItems[0] = null;
+				storedQty = this.getMinecartContainerItems()[0].stackSize;
+				this.getMinecartContainerItems()[0] = null;
 			} else if (ItemStack.areItemStacksEqual(storedItem, stack)) {
-				storedQty += this.minecartContainerItems[0].stackSize;
-				this.minecartContainerItems[0] = null;
+				storedQty += this.getMinecartContainerItems()[0].stackSize;
+				this.getMinecartContainerItems()[0] = null;
 			}
 		}
 		
-		if (this.minecartContainerItems[1] != null) {
-			ItemStack stack = this.minecartContainerItems[1].copy();
+		if (this.getMinecartContainerItems()[1] != null) {
+			ItemStack stack = this.getMinecartContainerItems()[1].copy();
 			stack.stackSize = 1;
 			if (storedQty == 0 && (storedItem == null || ItemStack.areItemStacksEqual(storedItem, stack))) {
-				storedItem = this.minecartContainerItems[1].copy();
+				storedItem = this.getMinecartContainerItems()[1].copy();
 				storedItem.stackSize = 1;
-				storedQty = this.minecartContainerItems[1].stackSize;
-				this.minecartContainerItems[1] = null;
+				storedQty = this.getMinecartContainerItems()[1].stackSize;
+				this.getMinecartContainerItems()[1] = null;
 			} else if (ItemStack.areItemStacksEqual(storedItem, stack)) {
-				storedQty += this.minecartContainerItems[1].stackSize;
-				this.minecartContainerItems[1] = null;
+				storedQty += this.getMinecartContainerItems()[1].stackSize;
+				this.getMinecartContainerItems()[1] = null;
 			}
 		}
 		
 		
-		if (this.minecartContainerItems[2] == null && storedItem != null) {
-			this.minecartContainerItems[2] = storedItem.copy();
-			this.minecartContainerItems[2].stackSize = Math.min(storedQty, Math.min(storedItem.getMaxStackSize(), this.getInventoryStackLimit()));
-			storedQty -= this.minecartContainerItems[2].stackSize;
-		} else if (this.minecartContainerItems[2] != null) {
-			ItemStack stack = this.minecartContainerItems[2].copy();
+		if (this.getMinecartContainerItems()[2] == null && storedItem != null) {
+			this.getMinecartContainerItems()[2] = storedItem.copy();
+			this.getMinecartContainerItems()[2].stackSize = Math.min(storedQty, Math.min(storedItem.getMaxStackSize(), this.getInventoryStackLimit()));
+			storedQty -= this.getMinecartContainerItems()[2].stackSize;
+		} else if (this.getMinecartContainerItems()[2] != null) {
+			ItemStack stack = this.getMinecartContainerItems()[2].copy();
 			stack.stackSize = 1;
-			if (storedQty > 0 && this.minecartContainerItems[2].stackSize < this.minecartContainerItems[2].getMaxStackSize() && ItemStack.areItemStacksEqual(storedItem, stack)) {
-				int amt = Math.min(this.minecartContainerItems[2].getMaxStackSize() - this.minecartContainerItems[2].stackSize, storedQty);
-				this.minecartContainerItems[2].stackSize += amt;
+			if (storedQty > 0 && this.getMinecartContainerItems()[2].stackSize < this.getMinecartContainerItems()[2].getMaxStackSize() && ItemStack.areItemStacksEqual(storedItem, stack)) {
+				int amt = Math.min(this.getMinecartContainerItems()[2].getMaxStackSize() - this.getMinecartContainerItems()[2].stackSize, storedQty);
+				this.getMinecartContainerItems()[2].stackSize += amt;
 				storedQty -= amt;
 			}
 		}
@@ -167,13 +168,13 @@ public class EntityDSUCart extends EntityExtraCartContainer {
 	@Override
 	public void writeToNBT(NBTTagCompound compound) {
 		int storedAdd = 0;
-		ItemStack o = this.minecartContainerItems[2];
+		ItemStack o = this.getMinecartContainerItems()[2];
 		if (o != null) {
 			storedAdd = o.stackSize;
-			this.minecartContainerItems[2] = null;
+			this.getMinecartContainerItems()[2] = null;
 		}
 		super.writeToNBT(compound);
-		this.minecartContainerItems[2] = o;
+		this.getMinecartContainerItems()[2] = o;
 		if (storedItem != null)	{
 			compound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
 			compound.setInteger("storedQuantity", storedQty + storedAdd);
@@ -202,10 +203,10 @@ public class EntityDSUCart extends EntityExtraCartContainer {
 	
 	@Override
 	public int getInventoryStackLimit() {
-		if (this.minecartContainerItems[2] == null) {
+		if (this.getMinecartContainerItems()[2] == null) {
 			return 64;
 		}
-	    return Math.min(64, (Integer.MAX_VALUE - (storedQty + this.minecartContainerItems[2].stackSize)));
+	    return Math.min(64, (Integer.MAX_VALUE - (storedQty + this.getMinecartContainerItems()[2].stackSize)));
 	}
 
 }

@@ -3,7 +3,6 @@ package com.dta.extracarts.entities;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,100 +10,50 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityExtraCartContainer  extends EntityMinecart implements IInventory{
+public class EntityExtraCartContainer  extends EntityMinecart implements IInventory {
 
-	public ItemStack[] minecartContainerItems = new ItemStack[108];
+	private ItemStack[] minecartContainerItems = new ItemStack[108];
 
     private boolean dropContentsWhenDead = true;
 
-    public EntityExtraCartContainer(World world)
-    {
+    public EntityExtraCartContainer(World world) {
         super(world);
     }
 
-    public EntityExtraCartContainer(World p_i1717_1_, double p_i1717_2_, double p_i1717_4_, double p_i1717_6_)
-    {
+    public EntityExtraCartContainer(World p_i1717_1_, double p_i1717_2_, double p_i1717_4_, double p_i1717_6_) {
         super(p_i1717_1_, p_i1717_2_, p_i1717_4_, p_i1717_6_);
-    }
-
-    
-    @Override
-    public void killMinecart(DamageSource p_94095_1_)
-    {
-        super.killMinecart(p_94095_1_);
-
-        
-        for (int i = 0; i < this.getSizeInventory(); ++i)
-        {
-            ItemStack itemstack = this.getStackInSlot(i);
-
-            if (itemstack != null)
-            {
-                float f = this.rand.nextFloat() * 0.8F + 0.1F;
-                float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
-                float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
-
-                while (itemstack.stackSize > 0)
-                {
-                    int j = this.rand.nextInt(21) + 10;
-
-                    if (j > itemstack.stackSize)
-                    {
-                        j = itemstack.stackSize;
-                    }
-
-                    itemstack.stackSize -= j;
-                    EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double)f, this.posY + (double)f1, this.posZ + (double)f2, new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
-                    float f3 = 0.05F;
-                    entityitem.motionX = (double)((float)this.rand.nextGaussian() * f3);
-                    entityitem.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
-                    entityitem.motionZ = (double)((float)this.rand.nextGaussian() * f3);
-                    if (!this.worldObj.isRemote) {
-                    	this.worldObj.spawnEntityInWorld(entityitem);
-                    }
-                }
-            }
-        }
-        
-        
     }
     
     public void killMinecartNoDrop(DamageSource damageSource) {
     	super.killMinecart(damageSource);
     }
-    
-     
-    protected void onInventoryChanged()
-	{
-	}
-
 
     @Override
     public ItemStack getStackInSlot(int p_70301_1_)
     {
-        return this.minecartContainerItems[p_70301_1_];
+        return this.getMinecartContainerItems()[p_70301_1_];
     }
 
     @Override
     public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_)
     {
-        if (this.minecartContainerItems[p_70298_1_] != null)
+        if (this.getMinecartContainerItems()[p_70298_1_] != null)
         {
             ItemStack itemstack;
 
-            if (this.minecartContainerItems[p_70298_1_].stackSize <= p_70298_2_)
+            if (this.getMinecartContainerItems()[p_70298_1_].stackSize <= p_70298_2_)
             {
-                itemstack = this.minecartContainerItems[p_70298_1_];
-                this.minecartContainerItems[p_70298_1_] = null;
+                itemstack = this.getMinecartContainerItems()[p_70298_1_];
+                this.getMinecartContainerItems()[p_70298_1_] = null;
                 return itemstack;
             }
             else
             {
-                itemstack = this.minecartContainerItems[p_70298_1_].splitStack(p_70298_2_);
+                itemstack = this.getMinecartContainerItems()[p_70298_1_].splitStack(p_70298_2_);
 
-                if (this.minecartContainerItems[p_70298_1_].stackSize == 0)
+                if (this.getMinecartContainerItems()[p_70298_1_].stackSize == 0)
                 {
-                    this.minecartContainerItems[p_70298_1_] = null;
+                    this.getMinecartContainerItems()[p_70298_1_] = null;
                 }
 
                 return itemstack;
@@ -119,10 +68,10 @@ public class EntityExtraCartContainer  extends EntityMinecart implements IInvent
     @Override
     public ItemStack getStackInSlotOnClosing(int p_70304_1_)
     {
-        if (this.minecartContainerItems[p_70304_1_] != null)
+        if (this.getMinecartContainerItems()[p_70304_1_] != null)
         {
-            ItemStack itemstack = this.minecartContainerItems[p_70304_1_];
-            this.minecartContainerItems[p_70304_1_] = null;
+            ItemStack itemstack = this.getMinecartContainerItems()[p_70304_1_];
+            this.getMinecartContainerItems()[p_70304_1_] = null;
             return itemstack;
         }
         else
@@ -134,7 +83,7 @@ public class EntityExtraCartContainer  extends EntityMinecart implements IInvent
     @Override
     public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_)
     {
-        this.minecartContainerItems[p_70299_1_] = p_70299_2_;
+        this.getMinecartContainerItems()[p_70299_1_] = p_70299_2_;
 
         if (p_70299_2_ != null && p_70299_2_.stackSize > this.getInventoryStackLimit())
         {
@@ -176,14 +125,14 @@ public class EntityExtraCartContainer  extends EntityMinecart implements IInvent
     @Override
     public void travelToDimension(int p_71027_1_)
     {
-        this.dropContentsWhenDead = false;
+        this.setDropContentsWhenDead(false);
         super.travelToDimension(p_71027_1_);
     }
 
     @Override
     public void setDead()
     {
-        if (this.dropContentsWhenDead)
+        if (this.isDropContentsWhenDead())
         {
             for (int i = 0; i < this.getSizeInventory(); ++i)
             {
@@ -233,13 +182,13 @@ public class EntityExtraCartContainer  extends EntityMinecart implements IInvent
         super.writeEntityToNBT(p_70014_1_);
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < this.minecartContainerItems.length; ++i)
+        for (int i = 0; i < this.getMinecartContainerItems().length; ++i)
         {
-            if (this.minecartContainerItems[i] != null)
+            if (this.getMinecartContainerItems()[i] != null)
             {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                 nbttagcompound1.setByte("Slot", (byte)i);
-                this.minecartContainerItems[i].writeToNBT(nbttagcompound1);
+                this.getMinecartContainerItems()[i].writeToNBT(nbttagcompound1);
                 nbttaglist.appendTag(nbttagcompound1);
             }
         }
@@ -252,16 +201,16 @@ public class EntityExtraCartContainer  extends EntityMinecart implements IInvent
     {
         super.readEntityFromNBT(p_70037_1_);
         NBTTagList nbttaglist = p_70037_1_.getTagList("Items", 10);
-        this.minecartContainerItems = new ItemStack[this.getSizeInventory()];
+        this.setMinecartContainerItems(new ItemStack[this.getSizeInventory()]);
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
         {
             NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
             int j = nbttagcompound1.getByte("Slot") & 255;
 
-            if (j >= 0 && j < this.minecartContainerItems.length)
+            if (j >= 0 && j < this.getMinecartContainerItems().length)
             {
-                this.minecartContainerItems[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+                this.getMinecartContainerItems()[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
     }
@@ -293,5 +242,20 @@ public class EntityExtraCartContainer  extends EntityMinecart implements IInvent
 		return 0;
 	}
 
-	
+
+	public ItemStack[] getMinecartContainerItems() {
+		return minecartContainerItems;
+	}
+
+	public void setMinecartContainerItems(ItemStack[] minecartContainerItems) {
+		this.minecartContainerItems = minecartContainerItems;
+	}
+
+	public boolean isDropContentsWhenDead() {
+		return dropContentsWhenDead;
+	}
+
+	public void setDropContentsWhenDead(boolean dropContentsWhenDead) {
+		this.dropContentsWhenDead = dropContentsWhenDead;
+	}
 }
