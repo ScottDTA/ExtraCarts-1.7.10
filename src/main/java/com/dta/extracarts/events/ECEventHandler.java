@@ -5,8 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 
-import com.dta.extracarts.modcompat.ironchest.entities.EntityCopperChestCart;
-import com.dta.extracarts.modcompat.ironchest.entities.EntityIronChestCart;
+import com.dta.extracarts.mods.ironchest.entities.EntityCopperChestCart;
+import com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;

@@ -5,10 +5,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import com.dta.extracarts.items.ItemEnderChestCart;
-import com.dta.extracarts.modcompat.ironchest.IronChestItems;
+import com.dta.extracarts.mods.extracarts.items.ItemEnderChestCart;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModItems {
