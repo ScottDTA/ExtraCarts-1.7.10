@@ -1,6 +1,6 @@
 package com.dta.extracarts.mods.mfr.items.crafting;
 
-import com.dta.extracarts.mods.mfr.MFRSubMod;
+import com.dta.extracarts.mods.mfr.MFRModule;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -53,7 +53,7 @@ public class DSUCartRecipe implements IRecipe {
 				dsu = inventorycrafting.getStackInSlot(x).copy();
 			}
 		}
-		ItemStack result = new ItemStack(MFRSubMod.MFRCart, 1, 0);
+		ItemStack result = new ItemStack(MFRModule.MFRCart, 1, 0);
 		int qty = 0;
 		ItemStack stored = null;
 		if (dsu.hasTagCompound()) {
@@ -81,6 +81,6 @@ public class DSUCartRecipe implements IRecipe {
 
 	@Override
 	public ItemStack getRecipeOutput() {
-		return new ItemStack(MFRSubMod.MFRCart, 1, 0);
+		return new ItemStack(MFRModule.MFRCart, 1, 0);
 	}
 }

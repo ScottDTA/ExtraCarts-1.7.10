@@ -1,7 +1,7 @@
 package com.dta.extracarts.mods.ironchest;
 
 import com.dta.extracarts.ModInfo;
-import com.dta.extracarts.SubMod;
+import com.dta.extracarts.Module;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -10,7 +10,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 /**
  * Created by Skylar on 10/17/2014.
  */
-public class IronChestSubMod implements SubMod {
+public class IronChestModule implements Module {
 	@Override
 	public void init(FMLPreInitializationEvent event) {
 

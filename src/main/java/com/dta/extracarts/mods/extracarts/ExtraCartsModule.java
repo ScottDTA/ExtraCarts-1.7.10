@@ -2,7 +2,7 @@ package com.dta.extracarts.mods.extracarts;
 
 import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.ModInfo;
-import com.dta.extracarts.SubMod;
+import com.dta.extracarts.Module;
 import com.dta.extracarts.mods.extracarts.entities.EntityEnderChestCart;
 import com.dta.extracarts.mods.extracarts.items.ItemEnderChestCart;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 /**
  * Created by Skylar on 10/17/2014.
  */
-public class ExtraCartsSubMod implements SubMod {
+public class ExtraCartsModule implements Module {
 	public static Item EnderChestCart;
 
 	@Override

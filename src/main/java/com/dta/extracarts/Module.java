@@ -7,7 +7,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 /**
  * Created by Skylar on 10/17/2014.
  */
-public interface SubMod {
+public interface Module {
 	public void init(FMLPreInitializationEvent event);
 	public void load(FMLInitializationEvent event);
 	public void postInit(FMLPostInitializationEvent event);

@@ -1,8 +1,8 @@
 package com.dta.extracarts;
 
-import com.dta.extracarts.mods.extracarts.ExtraCartsSubMod;
-import com.dta.extracarts.mods.ironchest.IronChestSubMod;
-import com.dta.extracarts.mods.mfr.MFRSubMod;
+import com.dta.extracarts.mods.extracarts.ExtraCartsModule;
+import com.dta.extracarts.mods.ironchest.IronChestModule;
+import com.dta.extracarts.mods.mfr.MFRModule;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.dta.extracarts.client.GuiHandler;
@@ -23,18 +23,18 @@ public class ExtraCarts {
 	@Instance(ModInfo.MODID)
 	public static ExtraCarts instance;
 
-	public static ArrayList<SubMod> subMods = new ArrayList<SubMod>();
+	public static ArrayList<Module> modules = new ArrayList<Module>();
 
 	@EventHandler
 	public void init(FMLPreInitializationEvent event) {
 		ConfigHandler.init(event.getSuggestedConfigurationFile());
 
-		subMods.add(new ExtraCartsSubMod());
-		subMods.add(new IronChestSubMod());
-		subMods.add(new MFRSubMod());
+		modules.add(new ExtraCartsModule());
+		modules.add(new IronChestModule());
+		modules.add(new MFRModule());
 
-		for(SubMod subMod: subMods) {
-			subMod.init(event);
+		for(Module module : modules) {
+			module.init(event);
 		}
 	}
 	
@@ -42,15 +42,15 @@ public class ExtraCarts {
 	public void load(FMLInitializationEvent event) {
 	    new GuiHandler();
 	    MinecraftForge.EVENT_BUS.register(new ECEventHandler());
-		for(SubMod subMod: subMods) {
-			subMod.load(event);
+		for(Module module : modules) {
+			module.load(event);
 		}
 	}
 	    
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		for(SubMod subMod: subMods) {
-			subMod.postInit(event);
+		for(Module module : modules) {
+			module.postInit(event);
 		}
 	}
 }
