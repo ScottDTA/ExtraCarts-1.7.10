@@ -1,4 +1,4 @@
-package com.dta.extracarts.events;
+package com.dta.extracarts.mods.ironchest.events;
 
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.item.Item;

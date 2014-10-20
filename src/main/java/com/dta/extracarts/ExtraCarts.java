@@ -7,7 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import com.dta.extracarts.client.GuiHandler;
 import com.dta.extracarts.config.ConfigHandler;
-import com.dta.extracarts.events.ECEventHandler;
+import com.dta.extracarts.mods.ironchest.events.ECEventHandler;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -41,7 +41,6 @@ public class ExtraCarts {
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 	    new GuiHandler();
-	    MinecraftForge.EVENT_BUS.register(new ECEventHandler());
 		for(Module module : modules) {
 			module.load(event);
 		}
