@@ -25,13 +25,9 @@ public class ExtraCarts {
 
 	@EventHandler
 	public void init(FMLPreInitializationEvent event) {
-		ConfigHandler.init(event.getSuggestedConfigurationFile());
+        ConfigHandler.init(event.getSuggestedConfigurationFile());
 
-		modules.add(new BaseModule());
-		modules.add(new IronChestModule());
-		modules.add(new MFRModule());
-
-		for(Module module : modules) {
+        for(Module module : modules) {
 			module.init(event);
 		}
 	}
