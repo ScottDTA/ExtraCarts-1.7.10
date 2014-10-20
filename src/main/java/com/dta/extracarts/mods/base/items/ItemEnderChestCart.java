@@ -1,4 +1,4 @@
-package com.dta.extracarts.mods.extracarts.items;
+package com.dta.extracarts.mods.base.items;
 
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.creativetab.CreativeTabs;
@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ModInfo;
-import com.dta.extracarts.mods.extracarts.entities.EntityEnderChestCart;
+import com.dta.extracarts.mods.base.entities.EntityEnderChestCart;
 
 public class ItemEnderChestCart extends ItemMinecart {
 

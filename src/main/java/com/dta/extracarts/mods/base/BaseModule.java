@@ -1,10 +1,10 @@
-package com.dta.extracarts.mods.extracarts;
+package com.dta.extracarts.mods.base;
 
 import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.ModInfo;
 import com.dta.extracarts.Module;
-import com.dta.extracarts.mods.extracarts.entities.EntityEnderChestCart;
-import com.dta.extracarts.mods.extracarts.items.ItemEnderChestCart;
+import com.dta.extracarts.mods.base.entities.EntityEnderChestCart;
+import com.dta.extracarts.mods.base.items.ItemEnderChestCart;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -18,8 +18,13 @@ import net.minecraft.item.ItemStack;
 /**
  * Created by Skylar on 10/17/2014.
  */
-public class ExtraCartsModule implements Module {
+public class BaseModule implements Module {
 	public static Item EnderChestCart;
+
+    @Override
+    public String getModuleName() {
+        return "Base";
+    }
 
 	@Override
 	public void init(FMLPreInitializationEvent event) {

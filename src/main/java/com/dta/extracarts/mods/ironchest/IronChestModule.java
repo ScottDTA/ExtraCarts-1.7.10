@@ -13,7 +13,12 @@ import net.minecraftforge.common.MinecraftForge;
  * Created by Skylar on 10/17/2014.
  */
 public class IronChestModule implements Module {
-	@Override
+    @Override
+    public String getModuleName() {
+        return "IronChest";
+    }
+
+    @Override
 	public void init(FMLPreInitializationEvent event) {
 
 	}

@@ -15,7 +15,12 @@ import cpw.mods.fml.common.registry.EntityRegistry;
  * Created by Skylar on 10/17/2014.
  */
 public class MFRModule implements Module {
-	@Override
+    @Override
+    public String getModuleName() {
+        return "MFR";
+    }
+
+    @Override
 	public void init(FMLPreInitializationEvent event) {
 
 	}

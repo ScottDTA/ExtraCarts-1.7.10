@@ -1,4 +1,4 @@
-package com.dta.extracarts.mods.extracarts.entities;
+package com.dta.extracarts.mods.base.entities;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartContainer;
