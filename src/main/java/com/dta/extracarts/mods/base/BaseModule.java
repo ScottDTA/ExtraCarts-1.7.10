@@ -18,23 +18,12 @@ import net.minecraft.item.ItemStack;
 /**
  * Created by Skylar on 10/17/2014.
  */
-public class BaseModule implements Module {
-	private Boolean isActive = true;
+public class BaseModule extends Module {
 	public static Item EnderChestCart;
 
-    @Override
-    public String getModuleName() {
-        return "Base";
-    }
-
 	@Override
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	@Override
-	public Boolean getIsActive() {
-		return isActive;
+	public String getModuleName() {
+		return "Base";
 	}
 
 	@Override
@@ -47,10 +36,5 @@ public class BaseModule implements Module {
 	public void load(FMLInitializationEvent event) {
 		GameRegistry.addShapelessRecipe(new ItemStack(EnderChestCart, 1, 0), Blocks.ender_chest, Items.minecart);
 		EntityRegistry.registerModEntity(EntityEnderChestCart.class, "EntityEnderChestCart", 0, ExtraCarts.instance, 80, 3, true);
-	}
-
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-
 	}
 }

@@ -14,33 +14,11 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 /**
  * Created by Skylar on 10/17/2014.
  */
-public class MFRModule implements Module {
-    private Boolean isActive = true;
-
+public class MFRModule extends Module {
 	@Override
     public String getModuleName() {
         return "MFR";
     }
-
-	@Override
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	@Override
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	@Override
-	public void init(FMLPreInitializationEvent event) {
-
-	}
-
-	@Override
-	public void load(FMLInitializationEvent event) {
-
-	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {

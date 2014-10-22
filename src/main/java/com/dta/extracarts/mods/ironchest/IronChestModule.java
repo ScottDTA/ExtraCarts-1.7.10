@@ -12,28 +12,11 @@ import net.minecraftforge.common.MinecraftForge;
 /**
  * Created by Skylar on 10/17/2014.
  */
-public class IronChestModule implements Module {
-    private Boolean isActive = true;
-
+public class IronChestModule extends Module {
 	@Override
     public String getModuleName() {
         return "IronChest";
     }
-
-	@Override
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	@Override
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	@Override
-	public void init(FMLPreInitializationEvent event) {
-
-	}
 
 	@Override
 	public void load(FMLInitializationEvent event) {
