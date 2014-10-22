@@ -1,18 +1,23 @@
 package com.dta.extracarts.client;
 
+import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+
+
 /**
  * Created by Skylar on 10/8/2014.
  */
+@ChestContainer(isLargeChest = true)
 public abstract class ContainerExtraChestCart extends Container {
     private IInventory cart;
     private int ySize;
     private int xSize;
+    private int columns;
 
     public ContainerExtraChestCart () {
 
@@ -26,6 +31,7 @@ public abstract class ContainerExtraChestCart extends Container {
         this.cart = cart;
         this.ySize = ySize;//202
         this.xSize = xSize;//184
+        this.columns = columns;
         int leftOffset = (xSize - 162)/2 +1;
         for (int x = 0; x < 9; x++) {
             addSlotToContainer(new Slot(invPlayer, x, leftOffset + 18 * x, ySize-24));
@@ -98,4 +104,10 @@ public abstract class ContainerExtraChestCart extends Container {
     public void setxSize(int xSize) {
         this.xSize = xSize;
     }
+    
+    @ChestContainer.RowSizeCallback 
+    public int getNumColumns() { 
+    	return this.columns;  
+    } 
+
 }

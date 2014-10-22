@@ -23,11 +23,11 @@ group = "com.scottdta.extracarts"
 archivesBaseName = "ExtraCarts"
 
 minecraft {
-    version = "1.7.10-10.13.1.1219"
+    version = "1.7.10-10.13.2.1230"
 }
 
 dependencies {
-
+	compile fileTree(dir: '.libs', include: ['*.jar'])
 }
 
 processResources {
