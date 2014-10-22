@@ -29,12 +29,12 @@ public class BaseModule implements Module {
 
 	@Override
 	public void setIsActive(Boolean isActive) {
-
+		this.isActive = isActive;
 	}
 
 	@Override
 	public Boolean getIsActive() {
-		return null;
+		return isActive;
 	}
 
 	@Override
@@ -45,10 +45,8 @@ public class BaseModule implements Module {
 
 	@Override
 	public void load(FMLInitializationEvent event) {
-		if (ModInfo.ENDER_CART_ENABLED) {
-			GameRegistry.addShapelessRecipe(new ItemStack(EnderChestCart, 1, 0), Blocks.ender_chest, Items.minecart);
-			EntityRegistry.registerModEntity(EntityEnderChestCart.class, "EntityEnderChestCart", 0, ExtraCarts.instance, 80, 3, true);
-		}
+		GameRegistry.addShapelessRecipe(new ItemStack(EnderChestCart, 1, 0), Blocks.ender_chest, Items.minecart);
+		EntityRegistry.registerModEntity(EntityEnderChestCart.class, "EntityEnderChestCart", 0, ExtraCarts.instance, 80, 3, true);
 	}
 
 	@Override

@@ -23,10 +23,12 @@ public class ExtraCarts {
 
 	@EventHandler
 	public void init(FMLPreInitializationEvent event) {
-        ConfigHandler.init(event.getSuggestedConfigurationFile());
+		ConfigHandler.setConfigFile(event.getSuggestedConfigurationFile());
+        ConfigHandler.init();
 
         for(Module module : ModInfo.getModules()) {
-			if(module.getIsActive()) module.init(event);
+			if(module.getIsActive())
+				module.init(event);
 		}
 	}
 	
