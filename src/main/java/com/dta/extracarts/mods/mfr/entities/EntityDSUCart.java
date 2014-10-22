@@ -1,6 +1,7 @@
 package com.dta.extracarts.mods.mfr.entities;
 
 import com.dta.extracarts.client.OpenableGUI;
+import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.mfr.client.ContainerDSUCart;
 import com.dta.extracarts.mods.mfr.client.GuiDSUCart;
 import net.minecraft.block.Block;
@@ -12,12 +13,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.entities.EntityExtraCartContainer;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class EntityDSUCart extends EntityExtraCartContainer implements OpenableGUI {
+public class EntityDSUCart extends EntityExtraCartChestMinecart implements OpenableGUI {
 	private ItemStack storedItem = null;
 	private int storedQty = 0;
 	private NBTTagCompound compound = null;

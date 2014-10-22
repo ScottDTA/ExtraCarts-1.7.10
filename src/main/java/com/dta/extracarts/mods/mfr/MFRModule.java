@@ -15,12 +15,24 @@ import cpw.mods.fml.common.registry.EntityRegistry;
  * Created by Skylar on 10/17/2014.
  */
 public class MFRModule implements Module {
-    @Override
+    private Boolean isActive = true;
+
+	@Override
     public String getModuleName() {
         return "MFR";
     }
 
-    @Override
+	@Override
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@Override
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	@Override
 	public void init(FMLPreInitializationEvent event) {
 
 	}
@@ -32,7 +44,7 @@ public class MFRModule implements Module {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		if (Loader.isModLoaded("MineFactoryReloaded") && ModInfo.DSU_ENABLED) {
+		if (Loader.isModLoaded("MineFactoryReloaded")) {
 			System.out.println("MFR is loaded");
 			MFRItems.init();
 			MFRItems.registerItems();

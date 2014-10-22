@@ -1,6 +1,7 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
 import com.dta.extracarts.client.OpenableGUI;
+import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.ironchest.client.ContainerIronChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiIronChestCart;
 import net.minecraft.block.Block;
@@ -11,12 +12,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.entities.EntityExtraCartContainer;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class EntityIronChestCart extends EntityExtraCartContainer implements OpenableGUI {
+public class EntityIronChestCart extends EntityExtraCartChestMinecart implements OpenableGUI {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item IronGoldUpgrade = GameRegistry.findItem("IronChest", "ironGoldUpgrade");

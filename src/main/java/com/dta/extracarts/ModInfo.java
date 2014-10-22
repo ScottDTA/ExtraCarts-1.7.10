@@ -18,17 +18,7 @@ public class ModInfo {
 
     private static ArrayList<Module> MODULES_ENABLED = null;
 
-    public static ArrayList<Module> getAllModules() {
-        if(MODULES_ENABLED == null) {
-            MODULES_ENABLED = new ArrayList<Module>();
-            MODULES_ENABLED.add(new BaseModule());
-            MODULES_ENABLED.add(new IronChestModule());
-            MODULES_ENABLED.add(new MFRModule());
-        }
-        return MODULES_ENABLED;
-    }
-
-    public static ArrayList<Module> getModulesEnabled() {
+    public static ArrayList<Module> getModules() {
         if(MODULES_ENABLED == null) {
             MODULES_ENABLED = new ArrayList<Module>();
             MODULES_ENABLED.add(new BaseModule());

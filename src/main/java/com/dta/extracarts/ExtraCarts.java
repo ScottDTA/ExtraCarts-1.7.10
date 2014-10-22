@@ -21,29 +21,27 @@ public class ExtraCarts {
 	@Instance(ModInfo.MODID)
 	public static ExtraCarts instance;
 
-	public static ArrayList<Module> modules = new ArrayList<Module>();
-
 	@EventHandler
 	public void init(FMLPreInitializationEvent event) {
         ConfigHandler.init(event.getSuggestedConfigurationFile());
 
-        for(Module module : modules) {
-			module.init(event);
+        for(Module module : ModInfo.getModules()) {
+			if(module.getIsActive()) module.init(event);
 		}
 	}
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 	    new GuiHandler();
-		for(Module module : modules) {
-			module.load(event);
+		for(Module module : ModInfo.getModules()) {
+			if(module.getIsActive()) module.load(event);
 		}
 	}
 	    
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		for(Module module : modules) {
-			module.postInit(event);
+		for(Module module : ModInfo.getModules()) {
+			if(module.getIsActive()) module.postInit(event);
 		}
 	}
 }

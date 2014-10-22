@@ -1,23 +1,21 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
 import com.dta.extracarts.client.OpenableGUI;
+import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.ironchest.client.ContainerDiamondChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.entities.EntityExtraCartContainer;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class EntityDiamondChestCart extends EntityExtraCartContainer implements OpenableGUI{
+public class EntityDiamondChestCart extends EntityExtraCartChestMinecart implements OpenableGUI{
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item DiamondCrystalUpgrade = GameRegistry.findItem("IronChest", "diamondCrystalUpgrade");

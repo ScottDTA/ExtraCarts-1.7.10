@@ -13,12 +13,24 @@ import net.minecraftforge.common.MinecraftForge;
  * Created by Skylar on 10/17/2014.
  */
 public class IronChestModule implements Module {
-    @Override
+    private Boolean isActive = true;
+
+	@Override
     public String getModuleName() {
         return "IronChest";
     }
 
-    @Override
+	@Override
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@Override
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	@Override
 	public void init(FMLPreInitializationEvent event) {
 
 	}
@@ -30,7 +42,7 @@ public class IronChestModule implements Module {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		if (Loader.isModLoaded("IronChest") && ModInfo.IRON_CHEST_ENABLED) {
+		if (Loader.isModLoaded("IronChest")) {
 			IronChestItems.init();
 			IronChestItems.registerItems();
 			IronChestItems.registerRecipes();

@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
  * Created by Skylar on 10/17/2014.
  */
 public class BaseModule implements Module {
+	private Boolean isActive = true;
 	public static Item EnderChestCart;
 
     @Override
@@ -27,11 +28,19 @@ public class BaseModule implements Module {
     }
 
 	@Override
+	public void setIsActive(Boolean isActive) {
+
+	}
+
+	@Override
+	public Boolean getIsActive() {
+		return null;
+	}
+
+	@Override
 	public void init(FMLPreInitializationEvent event) {
-		if (ModInfo.ENDER_CART_ENABLED) {
-			EnderChestCart = new ItemEnderChestCart();
-			GameRegistry.registerItem(EnderChestCart, ModInfo.MODID + "_" + EnderChestCart.getUnlocalizedName().substring(5));
-		}
+		EnderChestCart = new ItemEnderChestCart();
+		GameRegistry.registerItem(EnderChestCart, ModInfo.MODID + "_" + EnderChestCart.getUnlocalizedName().substring(5));
 	}
 
 	@Override

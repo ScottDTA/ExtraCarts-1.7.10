@@ -9,6 +9,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
  */
 public interface Module {
     public String getModuleName();
+	public void setIsActive(Boolean isActive);
+	public Boolean getIsActive();
 	public void init(FMLPreInitializationEvent event);
 	public void load(FMLInitializationEvent event);
 	public void postInit(FMLPostInitializationEvent event);

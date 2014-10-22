@@ -10,17 +10,17 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityExtraCartContainer extends EntityMinecart implements IInventory {
+abstract public class EntityExtraCartChestMinecart extends EntityMinecart implements IInventory {
 
 	private ItemStack[] minecartContainerItems = new ItemStack[108];
 
     private boolean dropContentsWhenDead = true;
 
-    public EntityExtraCartContainer(World world) {
+    public EntityExtraCartChestMinecart(World world) {
         super(world);
     }
 
-    public EntityExtraCartContainer(World p_i1717_1_, double p_i1717_2_, double p_i1717_4_, double p_i1717_6_) {
+    public EntityExtraCartChestMinecart(World p_i1717_1_, double p_i1717_2_, double p_i1717_4_, double p_i1717_6_) {
         super(p_i1717_1_, p_i1717_2_, p_i1717_4_, p_i1717_6_);
     }
     
