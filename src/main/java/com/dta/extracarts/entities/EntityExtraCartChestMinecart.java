@@ -4,6 +4,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -27,6 +28,21 @@ abstract public class EntityExtraCartChestMinecart extends EntityMinecart implem
     public void killMinecartNoDrop(DamageSource damageSource) {
     	super.killMinecart(damageSource);
     }
+
+	public void killMinecart(DamageSource damageSource, ItemStack drop) {
+		super.killMinecart(damageSource);
+		float f = this.rand.nextFloat() * 0.8F + 0.1F;
+		float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
+		float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
+		EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double)f, this.posY + (double)f1, this.posZ + (double)f2, drop);
+		float f3 = 0.05F;
+		entityitem.motionX = (double)((float)this.rand.nextGaussian() * f3);
+		entityitem.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
+		entityitem.motionZ = (double)((float)this.rand.nextGaussian() * f3);
+		if (!this.worldObj.isRemote) {
+			this.worldObj.spawnEntityInWorld(entityitem);
+		}
+	}
 
     @Override
     public ItemStack getStackInSlot(int p_70301_1_)

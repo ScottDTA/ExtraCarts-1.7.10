@@ -7,6 +7,7 @@ import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -41,19 +42,7 @@ public class EntityObsidianChestCart extends EntityExtraCartChestMinecart implem
 	
 	@Override
 	public void killMinecart(DamageSource par1DamageSource) {
-		super.killMinecart(par1DamageSource);
-		float f = this.rand.nextFloat() * 0.8F + 0.1F;
-        float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
-        float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
-		ItemStack drop = new ItemStack(ironChest, 1, 6);
-		EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double)f, this.posY + (double)f1, this.posZ + (double)f2, drop);
-		float f3 = 0.05F;
-        entityitem.motionX = (double)((float)this.rand.nextGaussian() * f3);
-        entityitem.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
-        entityitem.motionZ = (double)((float)this.rand.nextGaussian() * f3);
-		if (!this.worldObj.isRemote) {
-			this.worldObj.spawnEntityInWorld(entityitem);
-		}
+		super.killMinecart(par1DamageSource, new ItemStack(ironChest, 1, 6));
     }
 	
 	@Override
