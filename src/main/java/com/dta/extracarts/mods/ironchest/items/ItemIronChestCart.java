@@ -94,14 +94,14 @@ public class ItemIronChestCart extends ItemMinecart {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister register) {
-		itemIronChestCart = register.registerIcon("extracarts:IronChestCart");
-		itemGoldChestCart = register.registerIcon("extracarts:GoldChestCart");
-		itemDiamondChestCart = register.registerIcon("extracarts:DiamondChestCart");
-		itemCopperChestCart = register.registerIcon("extracarts:CopperChestCart");
-		itemSilverChestCart = register.registerIcon("extracarts:SilverChestCart");
-		itemCrystalChestCart = register.registerIcon("extracarts:CrystalChestCart");
-		itemObsidianChestCart = register.registerIcon("extracarts:ObsidianChestCart");
-		itemDirtChestCart = register.registerIcon("extracarts:DirtChestCart");
+		itemIronChestCart = register.registerIcon("extracarts:ironchest/IronChestCart");
+		itemGoldChestCart = register.registerIcon("extracarts:ironchest/GoldChestCart");
+		itemDiamondChestCart = register.registerIcon("extracarts:ironchest/DiamondChestCart");
+		itemCopperChestCart = register.registerIcon("extracarts:ironchest/CopperChestCart");
+		itemSilverChestCart = register.registerIcon("extracarts:ironchest/SilverChestCart");
+		itemCrystalChestCart = register.registerIcon("extracarts:ironchest/CrystalChestCart");
+		itemObsidianChestCart = register.registerIcon("extracarts:ironchest/ObsidianChestCart");
+		itemDirtChestCart = register.registerIcon("extracarts:ironchest/DirtChestCart");
 		
 		
 	}

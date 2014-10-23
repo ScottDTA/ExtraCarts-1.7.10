@@ -17,7 +17,7 @@ public class ItemEnderChestCart extends ItemMinecart {
 		this.setUnlocalizedName("EnderChestCart");
 		this.setCreativeTab(CreativeTabs.tabTransport);
 		this.maxStackSize = 1;
-		setTextureName(ModInfo.MODID + ":EnderChestCart");
+		setTextureName(ModInfo.MODID + ":base/EnderChestCart");
 	}
 
 	@Override

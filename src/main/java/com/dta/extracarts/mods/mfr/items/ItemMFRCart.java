@@ -24,7 +24,7 @@ public class ItemMFRCart extends ItemMinecart {
 		this.setUnlocalizedName("DSUCart");
 		this.setCreativeTab(CreativeTabs.tabTransport);
 		this.maxStackSize = 1;
-		setTextureName(ModInfo.MODID + ":DSUCart");
+		setTextureName(ModInfo.MODID + ":mfr/DSUCart");
 	}
 
 	@Override
