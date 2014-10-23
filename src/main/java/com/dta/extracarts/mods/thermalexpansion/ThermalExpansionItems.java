@@ -3,7 +3,6 @@ package com.dta.extracarts.mods.thermalexpansion;
 import com.dta.extracarts.ModInfo;
 import com.dta.extracarts.mods.thermalexpansion.items.ItemStrongBoxCart;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.item.Item;
 
 /**
  * Created by Skylar on 10/22/2014.

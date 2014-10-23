@@ -6,7 +6,6 @@ import com.dta.extracarts.mods.ironchest.client.ContainerDirtChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDirtChestCart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;

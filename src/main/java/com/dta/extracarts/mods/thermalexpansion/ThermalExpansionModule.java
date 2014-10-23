@@ -13,8 +13,14 @@ public class ThermalExpansionModule extends Module{
         return "Thermal Expansion";
     }
 
+	@Override
 	public Boolean areRequirementsMet() {
 		return Loader.isModLoaded("ThermalExpansion");
+	}
+
+	@Override
+	public Boolean getIsActive() {
+		return false; //Just for now.
 	}
 
 	@Override
