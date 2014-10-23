@@ -26,7 +26,6 @@ public class MFRModule extends Module {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		System.out.println("MFR is loaded");
 		MFRItems.init();
 		MFRItems.registerItems();
 		MFRItems.registerRecipes();

@@ -7,12 +7,14 @@ import com.dta.extracarts.mods.mfr.MFRModule;
 import com.dta.extracarts.client.GuiHandler;
 import com.dta.extracarts.config.ConfigHandler;
 
+import com.dta.extracarts.utils.LogUtils;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 
@@ -25,10 +27,14 @@ public class ExtraCarts {
 	public void init(FMLPreInitializationEvent event) {
 		ConfigHandler.setConfigFile(event.getSuggestedConfigurationFile());
         ConfigHandler.init();
+
 		for(Module module : ModInfo.getModules()) {
 			if(!module.areRequirementsMet() && module.getIsActive()) {
 				module.setIsActive(false);
-				System.out.println("Requirements are not met for " + module.getModuleName() + ". Deactivating");
+				LogUtils.log(Level.ERROR, "Requirements are not met for " + module.getModuleName() + ". Deactivating");
+			}
+			if(module.getIsActive()) {
+				LogUtils.log(Level.INFO, "Loading " + module.getModuleName() + " module");
 			}
 		}
 
