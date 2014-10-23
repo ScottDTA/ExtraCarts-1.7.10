@@ -2,13 +2,12 @@ package com.dta.extracarts.mods.ironchest.items;
 
 import java.util.List;
 
-import net.minecraft.block.BlockRailBase;
+import com.dta.extracarts.items.ExtraCartItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -25,7 +24,7 @@ import com.dta.extracarts.mods.ironchest.entities.EntitySilverChestCart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemIronChestCart extends ItemMinecart {
+public class ItemIronChestCart extends ExtraCartItem {
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon itemIronChestCart;
@@ -37,73 +36,54 @@ public class ItemIronChestCart extends ItemMinecart {
 	private IIcon itemObsidianChestCart;
 	private IIcon itemDirtChestCart;
 	
-	private Entity cart;
-	
 	public ItemIronChestCart() {
 		super(1);
-		this.setCreativeTab(CreativeTabs.tabTransport);
-		this.maxStackSize = 1;
 		this.hasSubtypes=true;
 	}
 
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
-		
-		if (BlockRailBase.func_150051_a(world.getBlock(x, y, z))) {
-			switch (itemstack.getItemDamage()) {
-				default:
-					cart = new EntityIronChestCart(world);
-					break;
-				case 1:
-					cart = new EntityGoldChestCart(world);
-					break;
-				case 2:
-					cart = new EntityDiamondChestCart(world);
-					break;
-				case 3:
-					cart = new EntityCopperChestCart(world);
-					break;
-				case 4:
-					cart = new EntitySilverChestCart(world);
-					break;
-				case 5:
-					cart = new EntityCrystalChestCart(world);
-					break;
-				case 6:
-					cart = new EntityObsidianChestCart(world);
-					break;
-				case 7:
-					cart = new EntityDirtChestCart(world);
-					break;
-					
-			}
-			if (!world.isRemote) {
-				cart.posX = (float)x + 0.5F;
-				cart.posY = (float)y + 0.5F;
-				cart.posZ = (float)z + 0.5F;
-				world.spawnEntityInWorld(cart);
-			}
-			
-			--itemstack.stackSize;
-			return true;
-        } else {
-            return false;
-        }
+		EntityMinecart entityMinecart;
+		switch (itemstack.getItemDamage()) {
+			default:
+				entityMinecart = new EntityIronChestCart(world);
+				break;
+			case 1:
+				entityMinecart = new EntityGoldChestCart(world);
+				break;
+			case 2:
+				entityMinecart = new EntityDiamondChestCart(world);
+				break;
+			case 3:
+				entityMinecart = new EntityCopperChestCart(world);
+				break;
+			case 4:
+				entityMinecart = new EntitySilverChestCart(world);
+				break;
+			case 5:
+				entityMinecart = new EntityCrystalChestCart(world);
+				break;
+			case 6:
+				entityMinecart = new EntityObsidianChestCart(world);
+				break;
+			case 7:
+				entityMinecart = new EntityDirtChestCart(world);
+				break;
+		}
+		return placeCart(itemstack, player, world, x, y, z, entityMinecart);
     }
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister register) {
-		itemIronChestCart = register.registerIcon("extracarts:IronChestCart");
-		itemGoldChestCart = register.registerIcon("extracarts:GoldChestCart");
-		itemDiamondChestCart = register.registerIcon("extracarts:DiamondChestCart");
-		itemCopperChestCart = register.registerIcon("extracarts:CopperChestCart");
-		itemSilverChestCart = register.registerIcon("extracarts:SilverChestCart");
-		itemCrystalChestCart = register.registerIcon("extracarts:CrystalChestCart");
-		itemObsidianChestCart = register.registerIcon("extracarts:ObsidianChestCart");
-		itemDirtChestCart = register.registerIcon("extracarts:DirtChestCart");
-		
-		
+		itemIronChestCart = register.registerIcon("extracarts:ironchest/IronChestCart");
+		itemGoldChestCart = register.registerIcon("extracarts:ironchest/GoldChestCart");
+		itemDiamondChestCart = register.registerIcon("extracarts:ironchest/DiamondChestCart");
+		itemCopperChestCart = register.registerIcon("extracarts:ironchest/CopperChestCart");
+		itemSilverChestCart = register.registerIcon("extracarts:ironchest/SilverChestCart");
+		itemCrystalChestCart = register.registerIcon("extracarts:ironchest/CrystalChestCart");
+		itemObsidianChestCart = register.registerIcon("extracarts:ironchest/ObsidianChestCart");
+		itemDirtChestCart = register.registerIcon("extracarts:ironchest/DirtChestCart");
 	}
 	
 	@Override
@@ -150,15 +130,13 @@ public class ItemIronChestCart extends ItemMinecart {
 		  	case 7:
 		  		return "item.DirtChestCart";
 		}
-		
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-	  ItemStack stack = new ItemStack(item);
 	  for (int i = 0; i < 8; i++) {
-		  stack = new ItemStack(item, 1, i);
+		  ItemStack stack = new ItemStack(item, 1, i);
 		  list.add(stack);
 	  }
 	}

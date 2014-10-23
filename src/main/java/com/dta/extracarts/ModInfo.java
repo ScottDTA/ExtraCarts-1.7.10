@@ -3,6 +3,7 @@ package com.dta.extracarts;
 import com.dta.extracarts.mods.base.BaseModule;
 import com.dta.extracarts.mods.ironchest.IronChestModule;
 import com.dta.extracarts.mods.mfr.MFRModule;
+import com.dta.extracarts.mods.thermalexpansion.ThermalExpansionModule;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class ModInfo {
 			MODULES_ENABLED.add(new BaseModule());
 			MODULES_ENABLED.add(new IronChestModule());
 			MODULES_ENABLED.add(new MFRModule());
+            MODULES_ENABLED.add(new ThermalExpansionModule());
 		}
         return MODULES_ENABLED;
     }

@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
@@ -33,6 +34,11 @@ public class EntitySilverChestCart extends EntityExtraCartChestMinecart implemen
 	@Override
 	public Block func_145817_o() {
 		return ironChest;
+	}
+
+	@Override
+	public void killMinecart(DamageSource par1DamageSource) {
+		super.killMinecart(par1DamageSource, new ItemStack(ironChest, 1, 4));
 	}
 	
 	@Override

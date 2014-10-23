@@ -44,8 +44,7 @@ public class EntityIronChestCart extends EntityExtraCartChestMinecart implements
 	
 	@Override
 	public void killMinecart(DamageSource par1DamageSource) {
-		super.killMinecart(par1DamageSource);
-		this.func_145778_a(Item.getItemFromBlock(ironChest), 1, 0.0F);
+		super.killMinecart(par1DamageSource, new ItemStack(ironChest, 1, 0));
     }
 	
 	@Override

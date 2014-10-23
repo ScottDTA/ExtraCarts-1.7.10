@@ -18,7 +18,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'forge'
 
-version = "1.7.10-1.0"
+version = "1.7.10-b0.7.0"
 group = "com.scottdta.extracarts"
 archivesBaseName = "ExtraCarts"
 
@@ -27,7 +27,7 @@ minecraft {
 }
 
 dependencies {
-	compile fileTree(dir: '.libs', include: ['*.jar'])
+
 }
 
 processResources {
