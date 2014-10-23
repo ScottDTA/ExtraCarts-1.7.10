@@ -25,6 +25,12 @@ public class ExtraCarts {
 	public void init(FMLPreInitializationEvent event) {
 		ConfigHandler.setConfigFile(event.getSuggestedConfigurationFile());
         ConfigHandler.init();
+		for(Module module : ModInfo.getModules()) {
+			if(!module.areRequirementsMet() && module.getIsActive()) {
+				module.setIsActive(false);
+				System.out.println("Requirements are not met for " + module.getModuleName() + ". Deactivating");
+			}
+		}
 
         for(Module module : ModInfo.getModules()) {
 			if(module.getIsActive())

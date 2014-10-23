@@ -20,14 +20,16 @@ public class MFRModule extends Module {
         return "MFR";
     }
 
+	public Boolean areRequirementsMet() {
+		return Loader.isModLoaded("MineFactoryReloaded");
+	}
+
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		if (Loader.isModLoaded("MineFactoryReloaded")) {
-			System.out.println("MFR is loaded");
-			MFRItems.init();
-			MFRItems.registerItems();
-			MFRItems.registerRecipes();
-			EntityRegistry.registerModEntity(EntityDSUCart.class, "EntityDSUCart", 9, ExtraCarts.instance, 80, 3, true);
-		}
+		System.out.println("MFR is loaded");
+		MFRItems.init();
+		MFRItems.registerItems();
+		MFRItems.registerRecipes();
+		EntityRegistry.registerModEntity(EntityDSUCart.class, "EntityDSUCart", 9, ExtraCarts.instance, 80, 3, true);
 	}
 }

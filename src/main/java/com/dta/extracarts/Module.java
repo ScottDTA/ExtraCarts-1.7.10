@@ -12,6 +12,10 @@ public abstract class Module {
 
 	public abstract String getModuleName();
 
+	public Boolean areRequirementsMet() {
+		return true;
+	}
+
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}

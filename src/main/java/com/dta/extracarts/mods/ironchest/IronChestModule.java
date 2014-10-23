@@ -19,17 +19,20 @@ public class IronChestModule extends Module {
     }
 
 	@Override
+	public Boolean areRequirementsMet() {
+		return Loader.isModLoaded("IronChest");
+	}
+
+	@Override
 	public void load(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new ECEventHandler());
     }
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		if (Loader.isModLoaded("IronChest")) {
-			IronChestItems.init();
-			IronChestItems.registerItems();
-			IronChestItems.registerRecipes();
-			IronChestEntities.init();
-		}
+		IronChestItems.init();
+		IronChestItems.registerItems();
+		IronChestItems.registerRecipes();
+		IronChestEntities.init();
 	}
 }
