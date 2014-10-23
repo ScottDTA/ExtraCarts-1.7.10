@@ -8,6 +8,7 @@ item.CrystalChestCart.name=Minecart with Crystal Chest
 item.ObsidianChestCart.name=Minecart with Obsidian Chest
 item.DirtChestCart.name=Minecart with Dirt Chest 9000!
 item.DSUCart.name=Minecart with Deep Storage Unit
+item.StrongBoxCart.name=Minecart with StrongBox
 
 entity.extracarts.EntityEnderChestCart.name=Minecart with Ender Chest
 entity.extracarts.EntityIronChestCart.name=Minecart with Iron Chest
