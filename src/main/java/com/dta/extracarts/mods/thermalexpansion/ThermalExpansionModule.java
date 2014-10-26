@@ -19,11 +19,6 @@ public class ThermalExpansionModule extends Module{
 	}
 
 	@Override
-	public Boolean getIsActive() {
-		return false; //Just for now.
-	}
-
-	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		ThermalExpansionItems.init();
 		ThermalExpansionItems.registerItems();
