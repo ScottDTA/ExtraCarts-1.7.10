@@ -1,10 +1,12 @@
 package com.dta.extracarts.mods.thermalexpansion.items;
 
 import com.dta.extracarts.items.ExtraCartItem;
+import com.dta.extracarts.mods.thermalexpansion.entities.EntityStrongBoxCart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,12 +29,6 @@ public class ItemStrongBoxCart extends ExtraCartItem {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7,
-							 float par8, float par9, float par10) {
-		return false;
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int dmg) {
 		switch (dmg) {
@@ -47,6 +43,13 @@ public class ItemStrongBoxCart extends ExtraCartItem {
 			default:
 				return "item.StrongBoxCart";
 		}
+	}
+
+	@Override
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
+		EntityMinecart entityMinecart;
+		entityMinecart = new EntityStrongBoxCart(world);
+		return placeCart(itemstack, player, world, x, y, z, entityMinecart);
 	}
 
 	@Override
