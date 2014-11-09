@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ItemCapacitorBankCart extends ExtraCartItem {
 	@SideOnly(Side.CLIENT)
-	private IIcon itemStrongBoxCart;
+	private IIcon itemCapacitorBankCart;
 
 	public ItemCapacitorBankCart() {
 		super(1);
@@ -33,7 +33,7 @@ public class ItemCapacitorBankCart extends ExtraCartItem {
 	public IIcon getIconFromDamage(int dmg) {
 		switch (dmg) {
 			default:
-				return itemStrongBoxCart;
+				return itemCapacitorBankCart;
 		}
 	}
 
@@ -55,7 +55,7 @@ public class ItemCapacitorBankCart extends ExtraCartItem {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister register) {
-		itemStrongBoxCart = register.registerIcon("extracarts:thermalexpansion/StrongBoxCart");
+		itemCapacitorBankCart = register.registerIcon("extracarts:thermalexpansion/StrongBoxCart");
 	}
 
 	@Override
