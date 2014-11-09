@@ -1,7 +1,8 @@
-package com.dta.extracarts.mods.thermalexpansion.items;
+package com.dta.extracarts.mods.enderio.items;
 
 import com.dta.extracarts.items.ExtraCartItem;
-import com.dta.extracarts.mods.thermalexpansion.entities.EntityStrongBoxCart;
+import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
+import com.dta.extracarts.utils.LogUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -12,20 +13,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
 /**
  * Created by Skylar on 10/22/2014.
  */
-public class ItemStrongBoxCart extends ExtraCartItem {
+public class ItemCapacitorBankCart extends ExtraCartItem {
 	@SideOnly(Side.CLIENT)
 	private IIcon itemStrongBoxCart;
-	private IIcon itemHardenedStrongBoxCart;
 
-	public ItemStrongBoxCart() {
+	public ItemCapacitorBankCart() {
 		super(1);
-		this.hasSubtypes=true;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class ItemStrongBoxCart extends ExtraCartItem {
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
 		EntityMinecart entityMinecart;
-		entityMinecart = new EntityStrongBoxCart(world);
+		entityMinecart = new EntityCapacitorBankCart(world);
 		return placeCart(itemstack, player, world, x, y, z, entityMinecart);
 	}
 

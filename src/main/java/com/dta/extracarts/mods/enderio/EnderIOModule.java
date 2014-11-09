@@ -1,4 +1,4 @@
-package com.dta.extracarts.mods.thermalexpansion;
+package com.dta.extracarts.mods.enderio;
 
 import com.dta.extracarts.Module;
 import cpw.mods.fml.common.Loader;
@@ -7,20 +7,20 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 /**
  * Created by Skylar on 10/22/2014.
  */
-public class ThermalExpansionModule extends Module{
+public class EnderIOModule extends Module{
     @Override
     public String getModuleName() {
-        return "Thermal Expansion";
+        return "EnderIO";
     }
 
 	@Override
 	public Boolean areRequirementsMet() {
-		return Loader.isModLoaded("ThermalExpansion");
+		return Loader.isModLoaded("EnderIO");
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		ThermalExpansionItems.init();
-		ThermalExpansionItems.registerItems();
+		EnderIOItems.init();
+		EnderIOItems.registerItems();
 	}
 }
