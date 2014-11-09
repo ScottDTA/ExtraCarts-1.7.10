@@ -1,11 +1,13 @@
 package com.dta.extracarts.mods.ironchest;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import com.dta.extracarts.Module;
 import com.dta.extracarts.mods.ironchest.events.ECEventHandler;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 /**
  * Created by Skylar on 10/17/2014.

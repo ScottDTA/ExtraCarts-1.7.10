@@ -1,10 +1,9 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
-import com.dta.extracarts.client.OpenableGUI;
-import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
-import com.dta.extracarts.mods.ironchest.client.ContainerIronChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiIronChestCart;
+import org.apache.logging.log4j.Level;
+
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,6 +11,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
+import com.dta.extracarts.client.OpenableGUI;
+import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
+import com.dta.extracarts.mods.ironchest.IronChestItems;
+import com.dta.extracarts.mods.ironchest.client.ContainerIronChestCart;
+import com.dta.extracarts.mods.ironchest.client.GuiIronChestCart;
+import com.dta.extracarts.mods.ironchest.items.ItemIronChestCart;
+import com.dta.extracarts.utils.LogUtils;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -79,5 +85,14 @@ public class EntityIronChestCart extends EntityExtraCartChestMinecart implements
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new ContainerIronChestCart(player.inventory, this);
+	}
+
+	@Override
+	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
+		ItemStack CartStack = new ItemStack(IronChestItems.IronChestCart, 1, 0);
+		if (cart instanceof EntityIronChestCart && stack.getItem() == CartStack.getItem() && stack.getItemDamage() == 0) {
+				return true;
+		}
+		return false;
 	}
 }

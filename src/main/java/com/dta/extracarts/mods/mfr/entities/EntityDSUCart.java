@@ -2,10 +2,15 @@ package com.dta.extracarts.mods.mfr.entities;
 
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
+import com.dta.extracarts.mods.ironchest.IronChestItems;
+import com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart;
+import com.dta.extracarts.mods.mfr.MFRItems;
 import com.dta.extracarts.mods.mfr.client.ContainerDSUCart;
 import com.dta.extracarts.mods.mfr.client.GuiDSUCart;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -216,5 +221,14 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new ContainerDSUCart(player.inventory, this);
+	}
+
+	@Override
+	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
+		ItemStack CartStack = new ItemStack(MFRItems.MFRCart, 1, 0);
+		if (cart instanceof EntityDSUCart && stack.getItem() == CartStack.getItem() && stack.getItemDamage() == 0) {
+				return true;
+		}
+		return false;
 	}
 }
