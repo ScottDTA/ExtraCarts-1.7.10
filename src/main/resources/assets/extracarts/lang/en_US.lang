@@ -32,3 +32,5 @@ item.CapacitorBankCart.name=Minecart with Capacitor Bank
 
 entity.extracarts.EntityCapacitorBankCart.name=Minecart with Capacitor Bank
 
+tile.blockRFLoaders.loader.name=RF Loader
+tile.blockRFLoaders.unloader.name=RF Unloader

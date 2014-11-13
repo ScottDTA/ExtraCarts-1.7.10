@@ -22,5 +22,6 @@ public class EnderIOModule extends Module{
 	public void postInit(FMLPostInitializationEvent event) {
 		EnderIOItems.init();
 		EnderIOItems.registerItems();
+		EnderIOBlocks.registerBlocks();
 	}
 }
