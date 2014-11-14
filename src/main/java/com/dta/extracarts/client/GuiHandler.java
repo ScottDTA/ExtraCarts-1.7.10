@@ -1,8 +1,6 @@
 package com.dta.extracarts.client;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
@@ -18,26 +16,18 @@ public class GuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		Entity entity = world.getEntityByID(x);
-		if(entity instanceof OpenableGUI) {
-			return ((OpenableGUI) entity).getServerGuiElement(ID, player, world, x, y, z);
-		}
-		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if(tileEntity instanceof OpenableGUI) {
-			return ((OpenableGUI) tileEntity).getServerGuiElement(ID, player, world, x, y, z);
+		Object object = ((world.getEntityByID(x) == null) ? world.getTileEntity(x, y, z) : world.getEntityByID(x));
+		if(object instanceof OpenableGUI) {
+			return ((OpenableGUI) object).getServerGuiElement(ID, player, world, x, y, z);
 		}
 		return null;
 	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) {
-		Entity entity = world.getEntityByID(x);
-		if(entity instanceof OpenableGUI) {
-			return ((OpenableGUI) entity).getClientGuiElement(ID, player, world, x, y, z);
-		}
-		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if(tileEntity instanceof OpenableGUI) {
-			return ((OpenableGUI) tileEntity).getClientGuiElement(ID, player, world, x, y, z);
+		Object object = ((world.getEntityByID(x) == null) ? world.getTileEntity(x, y, z) : world.getEntityByID(x));
+		if(object instanceof OpenableGUI) {
+			return ((OpenableGUI) object).getClientGuiElement(ID, player, world, x, y, z);
 		}
 		return null;
 	}
