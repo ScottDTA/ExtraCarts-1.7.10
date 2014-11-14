@@ -2,6 +2,7 @@ package com.dta.extracarts.client;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ExtraCarts;
@@ -21,6 +22,10 @@ public class GuiHandler implements IGuiHandler {
 		if(entity instanceof OpenableGUI) {
 			return ((OpenableGUI) entity).getServerGuiElement(ID, player, world, x, y, z);
 		}
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
+		if(tileEntity instanceof OpenableGUI) {
+			return ((OpenableGUI) tileEntity).getServerGuiElement(ID, player, world, x, y, z);
+		}
 		return null;
 	}
 
@@ -29,6 +34,10 @@ public class GuiHandler implements IGuiHandler {
 		Entity entity = world.getEntityByID(x);
 		if(entity instanceof OpenableGUI) {
 			return ((OpenableGUI) entity).getClientGuiElement(ID, player, world, x, y, z);
+		}
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
+		if(tileEntity instanceof OpenableGUI) {
+			return ((OpenableGUI) tileEntity).getClientGuiElement(ID, player, world, x, y, z);
 		}
 		return null;
 	}

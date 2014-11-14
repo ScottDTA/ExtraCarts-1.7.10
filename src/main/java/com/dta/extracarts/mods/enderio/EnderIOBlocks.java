@@ -1,6 +1,7 @@
 package com.dta.extracarts.mods.enderio;
 
 import com.dta.extracarts.mods.enderio.blocks.BlockRFLoaders;
+import com.dta.extracarts.mods.enderio.blocks.TileEntityRFLoaders;
 import com.dta.extracarts.mods.enderio.items.ItemBlockRFLoaders;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -13,5 +14,9 @@ public class EnderIOBlocks {
 	static BlockRFLoaders blockRFLoaders = new BlockRFLoaders();
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(blockRFLoaders, ItemBlockRFLoaders.class, "blockRFLoaders");
+	}
+
+	public static void registerTileEntites() {
+		GameRegistry.registerTileEntity(TileEntityRFLoaders.class, "containerRFLoaders");
 	}
 }

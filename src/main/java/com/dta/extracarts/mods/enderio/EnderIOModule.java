@@ -23,5 +23,6 @@ public class EnderIOModule extends Module{
 		EnderIOItems.init();
 		EnderIOItems.registerItems();
 		EnderIOBlocks.registerBlocks();
+		EnderIOBlocks.registerTileEntites();
 	}
 }
