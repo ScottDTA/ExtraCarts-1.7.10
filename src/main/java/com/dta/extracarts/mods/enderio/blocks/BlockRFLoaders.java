@@ -1,6 +1,7 @@
 package com.dta.extracarts.mods.enderio.blocks;
 
 import com.dta.extracarts.ExtraCarts;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -70,7 +71,6 @@ public class BlockRFLoaders extends BlockContainer {
 		if (tileEntity == null || player.isSneaking()) {
 			return false;
 		}
-		//code to open gui explained later
 		player.openGui(ExtraCarts.instance, 0, world, x, y, z);
 		return true;
 	}
@@ -117,7 +117,7 @@ public class BlockRFLoaders extends BlockContainer {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World world, int metadata) {
 		return new TileEntityRFLoaders();
 	}
 }
