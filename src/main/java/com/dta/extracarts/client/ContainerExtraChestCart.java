@@ -33,18 +33,18 @@ public abstract class ContainerExtraChestCart extends Container {
         this.xSize = xSize;//184
         this.columns = columns;
         int leftOffset = (xSize - 162)/2 +1;
-        for (int x = 0; x < 9; x++) {
-            addSlotToContainer(new Slot(invPlayer, x, leftOffset + 18 * x, ySize-24));
+        for (int y = 0; y < rows; y++){
+            for (int x = 0; x < columns; x++){
+                addSlotToContainer(new Slot(cart, x + y * columns, 12 + 18 * x, 8 + 18 * y));
+            }
         }
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 9; x++) {
                 addSlotToContainer(new Slot(invPlayer, x + y * 9 + 9, leftOffset + 18 * x, ySize - (4 - y) * 18 - 10));
             }
         }
-        for (int y = 0; y < rows; y++){
-            for (int x = 0; x < columns; x++){
-                addSlotToContainer(new Slot(cart, x + y * 9, 12 + 18 * x, 8 + 18 * y));
-            }
+        for (int x = 0; x < 9; x++) {
+            addSlotToContainer(new Slot(invPlayer, x, leftOffset + 18 * x, ySize-24));
         }
     }
 
@@ -61,11 +61,11 @@ public abstract class ContainerExtraChestCart extends Container {
 		{
 			ItemStack stack = slot.getStack();
 			ItemStack result = stack.copy();
-			if (i >= 36) {
-				if (!mergeItemStack(stack, 0, 36, false)) {
+			if (i < getCart().getSizeInventory()) {
+				if (!mergeItemStack(stack, getCart().getSizeInventory(), 36 + getCart().getSizeInventory(), false)) {
 					return null;
 				}
-			} else if (!mergeItemStack(stack, 36, 36 + getCart().getSizeInventory(), false)) {
+			} else if (!mergeItemStack(stack, 0, getCart().getSizeInventory(), false)) {
 				return null;
 			}
 			if (stack.stackSize == 0) {

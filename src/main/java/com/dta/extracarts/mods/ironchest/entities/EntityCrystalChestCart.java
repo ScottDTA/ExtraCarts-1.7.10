@@ -2,9 +2,12 @@ package com.dta.extracarts.mods.ironchest.entities;
 
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
+import com.dta.extracarts.mods.ironchest.IronChestItems;
 import com.dta.extracarts.mods.ironchest.client.ContainerDiamondChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
+
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -59,5 +62,14 @@ public class EntityCrystalChestCart extends EntityExtraCartChestMinecart impleme
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new ContainerDiamondChestCart(player.inventory, this);
+	}
+
+	@Override
+	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
+		ItemStack CartStack = new ItemStack(IronChestItems.IronChestCart, 1, 5);
+		if (cart instanceof EntityCrystalChestCart && stack.getItem() == CartStack.getItem() && stack.getItemDamage() == 5) {
+				return true;
+		}
+		return false;
 	}
 }

@@ -1,17 +1,17 @@
 package com.dta.extracarts.entities;
 
+import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-abstract public class EntityExtraCartChestMinecart extends EntityMinecart implements IInventory {
+abstract public class EntityExtraCartChestMinecart extends EntityMinecart implements IInventory, IMinecart {
 
 	private ItemStack[] minecartContainerItems = new ItemStack[108];
 
