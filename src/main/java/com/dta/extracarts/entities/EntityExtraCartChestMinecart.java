@@ -1,5 +1,6 @@
 package com.dta.extracarts.entities;
 
+import cpw.mods.fml.common.Optional;
 import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
+@Optional.Interface(iface="mod.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
 abstract public class EntityExtraCartChestMinecart extends EntityMinecart implements IInventory, IMinecart {
 
 	private ItemStack[] minecartContainerItems = new ItemStack[108];
@@ -274,4 +276,10 @@ abstract public class EntityExtraCartChestMinecart extends EntityMinecart implem
 	public void setDropContentsWhenDead(boolean dropContentsWhenDead) {
 		this.dropContentsWhenDead = dropContentsWhenDead;
 	}
+
+    @Optional.Method(modid = "RailcraftAPI|carts")
+    @Override
+    public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
+        return false;
+    }
 }
