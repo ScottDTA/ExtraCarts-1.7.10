@@ -1,4 +1,4 @@
-package com.dta.extracarts.utils;
+package com.dta.extracarts.network;
 
 import net.minecraft.tileentity.TileEntity;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -9,7 +9,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
  * Created by Skylar on 12/14/2014.
  */
 //EIO
-public class PacketUtils {
+public class PacketHandler {
 	public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel("extracarts");
 
 	private static int ID = 0;

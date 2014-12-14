@@ -1,11 +1,12 @@
 package com.dta.extracarts.mods.enderio.blocks;
 
 import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyReceiver;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.mods.enderio.client.ContainerRFLoaders;
 import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
+import com.dta.extracarts.network.PacketHandler;
+import com.dta.extracarts.network.PacketPowerStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -18,9 +19,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 /**
  * Created by Skylar on 11/13/2014.
  */
-public class TileEntityRFLoaders extends TileEntity implements IInventory, OpenableGUI, IEnergyReceiver, IEnergyHandler {
+public class TileEntityRFLoaders extends TileEntity implements IInventory, OpenableGUI, IEnergyReceiver {
 	private ItemStack[] inventory;
 	private EnergyStorage energyStorage;
+	protected float lastSyncPowerStored = -1;
 
 	public TileEntityRFLoaders() {
 		inventory = new ItemStack[9];
@@ -107,6 +109,20 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	}
 
 	@Override
+	public void updateEntity() {
+		super.updateEntity();
+
+		if(worldObj == null) { // sanity check
+			return;
+		}
+		boolean powerChanged = (lastSyncPowerStored != getEnergyStored(ForgeDirection.NORTH) && worldObj.getTotalWorldTime() % 5 == 0);
+		if(powerChanged) {
+			lastSyncPowerStored = getEnergyStored(ForgeDirection.NORTH);
+			PacketHandler.sendToAllAround(new PacketPowerStorage(this), this);
+		}
+	}
+
+	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		energyStorage.readFromNBT(tagCompound);
@@ -140,13 +156,7 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	//EIO
 	public int getEnergyStoredScaled(int scale) {
 		float percent = getEnergyStored(ForgeDirection.NORTH) / getMaxEnergyStored(ForgeDirection.NORTH);
-		System.out.println("Energy Stored is " + getEnergyStored(ForgeDirection.NORTH));
-		System.out.println("Percent is " + percent);
-		if(Math.round(percent) == 0) {
-			return scale;
-		}
 		int energyStoredScaled = Math.round(percent * scale);
-		System.out.println("Scaled is " + energyStoredScaled);
 		return energyStoredScaled;
 	}
 
@@ -162,11 +172,6 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
 		return energyStorage.receiveEnergy(maxReceive, simulate);
-	}
-
-	@Override
-	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-		return 0;
 	}
 
 	@Override

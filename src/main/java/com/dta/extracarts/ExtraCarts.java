@@ -1,27 +1,27 @@
 package com.dta.extracarts;
 
-import com.dta.extracarts.mods.base.BaseModule;
-import com.dta.extracarts.mods.ironchest.IronChestModule;
-import com.dta.extracarts.mods.mfr.MFRModule;
-
 import com.dta.extracarts.client.GuiHandler;
 import com.dta.extracarts.config.ConfigHandler;
-
+import com.dta.extracarts.network.PacketHandler;
 import com.dta.extracarts.utils.LogUtils;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Level;
 
-import java.util.ArrayList;
-
 @Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class ExtraCarts {
 	@Instance(ModInfo.MODID)
 	public static ExtraCarts instance;
+
+	@SidedProxy(clientSide = "com.dta.extracarts.ClientProxy", serverSide = "com.dta.extracarts.CommonProxy")
+	public static CommonProxy proxy;
+
+	public static final PacketHandler packetPipeline = new PacketHandler();
 
 	@EventHandler
 	public void init(FMLPreInitializationEvent event) {

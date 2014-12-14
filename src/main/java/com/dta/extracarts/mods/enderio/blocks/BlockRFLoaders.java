@@ -1,8 +1,8 @@
 package com.dta.extracarts.mods.enderio.blocks;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.utils.PacketPowerStorage;
-import com.dta.extracarts.utils.PacketUtils;
+import com.dta.extracarts.network.PacketPowerStorage;
+import com.dta.extracarts.network.PacketHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -30,7 +30,7 @@ import java.util.Random;
 public class BlockRFLoaders extends BlockContainer {
 	//EIO
 	static {
-		PacketUtils.INSTANCE.registerMessage(PacketPowerStorage.class, PacketPowerStorage.class, PacketUtils.nextID(), Side.CLIENT);
+		PacketHandler.INSTANCE.registerMessage(PacketPowerStorage.class, PacketPowerStorage.class, PacketHandler.nextID(), Side.CLIENT);
 	}
 
 	IIcon blockRFLoader;
@@ -78,7 +78,7 @@ public class BlockRFLoaders extends BlockContainer {
 			return false;
 		}
 
-		System.out.println(((TileEntityRFLoaders) tileEntity).getEnergyStored(ForgeDirection.NORTH));
+		System.out.println(((TileEntityRFLoaders) tileEntity).getEnergyStored(ForgeDirection.NORTH) + " On side " + world.isRemote);
 		player.openGui(ExtraCarts.instance, 0, world, x, y, z);
 		return true;
 	}
