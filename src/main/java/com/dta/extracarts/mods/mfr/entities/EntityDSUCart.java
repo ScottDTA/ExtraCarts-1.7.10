@@ -1,13 +1,14 @@
 package com.dta.extracarts.mods.mfr.entities;
 
+import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
-import com.dta.extracarts.mods.ironchest.IronChestItems;
-import com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart;
 import com.dta.extracarts.mods.mfr.MFRItems;
 import com.dta.extracarts.mods.mfr.client.ContainerDSUCart;
 import com.dta.extracarts.mods.mfr.client.GuiDSUCart;
-
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
@@ -17,11 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.dta.extracarts.ExtraCarts;
-
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
-
+@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
 public class EntityDSUCart extends EntityExtraCartChestMinecart implements OpenableGUI {
 	private ItemStack storedItem = null;
 	private int storedQty = 0;
@@ -223,7 +220,7 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
 		return new ContainerDSUCart(player.inventory, this);
 	}
 
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
 		ItemStack CartStack = new ItemStack(MFRItems.MFRCart, 1, 0);
 		if (cart instanceof EntityDSUCart && stack.getItem() == CartStack.getItem() && stack.getItemDamage() == 0) {

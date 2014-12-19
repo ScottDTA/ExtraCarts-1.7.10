@@ -1,7 +1,14 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
-import org.apache.logging.log4j.Level;
-
+import com.dta.extracarts.ExtraCarts;
+import com.dta.extracarts.client.OpenableGUI;
+import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
+import com.dta.extracarts.mods.ironchest.IronChestItems;
+import com.dta.extracarts.mods.ironchest.client.ContainerIronChestCart;
+import com.dta.extracarts.mods.ironchest.client.GuiIronChestCart;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,18 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.client.OpenableGUI;
-import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
-import com.dta.extracarts.mods.ironchest.IronChestItems;
-import com.dta.extracarts.mods.ironchest.client.ContainerIronChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiIronChestCart;
-import com.dta.extracarts.mods.ironchest.items.ItemIronChestCart;
-import com.dta.extracarts.utils.LogUtils;
-
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
-
+@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
 public class EntityIronChestCart extends EntityExtraCartChestMinecart implements OpenableGUI {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
@@ -87,7 +83,7 @@ public class EntityIronChestCart extends EntityExtraCartChestMinecart implements
 		return new ContainerIronChestCart(player.inventory, this);
 	}
 
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
 		ItemStack CartStack = new ItemStack(IronChestItems.IronChestCart, 1, 0);
 		if (cart instanceof EntityIronChestCart && stack.getItem() == CartStack.getItem() && stack.getItemDamage() == 0) {

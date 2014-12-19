@@ -8,7 +8,6 @@ import com.dta.extracarts.mods.ironchest.client.ContainerDiamondChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,8 +18,8 @@ import net.minecraft.world.World;
 /**
  * Created by Skylar on 10/26/2014.
  */
-@Optional.Interface(iface="IMinecart", modid="Railcraft")
-public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
+@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
+public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements OpenableGUI {
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 
 	public EntityCapacitorBankCart(World world) {
@@ -66,8 +65,7 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 		return new ContainerDiamondChestCart(player.inventory, this);
 	}
 
-	@Optional.Method(modid = "Railcraft")
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
 		ItemStack CartStack = new ItemStack(EnderIOItems.itemCapacitorBankCart, 1, 0);
 		if (cart instanceof EntityCapacitorBankCart && stack.getItem() == CartStack.getItem()) {

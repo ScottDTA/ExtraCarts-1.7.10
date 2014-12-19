@@ -18,7 +18,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'forge'
 
-version = "1.7.10-b0.7.0"
+version = "1.7.10-b0.7.3"
 group = "com.scottdta.extracarts"
 archivesBaseName = "ExtraCarts"
 
@@ -43,4 +43,10 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {
 		exclude 'mcmod.info'
 	}
+}
+
+sourceSets {
+    main {
+        output.resourcesDir = output.classesDir
+    }
 }

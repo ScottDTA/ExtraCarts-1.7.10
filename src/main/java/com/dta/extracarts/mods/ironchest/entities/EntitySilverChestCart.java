@@ -6,6 +6,7 @@ import com.dta.extracarts.mods.ironchest.IronChestItems;
 import com.dta.extracarts.mods.ironchest.client.ContainerSilverChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiSilverChestCart;
 
+import cpw.mods.fml.common.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +20,7 @@ import com.dta.extracarts.ExtraCarts;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
+@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
 public class EntitySilverChestCart extends EntityExtraCartChestMinecart implements OpenableGUI {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
@@ -77,7 +79,7 @@ public class EntitySilverChestCart extends EntityExtraCartChestMinecart implemen
 		return new ContainerSilverChestCart(player.inventory, this);
 	}
 
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
 		ItemStack CartStack = new ItemStack(IronChestItems.IronChestCart, 1, 4);
 		if (cart instanceof EntitySilverChestCart && stack.getItem() == CartStack.getItem() && stack.getItemDamage() == 4) {

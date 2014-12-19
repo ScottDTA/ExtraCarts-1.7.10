@@ -12,6 +12,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -23,6 +25,7 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	private ItemStack[] inventory;
 	private EnergyStorage energyStorage;
 	protected float lastSyncPowerStored = -1;
+	protected boolean forceClientUpdate = false;
 
 	public TileEntityRFLoaders() {
 		inventory = new ItemStack[9];
@@ -110,16 +113,25 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
-
 		if(worldObj == null) { // sanity check
 			return;
 		}
+
 		boolean powerChanged = (lastSyncPowerStored != getEnergyStored(ForgeDirection.NORTH) && worldObj.getTotalWorldTime() % 5 == 0);
 		if(powerChanged) {
 			lastSyncPowerStored = getEnergyStored(ForgeDirection.NORTH);
 			PacketHandler.sendToAllAround(new PacketPowerStorage(this), this);
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			markDirty();
 		}
+
+	}
+
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound tag = new NBTTagCompound();
+		writeToNBT(tag);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
 	}
 
 	@Override
