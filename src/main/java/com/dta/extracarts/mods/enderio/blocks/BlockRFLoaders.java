@@ -1,8 +1,6 @@
 package com.dta.extracarts.mods.enderio.blocks;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.network.PacketPowerStorage;
-import com.dta.extracarts.network.PacketHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -29,9 +27,9 @@ import java.util.Random;
  */
 public class BlockRFLoaders extends BlockContainer {
 	//EIO
-	static {
+	/*static {
 		PacketHandler.INSTANCE.registerMessage(PacketPowerStorage.class, PacketPowerStorage.class, PacketHandler.nextID(), Side.CLIENT);
-	}
+	}*/
 
 	IIcon blockRFLoader;
 	IIcon blockRFUnloader;

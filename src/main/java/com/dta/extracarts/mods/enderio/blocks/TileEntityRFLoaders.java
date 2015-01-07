@@ -5,13 +5,12 @@ import cofh.api.energy.IEnergyReceiver;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.mods.enderio.client.ContainerRFLoaders;
 import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
-import com.dta.extracarts.network.PacketHandler;
-import com.dta.extracarts.network.PacketPowerStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -25,7 +24,6 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	private ItemStack[] inventory;
 	private EnergyStorage energyStorage;
 	protected float lastSyncPowerStored = -1;
-	protected boolean forceClientUpdate = false;
 
 	public TileEntityRFLoaders() {
 		inventory = new ItemStack[9];
@@ -120,18 +118,16 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 		boolean powerChanged = (lastSyncPowerStored != getEnergyStored(ForgeDirection.NORTH) && worldObj.getTotalWorldTime() % 5 == 0);
 		if(powerChanged) {
 			lastSyncPowerStored = getEnergyStored(ForgeDirection.NORTH);
-			PacketHandler.sendToAllAround(new PacketPowerStorage(this), this);
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			markDirty();
 		}
-
 	}
 
 	@Override
 	public Packet getDescriptionPacket() {
-		NBTTagCompound tag = new NBTTagCompound();
-		writeToNBT(tag);
-		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		writeToNBT(nbttagcompound);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
 	}
 
 	@Override
@@ -146,6 +142,11 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
 		}
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
 	}
 
 	@Override
@@ -164,11 +165,10 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 		}
 		tagCompound.setTag("Inventory", itemList);
 	}
-
 	//EIO
 	public int getEnergyStoredScaled(int scale) {
-		float percent = getEnergyStored(ForgeDirection.NORTH) / getMaxEnergyStored(ForgeDirection.NORTH);
-		int energyStoredScaled = Math.round(percent * scale);
+		float percent = (float)getEnergyStored(ForgeDirection.NORTH) / (float)getMaxEnergyStored(ForgeDirection.NORTH);
+		int energyStoredScaled = Math.round(scale * percent);
 		return energyStoredScaled;
 	}
 
