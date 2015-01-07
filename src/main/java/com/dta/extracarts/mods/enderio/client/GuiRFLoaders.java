@@ -38,7 +38,7 @@ public class GuiRFLoaders extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("enderio:textures/gui/stirlingGenerator.png"));
+		Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("enderio:textures/gui/poweredSpawner.png"));
 		int sx = (width - xSize) / 2;
 		int sy = (height - ySize) / 2;
 

@@ -26,10 +26,6 @@ import java.util.Random;
  * Created by Skylar on 11/9/2014.
  */
 public class BlockRFLoaders extends BlockContainer {
-	//EIO
-	/*static {
-		PacketHandler.INSTANCE.registerMessage(PacketPowerStorage.class, PacketPowerStorage.class, PacketHandler.nextID(), Side.CLIENT);
-	}*/
 
 	IIcon blockRFLoader;
 	IIcon blockRFUnloader;
