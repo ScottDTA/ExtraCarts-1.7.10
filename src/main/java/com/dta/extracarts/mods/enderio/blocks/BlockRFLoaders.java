@@ -1,10 +1,14 @@
 package com.dta.extracarts.mods.enderio.blocks;
 
 import com.dta.extracarts.ExtraCarts;
+import com.dta.extracarts.client.OpenableGUI;
+import com.dta.extracarts.mods.enderio.client.ContainerRFLoaders;
+import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import crazypants.enderio.ModObject;
+import crazypants.enderio.machine.AbstractMachineBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -25,13 +30,13 @@ import java.util.Random;
 /**
  * Created by Skylar on 11/9/2014.
  */
-public class BlockRFLoaders extends BlockContainer {
+public class BlockRFLoaders extends AbstractMachineBlock<TileEntityRFLoaders> implements OpenableGUI {
 
 	IIcon blockRFLoader;
 	IIcon blockRFUnloader;
 
 	public BlockRFLoaders() {
-		super(Material.iron);
+		super(ModObject.blockBuffer, TileEntityRFLoaders.class, Material.iron);
 		setHardness(1.0F);
 		setCreativeTab(CreativeTabs.tabBlock);
 	}
@@ -43,6 +48,27 @@ public class BlockRFLoaders extends BlockContainer {
 			return blockRFLoader;
 		}
 		return blockRFUnloader;
+	}
+
+	@Override
+	protected void init() {
+
+	}
+
+	@Override
+	protected int getGuiId() {
+		return 0;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int blockSide) {
+		return blockRFLoader;
+	}
+
+	@Override
+	protected String getMachineFrontIconKey(boolean active) {
+		return "enderio:capacitorBankInput";
 	}
 
 	@Override
@@ -119,5 +145,23 @@ public class BlockRFLoaders extends BlockContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata) {
 		return new TileEntityRFLoaders();
+	}
+
+	@Override
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		if(te instanceof TileEntityRFLoaders) {
+			return new ContainerRFLoaders(player.inventory, (TileEntityRFLoaders) te);
+		}
+		return null;
+	}
+
+	@Override
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		if(te instanceof TileEntityRFLoaders) {
+			return new GuiRFLoaders(player.inventory, (TileEntityRFLoaders) te);
+		}
+		return null;
 	}
 }

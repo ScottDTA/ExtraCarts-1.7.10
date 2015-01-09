@@ -18,7 +18,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'forge'
 
-version = "1.7.10-b0.7.3"
+version = "1.7.10-0.7.4"
 group = "com.scottdta.extracarts"
 archivesBaseName = "ExtraCarts"
 
@@ -26,8 +26,19 @@ minecraft {
     version = "1.7.10-10.13.2.1230"
 }
 
-dependencies {
+repositories {
+    maven {
+        name 'tterrag Repo'
+        url "http://maven.tterrag.com/"
+    }
+}
 
+dependencies {
+    compile("com.enderio:EnderIO:1.7.10-2.2.6.321:dev") {
+        exclude module: "appliedenergistics2"
+        exclude module: "buildcraft"
+        exclude module: "Waila"
+    }
 }
 
 processResources {
