@@ -17,8 +17,10 @@ import net.minecraftforge.common.util.ForgeDirection;
  * Created by Skylar on 11/13/2014.
  */
 public class TileEntityRFLoaders extends AbstractPowerConsumerEntity implements IInventory, OpenableGUI {
+	private ItemStack[] inventory;
+
 	public TileEntityRFLoaders() {
-		super(new SlotDefinition(9, 1));
+		super(new SlotDefinition(7, 1));
 		inventory = new ItemStack[9];
 	}
 
