@@ -31,14 +31,19 @@ repositories {
         name 'tterrag Repo'
         url "http://maven.tterrag.com/"
     }
+    ivy {
+        name "Railcraft"
+        artifactPattern "https://dl.dropboxusercontent.com/u/38558957/Minecraft/Railcraft/[module]_1.7.10-9.4.0.0-dev.[ext]"
+    }
 }
 
 dependencies {
-    compile("com.enderio:EnderIO:1.7.10-2.2.6.321:dev") {
+    compile("com.enderio:EnderIO:1.7.10-2.2.7.331:dev") {
         exclude module: "appliedenergistics2"
         exclude module: "buildcraft"
         exclude module: "Waila"
     }
+    compile name: 'RailCraft', ext: 'jar'
 }
 
 processResources {
