@@ -12,6 +12,8 @@ import org.lwjgl.opengl.GL11;
 public class GuiRFLoaders extends GuiPoweredMachineBase<TileEntityRFLoaders> {
 	public GuiRFLoaders(InventoryPlayer inventoryPlayer, TileEntityRFLoaders tileEntityRFLoaders) {
 		super(tileEntityRFLoaders, new ContainerRFLoaders(inventoryPlayer, tileEntityRFLoaders));
+		configB.visible = false;
+		configB.enabled = false;
 	}
 
 	//EIO
