@@ -16,7 +16,11 @@ public class GuiRFLoaders extends GuiPoweredMachineBase<TileEntityRFLoaders> {
 		configB.enabled = false;
 	}
 
-	//EIO
+	@Override
+	protected boolean showRecipeButton() {
+		return false;
+	}
+
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -27,7 +31,5 @@ public class GuiRFLoaders extends GuiPoweredMachineBase<TileEntityRFLoaders> {
 		drawTexturedModalRect(sx, sy, 0, 0, xSize, ySize);
 
 		super.drawGuiContainerBackgroundLayer(par1, par2, par3);
-
-		RenderUtil.bindTexture("enderio:textures/gui/poweredSpawner.png");
 	}
 }

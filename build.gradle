@@ -31,8 +31,20 @@ repositories {
         name 'tterrag Repo'
         url "http://maven.tterrag.com/"
     }
+    maven {
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
+    maven {
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name 'Players Repo'
+        url = "http://maven.ic2.player.to"
+    }
     ivy {
-        name "Railcraft"
+        name 'Railcraft Download'
         artifactPattern "https://dl.dropboxusercontent.com/u/38558957/Minecraft/Railcraft/[module]_1.7.10-9.4.0.0-dev.[ext]"
     }
 }
@@ -41,8 +53,8 @@ dependencies {
     compile("com.enderio:EnderIO:1.7.10-2.2.7.331:dev") {
         exclude module: "appliedenergistics2"
         exclude module: "buildcraft"
-        exclude module: "Waila"
     }
+    compile "mcp.mobius.waila:Waila:1.5.8a_1.7.10"
     compile name: 'RailCraft', ext: 'jar'
 }
 
