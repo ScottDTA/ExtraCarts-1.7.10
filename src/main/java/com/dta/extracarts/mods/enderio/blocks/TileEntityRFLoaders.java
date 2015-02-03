@@ -1,50 +1,30 @@
 package com.dta.extracarts.mods.enderio.blocks;
 
+import cofh.api.energy.EnergyStorage;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.mods.enderio.client.ContainerRFLoaders;
 import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
-import crazypants.enderio.machine.AbstractPowerConsumerEntity;
-import crazypants.enderio.machine.SlotDefinition;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Created by Skylar on 11/13/2014.
  */
-public class TileEntityRFLoaders extends AbstractPowerConsumerEntity implements OpenableGUI {
+public class TileEntityRFLoaders extends TileEntity implements IInventory, OpenableGUI {
 
-	private ForgeDirection direction = ForgeDirection.NORTH;
+	private int direction = 0;
+	private EnergyStorage energyStorage = new EnergyStorage(100000);
+	private int lastSyncPowerStored = 0;
 
 	public TileEntityRFLoaders() {
-		super(new SlotDefinition(0, 0));
-	}
-
-	@Override
-	public String getInventoryName() {
-		return "tile.blockRFLoaders.loader";
-	}
-
-	@Override
-	public boolean hasCustomInventoryName() {
-		return true;
-	}
-
-	@Override
-	protected boolean isMachineItemValidForSlot(int i, ItemStack itemstack) {
-		return false;
-	}
-
-	@Override
-	public boolean isActive() {
-		return false;
-	}
-
-	@Override
-	public float getProgress() {
-		return 0;
+		super();
 	}
 
 	@Override
@@ -53,29 +33,38 @@ public class TileEntityRFLoaders extends AbstractPowerConsumerEntity implements 
 			return;
 		}
 
-		boolean powerChanged = (lastSyncPowerStored != getEnergyStored(ForgeDirection.NORTH) && worldObj.getTotalWorldTime() % 5 == 0);
+		boolean powerChanged = (lastSyncPowerStored != energyStorage.getEnergyStored() && worldObj.getTotalWorldTime() % 5 == 0);
 		if(powerChanged) {
-			lastSyncPowerStored = getEnergyStored(ForgeDirection.NORTH);
+			lastSyncPowerStored = energyStorage.getEnergyStored();
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			markDirty();
 		}
 	}
 
 	@Override
-	protected boolean processTasks(boolean redstoneCheckPassed) {
-		return false;
+	public Packet getDescriptionPacket() {
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		writeToNBT(nbttagcompound);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound tagCompound) {
-		super.readCustomNBT(tagCompound);
-		tagCompound.setByte("direction", (byte) direction.ordinal());
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+	}
+
+
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+		tagCompound.setInteger("direction", direction);
+
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound tagCompound) {
-		super.writeCustomNBT(tagCompound);
-		direction = ForgeDirection.getOrientation(tagCompound.getByte("direction"));
+	public void writeToNBT(NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+		direction = tagCompound.getInteger("direction");
 	}
 
 	@Override
@@ -88,16 +77,73 @@ public class TileEntityRFLoaders extends AbstractPowerConsumerEntity implements 
 		return new ContainerRFLoaders(player.inventory, (TileEntityRFLoaders)world.getTileEntity(x, y, z));
 	}
 
-	@Override
-	public String getMachineName() {
-		return "tileEntityRFLoader";
-	}
 
-	public ForgeDirection getDirection() {
+	public int getDirection() {
 		return direction;
 	}
 
-	public void setDirection(ForgeDirection direction) {
+	public void setDirection(int direction) {
 		this.direction = direction;
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return 0;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int p_70301_1_) {
+		return null;
+	}
+
+	@Override
+	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+		return null;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+		return null;
+	}
+
+	@Override
+	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+
+	}
+
+	@Override
+	public String getInventoryName() {
+		return null;
+	}
+
+	@Override
+	public boolean hasCustomInventoryName() {
+		return false;
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 0;
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entityPlayer) {
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this &&
+				entityPlayer.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
+	}
+
+	@Override
+	public void openInventory() {
+
+	}
+
+	@Override
+	public void closeInventory() {
+
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
+		return false;
 	}
 }

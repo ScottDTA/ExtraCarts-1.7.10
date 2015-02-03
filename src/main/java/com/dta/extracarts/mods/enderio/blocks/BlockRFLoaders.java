@@ -6,11 +6,12 @@ import com.dta.extracarts.mods.enderio.client.ContainerRFLoaders;
 import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import crazypants.enderio.ModObject;
-import crazypants.enderio.machine.AbstractMachineBlock;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,36 +19,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 
 /**
  * Created by Skylar on 11/9/2014.
  */
-public class BlockRFLoaders extends AbstractMachineBlock<TileEntityRFLoaders> implements OpenableGUI {
-	protected ForgeDirection direction = ForgeDirection.NORTH;
-	protected IIcon[] textures = new IIcon[3];
+public class BlockRFLoaders extends BlockContainer implements OpenableGUI {
+	private int direction = 1;
+	private IIcon[] textures = new IIcon[3];
 
 	public BlockRFLoaders() {
-		super(ModObject.blockBuffer, TileEntityRFLoaders.class, Material.iron);
+		super(Material.iron);
 		setHardness(1.0F);
 		setCreativeTab(CreativeTabs.tabBlock);
-	}
-
-	@Override
-	protected void init() {
-
-	}
-
-	@Override
-	protected int getGuiId() {
-		return 0;
-	}
-
-	@Override
-	protected String getMachineFrontIconKey(boolean active) {
-		return "enderio:capacitorBankInput";
 	}
 
 	@Override
@@ -65,9 +50,9 @@ public class BlockRFLoaders extends AbstractMachineBlock<TileEntityRFLoaders> im
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iIconRegister) {
-		textures[0] = iIconRegister.registerIcon("enderio:machineSide");
-		textures[1] = iIconRegister.registerIcon("enderio:machineTop");
-		textures[2] = iIconRegister.registerIcon(getMachineFrontIconKey(true));
+		getTextures()[0] = iIconRegister.registerIcon("enderio:machineSide");
+		getTextures()[1] = iIconRegister.registerIcon("enderio:machineTop");
+		getTextures()[2] = iIconRegister.registerIcon("enderio:stirlingGenFrontOff");
 	}
 
 	@Override
@@ -82,25 +67,30 @@ public class BlockRFLoaders extends AbstractMachineBlock<TileEntityRFLoaders> im
 	}
 
 	@Override
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+		int direction = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
+		this.setDirection(direction);
+	}
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int blockSide) {
 		TileEntity te = world.getTileEntity(x, y, z);
 		if(te instanceof TileEntityRFLoaders) {
 			TileEntityRFLoaders tileEntityRFLoaders = new TileEntityRFLoaders();
-			direction = tileEntityRFLoaders.getDirection();
+			this.setDirection(tileEntityRFLoaders.getDirection());
 		}
-		return getIcon(1, 0);
+		return getIcon(blockSide, 0);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata) {
-		System.out.println(direction.toString() + " " + direction.ordinal());
-		if (direction.ordinal() == side)
-			return textures[2];
+		if (this.getDirection() == side)
+			return getTextures()[1];
 		if (side != 0 && side != 1)
-			return textures[1];
-		return textures[0];
+			return getTextures()[0];
+		return getTextures()[2];
 	}
 
 	@Override
@@ -119,5 +109,26 @@ public class BlockRFLoaders extends AbstractMachineBlock<TileEntityRFLoaders> im
 			return new GuiRFLoaders(player.inventory, (TileEntityRFLoaders) te);
 		}
 		return null;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int metadata) {
+		return new TileEntityRFLoaders();
+	}
+
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
+	public IIcon[] getTextures() {
+		return textures;
+	}
+
+	public void setTextures(IIcon[] textures) {
+		this.textures = textures;
 	}
 }
