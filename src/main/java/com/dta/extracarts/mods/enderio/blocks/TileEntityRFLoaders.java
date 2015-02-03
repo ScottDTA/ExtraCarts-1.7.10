@@ -16,6 +16,8 @@ import net.minecraftforge.common.util.ForgeDirection;
  */
 public class TileEntityRFLoaders extends AbstractPowerConsumerEntity implements OpenableGUI {
 
+	private ForgeDirection direction = ForgeDirection.NORTH;
+
 	public TileEntityRFLoaders() {
 		super(new SlotDefinition(0, 0));
 	}
@@ -67,11 +69,13 @@ public class TileEntityRFLoaders extends AbstractPowerConsumerEntity implements 
 	@Override
 	public void readCustomNBT(NBTTagCompound tagCompound) {
 		super.readCustomNBT(tagCompound);
+		tagCompound.setByte("direction", (byte) direction.ordinal());
 	}
 
 	@Override
 	public void writeCustomNBT(NBTTagCompound tagCompound) {
 		super.writeCustomNBT(tagCompound);
+		direction = ForgeDirection.getOrientation(tagCompound.getByte("direction"));
 	}
 
 	@Override
@@ -87,5 +91,13 @@ public class TileEntityRFLoaders extends AbstractPowerConsumerEntity implements 
 	@Override
 	public String getMachineName() {
 		return "tileEntityRFLoader";
+	}
+
+	public ForgeDirection getDirection() {
+		return direction;
+	}
+
+	public void setDirection(ForgeDirection direction) {
+		this.direction = direction;
 	}
 }

@@ -41,7 +41,7 @@ repositories {
     }
     maven {
         name 'Players Repo'
-        url = "http://maven.ic2.player.to"
+        url "http://maven.ic2.player.to"
     }
     ivy {
         name 'Railcraft Download'
