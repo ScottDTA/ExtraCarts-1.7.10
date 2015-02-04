@@ -7,7 +7,6 @@ import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -26,7 +26,6 @@ import java.util.List;
  * Created by Skylar on 11/9/2014.
  */
 public class BlockRFLoaders extends BlockContainer implements OpenableGUI {
-	private int direction = 1;
 	private IIcon[] textures = new IIcon[3];
 
 	public BlockRFLoaders() {
@@ -67,26 +66,29 @@ public class BlockRFLoaders extends BlockContainer implements OpenableGUI {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		int direction = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
-		this.setDirection(direction);
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLivingBase, ItemStack itemStack)
+	{
+		super.onBlockPlacedBy(world, x, y, z, entityLivingBase, itemStack);
+		int facing = MathHelper.floor_double(entityLivingBase.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+		world.setBlockMetadataWithNotify(x, y, z, facing, 0);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int blockSide) {
 		TileEntity te = world.getTileEntity(x, y, z);
+		int direction = 0;
 		if(te instanceof TileEntityRFLoaders) {
 			TileEntityRFLoaders tileEntityRFLoaders = new TileEntityRFLoaders();
-			this.setDirection(tileEntityRFLoaders.getDirection());
+			direction = tileEntityRFLoaders.getDirection();
 		}
-		return getIcon(blockSide, 0);
+		return getIcon(blockSide, direction);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata) {
-		if (this.getDirection() == side)
+		if(side == metadata)
 			return getTextures()[1];
 		if (side != 0 && side != 1)
 			return getTextures()[0];
@@ -114,14 +116,6 @@ public class BlockRFLoaders extends BlockContainer implements OpenableGUI {
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata) {
 		return new TileEntityRFLoaders();
-	}
-
-	public int getDirection() {
-		return direction;
-	}
-
-	public void setDirection(int direction) {
-		this.direction = direction;
 	}
 
 	public IIcon[] getTextures() {

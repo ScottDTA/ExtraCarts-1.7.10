@@ -1,6 +1,7 @@
 package com.dta.extracarts.mods.enderio.blocks;
 
 import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyReceiver;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.mods.enderio.client.ContainerRFLoaders;
 import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
@@ -13,11 +14,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Created by Skylar on 11/13/2014.
  */
-public class TileEntityRFLoaders extends TileEntity implements IInventory, OpenableGUI {
+public class TileEntityRFLoaders extends TileEntity implements IInventory, OpenableGUI, IEnergyReceiver {
 
 	private int direction = 0;
 	private EnergyStorage energyStorage = new EnergyStorage(100000);
@@ -57,14 +59,15 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		tagCompound.setInteger("direction", direction);
-
+		direction = tagCompound.getInteger("direction");
+		energyStorage.writeToNBT(tagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		direction = tagCompound.getInteger("direction");
+		tagCompound.setInteger("direction", direction);
+		energyStorage.writeToNBT(tagCompound);
 	}
 
 	@Override
@@ -76,7 +79,6 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new ContainerRFLoaders(player.inventory, (TileEntityRFLoaders)world.getTileEntity(x, y, z));
 	}
-
 
 	public int getDirection() {
 		return direction;
@@ -145,5 +147,25 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
 		return false;
+	}
+
+	@Override
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
+		return energyStorage.receiveEnergy(maxReceive, simulate);
+	}
+
+	@Override
+	public int getEnergyStored(ForgeDirection from) {
+		return energyStorage.getEnergyStored();
+	}
+
+	@Override
+	public int getMaxEnergyStored(ForgeDirection from) {
+		return energyStorage.getMaxEnergyStored();
+	}
+
+	@Override
+	public boolean canConnectEnergy(ForgeDirection from) {
+		return true;
 	}
 }
