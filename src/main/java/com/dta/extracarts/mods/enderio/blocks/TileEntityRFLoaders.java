@@ -21,7 +21,6 @@ import net.minecraftforge.common.util.ForgeDirection;
  */
 public class TileEntityRFLoaders extends TileEntity implements IInventory, OpenableGUI, IEnergyReceiver {
 
-	private int direction = 0;
 	private EnergyStorage energyStorage = new EnergyStorage(100000);
 	private int lastSyncPowerStored = 0;
 
@@ -59,14 +58,12 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		direction = tagCompound.getInteger("direction");
-		energyStorage.writeToNBT(tagCompound);
+		energyStorage.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("direction", direction);
 		energyStorage.writeToNBT(tagCompound);
 	}
 
@@ -78,14 +75,6 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new ContainerRFLoaders(player.inventory, (TileEntityRFLoaders)world.getTileEntity(x, y, z));
-	}
-
-	public int getDirection() {
-		return direction;
-	}
-
-	public void setDirection(int direction) {
-		this.direction = direction;
 	}
 
 	@Override
@@ -135,14 +124,10 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	}
 
 	@Override
-	public void openInventory() {
-
-	}
+	public void openInventory() { }
 
 	@Override
-	public void closeInventory() {
-
-	}
+	public void closeInventory() { }
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
