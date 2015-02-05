@@ -1,7 +1,13 @@
 package com.dta.extracarts.entities;
 
 import cpw.mods.fml.common.Optional;
+import mods.railcraft.api.carts.CartTools;
+import mods.railcraft.api.carts.IItemTransfer;
+import mods.railcraft.api.carts.ILinkageManager;
 import mods.railcraft.api.carts.IMinecart;
+import mods.railcraft.api.core.items.IStackFilter;
+import mods.railcraft.common.util.inventory.filters.ArrayStackFilter;
+import mods.railcraft.common.util.inventory.filters.StackFilter;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +18,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
+@Optional.InterfaceList({
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts"),
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IItemTransfer", modid = "RailcraftAPI|carts")
+})
 abstract public class EntityExtraCartChestMinecart extends EntityMinecart implements IInventory, IMinecart {
 
 	private ItemStack[] minecartContainerItems = new ItemStack[108];
@@ -279,4 +288,124 @@ abstract public class EntityExtraCartChestMinecart extends EntityMinecart implem
 
     @Optional.Method(modid = "RailcraftAPI|carts")
     public abstract boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart);
+
+
+	//TODO: Anything below here is Railcraft code. Make sure to attach the license and ensure you are following it
+	@Optional.Method(modid = "RailcraftAPI|carts")
+	public ItemStack offerItem(Object source, ItemStack offer) {
+		if (getSizeInventory() > 0) {
+			offer = moveItemStack(offer, this);
+			if (offer == null)
+				return null;
+		}
+
+		ILinkageManager lm = CartTools.getLinkageManager(worldObj);
+
+		EntityMinecart linkedCart = lm.getLinkedCartA(this);
+		if (linkedCart != source && linkedCart instanceof IItemTransfer)
+			offer = ((IItemTransfer) linkedCart).offerItem(this, offer);
+
+		if (offer == null)
+			return null;
+
+		linkedCart = lm.getLinkedCartB(this);
+		if (linkedCart != source && linkedCart instanceof IItemTransfer)
+			offer = ((IItemTransfer) linkedCart).offerItem(this, offer);
+
+		return offer;
+	}
+
+	@Optional.Method(modid = "RailcraftAPI|carts")
+	public ItemStack requestItem(Object source) {
+		return requestItem(this, StackFilter.ALL);
+	}
+
+	@Optional.Method(modid = "RailcraftAPI|carts")
+	public ItemStack requestItem(Object source, ItemStack request) {
+		return requestItem(this, new ArrayStackFilter(request));
+	}
+
+	@Optional.Method(modid = "RailcraftAPI|carts")
+	public ItemStack requestItem(Object source, IStackFilter request) {
+		ItemStack result = null;
+		if (getSizeInventory() > 0) {
+			result = removeOneItem(this, request);
+			if (result != null)
+				return result;
+		}
+
+		ILinkageManager lm = CartTools.getLinkageManager(worldObj);
+
+		EntityMinecart linkedCart = lm.getLinkedCartA(this);
+		if (linkedCart != source && linkedCart instanceof IItemTransfer)
+			result = ((IItemTransfer) linkedCart).requestItem(this, request);
+
+		if (result != null)
+			return result;
+
+		linkedCart = lm.getLinkedCartB(this);
+		if (linkedCart != source && linkedCart instanceof IItemTransfer)
+			result = ((IItemTransfer) linkedCart).requestItem(this, request);
+
+		return result;
+	}
+
+	/**
+	 * Removes and returns a single item from the inventory that matches the
+	 * filter.
+	 *
+	 * @param inv The inventory
+	 * @param filter EnumItemType to match against
+	 * @return An ItemStack
+	 */
+	private ItemStack removeOneItem(IInventory inv, IStackFilter filter) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack slot = inv.getStackInSlot(i);
+			if (slot != null && filter.matches(slot))
+				return inv.decrStackSize(i, 1);
+		}
+		return null;
+	}
+
+	private ItemStack moveItemStack(ItemStack stack, IInventory dest) {
+		if (stack == null)
+			return null;
+		stack = stack.copy();
+		if (dest == null)
+			return stack;
+		boolean movedItem = false;
+		do {
+			movedItem = false;
+			ItemStack destStack = null;
+			for (int ii = 0; ii < dest.getSizeInventory(); ii++) {
+				destStack = dest.getStackInSlot(ii);
+				if (destStack != null && destStack.isItemEqual(stack)) {
+					int maxStack = Math.min(destStack.getMaxStackSize(), dest.getInventoryStackLimit());
+					int room = maxStack - destStack.stackSize;
+					if (room > 0) {
+						int move = Math.min(room, stack.stackSize);
+						destStack.stackSize += move;
+						stack.stackSize -= move;
+						if (stack.stackSize <= 0)
+							return null;
+						movedItem = true;
+					}
+				}
+			}
+			if (!movedItem)
+				for (int ii = 0; ii < dest.getSizeInventory(); ii++) {
+					destStack = dest.getStackInSlot(ii);
+					if (destStack == null) {
+						if (stack.stackSize > dest.getInventoryStackLimit())
+							dest.setInventorySlotContents(ii, stack.splitStack(dest.getInventoryStackLimit()));
+						else {
+							dest.setInventorySlotContents(ii, stack);
+							return null;
+						}
+						movedItem = true;
+					}
+				}
+		} while (movedItem);
+		return stack;
+	}
 }

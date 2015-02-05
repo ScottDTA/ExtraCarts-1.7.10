@@ -20,7 +20,10 @@ import com.dta.extracarts.ExtraCarts;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
+@Optional.InterfaceList({
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts"),
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IItemTransfer", modid = "RailcraftAPI|carts")
+})
 public class EntityDiamondChestCart extends EntityExtraCartChestMinecart implements OpenableGUI{
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
