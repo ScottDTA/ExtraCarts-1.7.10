@@ -1,11 +1,8 @@
 package com.dta.extracarts.mods.enderio.entities;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.enderio.EnderIOItems;
-import com.dta.extracarts.mods.ironchest.client.ContainerDiamondChestCart;
-import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraft.block.Block;
@@ -19,12 +16,11 @@ import net.minecraft.world.World;
  * Created by Skylar on 10/26/2014.
  */
 @Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
-public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements OpenableGUI {
-	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
+public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart {
+	private Block capacitorBank = Block.getBlockFromName("minecraft:chest");
 
 	public EntityCapacitorBankCart(World world) {
 		super(world);
-		this.setDisplayTileData(6);
 	}
 
 	@Override
@@ -39,7 +35,7 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 
 	@Override
 	public Block func_145817_o() {
-		return ironChest;
+		return capacitorBank;
 	}
 
 	@Override
@@ -53,16 +49,6 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 			FMLNetworkHandler.openGui(player, ExtraCarts.instance, 2, player.worldObj, this.getEntityId(), 0, 0);
 		}
 		return true;
-	}
-
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new GuiDiamondChestCart(player.inventory, this);
-	}
-
-	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new ContainerDiamondChestCart(player.inventory, this);
 	}
 
 	@Optional.Method(modid = "RailcraftAPI|carts")

@@ -10,8 +10,17 @@ import org.lwjgl.opengl.GL11;
  * Created by Skylar on 11/13/2014.
  */
 public class GuiRFLoaders extends GuiContainer {
+	protected TileEntityRFLoaders tileEntityRFLoaders;
+
+	//EIO
+	protected static final int POWER_Y = 14;
+	protected final int POWER_X = 15;
+	protected static final int POWER_WIDTH = 10;
+	protected static final int POWER_HEIGHT = 42;
+
 	public GuiRFLoaders(InventoryPlayer inventoryPlayer, TileEntityRFLoaders tileEntityRFLoaders) {
 		super(new ContainerRFLoaders(inventoryPlayer, tileEntityRFLoaders));
+		this.tileEntityRFLoaders = tileEntityRFLoaders;
 	}
 
 	@Override
@@ -22,5 +31,38 @@ public class GuiRFLoaders extends GuiContainer {
 		int sy = (height - ySize) / 2;
 
 		drawTexturedModalRect(sx, sy, 0, 0, xSize, ySize);
+
+		renderPowerBar(sx, sy);
+	}
+
+	//EIO
+	public void renderPowerBar(int k, int l) {
+		int i1 = tileEntityRFLoaders.getEnergyStoredScaled(getPowerHeight());
+		// x, y, u, v, width, height
+		drawTexturedModalRect(k + getPowerX(), l + (getPowerY() + getPowerHeight()) - i1, getPowerU(), getPowerV(), getPowerWidth(), i1);
+	}
+	//EIO
+	protected int getPowerX() {
+		return POWER_X;
+	}
+	//EIO
+	protected int getPowerY() {
+		return POWER_Y;
+	}
+	//EIO
+	protected int getPowerWidth() {
+		return POWER_WIDTH;
+	}
+	//EIO
+	protected int getPowerHeight() {
+		return POWER_HEIGHT;
+	}
+	//EIO
+	protected int getPowerV() {
+		return 31;
+	}
+	//EIO
+	protected int getPowerU() {
+		return 176;
 	}
 }

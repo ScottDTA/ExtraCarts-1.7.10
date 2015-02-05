@@ -67,6 +67,13 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 		energyStorage.writeToNBT(tagCompound);
 	}
 
+	//EIO
+	public int getEnergyStoredScaled(int scale) {
+		float percent = (float)getEnergyStored(ForgeDirection.NORTH) / (float)getMaxEnergyStored(ForgeDirection.NORTH);
+		int energyStoredScaled = Math.round(scale * percent);
+		return energyStoredScaled;
+	}
+
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new GuiRFLoaders(player.inventory, (TileEntityRFLoaders)world.getTileEntity(x, y, z));
@@ -98,9 +105,7 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	}
 
 	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-
-	}
+	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) { }
 
 	@Override
 	public String getInventoryName() {

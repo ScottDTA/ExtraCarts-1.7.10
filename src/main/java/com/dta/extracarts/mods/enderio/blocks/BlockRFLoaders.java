@@ -87,7 +87,7 @@ public class BlockRFLoaders extends BlockContainer implements OpenableGUI {
 				if (metadata == 0) {
 					return getTextures()[1];
 				} else {
-					return getTextures()[3];
+					return getTextures()[2];
 				}
 			default:
 				return getTextures()[0];
