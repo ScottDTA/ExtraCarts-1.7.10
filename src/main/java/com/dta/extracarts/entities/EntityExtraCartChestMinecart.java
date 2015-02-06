@@ -8,6 +8,7 @@ import mods.railcraft.api.carts.IMinecart;
 import mods.railcraft.api.core.items.IStackFilter;
 import mods.railcraft.common.util.inventory.filters.ArrayStackFilter;
 import mods.railcraft.common.util.inventory.filters.StackFilter;
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -24,7 +26,9 @@ import net.minecraft.world.World;
 })
 abstract public class EntityExtraCartChestMinecart extends EntityMinecart implements IInventory, IMinecart {
 
+	private TileEntity tileEntity;
 	private ItemStack[] minecartContainerItems = new ItemStack[108];
+	private Block cartBlock;
 
     private boolean dropContentsWhenDead = true;
 
@@ -407,5 +411,22 @@ abstract public class EntityExtraCartChestMinecart extends EntityMinecart implem
 				}
 		} while (movedItem);
 		return stack;
+	}
+	// TODO: END Railcraft code
+
+	public TileEntity getTileEntity() {
+		return tileEntity;
+	}
+
+	public void setTileEntity(TileEntity tileEntity) {
+		this.tileEntity = tileEntity;
+	}
+
+	public Block getCartBlock() {
+		return cartBlock;
+	}
+
+	public void setCartBlock(Block cartBlock) {
+		this.cartBlock = cartBlock;
 	}
 }

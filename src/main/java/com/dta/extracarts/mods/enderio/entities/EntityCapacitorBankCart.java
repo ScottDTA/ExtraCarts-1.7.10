@@ -1,26 +1,31 @@
 package com.dta.extracarts.mods.enderio.entities;
 
-import com.dta.extracarts.ExtraCarts;
+import com.dta.extracarts.api.IRedstoneFluxCart;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.enderio.EnderIOItems;
+import com.dta.extracarts.utils.CartFakeWorld;
+import com.dta.extracarts.utils.FakeWorldUtils;
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import crazypants.enderio.machine.capbank.TileCapBank;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Created by Skylar on 10/26/2014.
  */
 @Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
-public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart {
+public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IRedstoneFluxCart{
 	private Block capacitorBank = Block.getBlockFromName("minecraft:chest");
 
 	public EntityCapacitorBankCart(World world) {
 		super(world);
+		setCartBlock(capacitorBank);
+		this.setTileEntity(new TileCapBank());
 	}
 
 	@Override
@@ -46,7 +51,9 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart {
 	@Override
 	public boolean interactFirst(EntityPlayer player) {
 		if (!this.worldObj.isRemote) {
-			FMLNetworkHandler.openGui(player, ExtraCarts.instance, 2, player.worldObj, this.getEntityId(), 0, 0);
+			CartFakeWorld cartFakeWorld = new CartFakeWorld(this, worldObj, FakeWorldUtils.createWorldSettings(worldObj));
+			getCartBlock().onBlockActivated(cartFakeWorld, (int) this.posX, (int) this.posY,
+					(int) this.posZ, player, 0, (int) player.posX, (int) player.posY, (int) player.posZ);
 		}
 		return true;
 	}
@@ -58,5 +65,25 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate) {
+		return ((TileCapBank)getTileEntity()).extractEnergy(ForgeDirection.NORTH, maxReceive, simulate);
+	}
+
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		return ((TileCapBank)getTileEntity()).extractEnergy(ForgeDirection.NORTH, maxExtract, simulate);
+	}
+
+	@Override
+	public int getEnergyStored() {
+		return ((TileCapBank)getTileEntity()).getEnergyStored();
+	}
+
+	@Override
+	public int getMaxEnergyStored() {
+		return ((TileCapBank)getTileEntity()).getMaxEnergyStored();
 	}
 }
