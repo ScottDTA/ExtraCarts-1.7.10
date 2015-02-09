@@ -46,11 +46,16 @@ public class CartFakeWorld extends World {
 
 	@Override
 	public void addBlockEvent(int x, int y, int z, Block block, int int1, int int2) {
-		System.out.println("I'm called");
+
 	}
 
 	@Override
-	protected boolean chunkExists(int p_72916_1_, int p_72916_2_) {
-		return entityExtraCartChestMinecart.worldObj.checkChunksExist(p_72916_1_,p_72916_2_);
+	public void tick() {
+		this.entityExtraCartChestMinecart.worldObj.tick();
+	}
+
+	@Override
+	protected boolean chunkExists(int chunkX, int chunkY) {
+		return true;
 	}
 }
