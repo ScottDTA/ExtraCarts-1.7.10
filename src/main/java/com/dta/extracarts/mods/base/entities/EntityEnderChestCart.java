@@ -1,20 +1,30 @@
 package com.dta.extracarts.mods.base.entities;
 
+import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
+import com.dta.extracarts.utils.CartFakeWorld;
+import com.dta.extracarts.utils.FakeWorldUtils;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityMinecartContainer;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 
-public class EntityEnderChestCart extends EntityMinecartContainer {
-
+@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
+public class EntityEnderChestCart extends EntityExtraCartChestMinecart {
+	Block enderchest = Blocks.ender_chest;
+	TileEntity tileEntity = new TileEntityEnderChest();
 	public EntityEnderChestCart(World world) {
 		super(world);
+		this.setCartBlock(enderchest);
+		this.setTileEntity(tileEntity);
 	}
 	
 	@Override
@@ -26,10 +36,15 @@ public class EntityEnderChestCart extends EntityMinecartContainer {
 	public int getMinecartType() {
 		return 1;
 	}
-	
+
+	@Optional.Method(modid = "RailcraftAPI|carts")
+	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
+		return false;
+	}
+
 	@Override
 	public Block func_145817_o() {
-		return Blocks.ender_chest;
+		return this.getCartBlock();
 	}
 	
 	@Override
@@ -43,13 +58,11 @@ public class EntityEnderChestCart extends EntityMinecartContainer {
 		if(MinecraftForge.EVENT_BUS.post(new MinecartInteractEvent(this, player))) {
 			return true;
 	    }
-		
-		InventoryEnderChest inventoryenderchest = player.getInventoryEnderChest();
-        
-	    if (!this.worldObj.isRemote) {
-	    	player.displayGUIChest(inventoryenderchest);
-	    }
-        return true;
+		CartFakeWorld cartFakeWorld = new CartFakeWorld(this, worldObj, FakeWorldUtils.createWorldSettings(worldObj));
+		tileEntity.setWorldObj(cartFakeWorld);
+		Blocks.ender_chest.onBlockActivated(cartFakeWorld, (int)this.posX, (int)this.posY, (int)this.posZ, player, 0,
+				(int)player.posX, (int)player.posY, (int)player.posZ);
+		return true;
     }
 
 

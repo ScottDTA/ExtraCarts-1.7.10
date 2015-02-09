@@ -1,6 +1,7 @@
 package com.dta.extracarts.utils;
 
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -34,7 +35,22 @@ public class CartFakeWorld extends World {
 	}
 
 	@Override
+	public Block getBlock(int x, int y, int z) {
+		return entityExtraCartChestMinecart.getCartBlock();
+	}
+
+	@Override
 	public TileEntity getTileEntity(int x, int y, int z) {
 		return entityExtraCartChestMinecart.getTileEntity();
+	}
+
+	@Override
+	public void addBlockEvent(int x, int y, int z, Block block, int int1, int int2) {
+		System.out.println("I'm called");
+	}
+
+	@Override
+	protected boolean chunkExists(int p_72916_1_, int p_72916_2_) {
+		return entityExtraCartChestMinecart.worldObj.checkChunksExist(p_72916_1_,p_72916_2_);
 	}
 }
