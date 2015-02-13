@@ -3,6 +3,7 @@ package com.dta.extracarts.mods.enderio.entities;
 import com.dta.extracarts.api.IRedstoneFluxCart;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.enderio.EnderIOItems;
+import com.dta.extracarts.mods.enderio.blocks.TileEntityRFLoaders;
 import com.dta.extracarts.utils.CartFakeWorld;
 import com.dta.extracarts.utils.FakeWorldUtils;
 import cpw.mods.fml.common.Optional;
@@ -19,13 +20,13 @@ import net.minecraftforge.common.util.ForgeDirection;
  * Created by Skylar on 10/26/2014.
  */
 @Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
-public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IRedstoneFluxCart{
-	private Block capacitorBank = Block.getBlockFromName("minecraft:chest");
+public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IRedstoneFluxCart {
+	private Block capacitorBank = Block.getBlockFromName("extracarts:blockRFLoaders");
 
 	public EntityCapacitorBankCart(World world) {
 		super(world);
 		setCartBlock(capacitorBank);
-		this.setTileEntity(new TileCapBank());
+		this.setTileEntity(new TileEntityRFLoaders());
 	}
 
 	@Override
@@ -69,12 +70,12 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		return ((TileCapBank)getTileEntity()).extractEnergy(ForgeDirection.NORTH, maxReceive, simulate);
+		return ((TileEntityRFLoaders)getTileEntity()).receiveEnergy(ForgeDirection.NORTH, maxReceive, simulate);
 	}
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		return ((TileCapBank)getTileEntity()).extractEnergy(ForgeDirection.NORTH, maxExtract, simulate);
+		return 0;
 	}
 
 	@Override

@@ -2,9 +2,12 @@ package com.dta.extracarts.mods.enderio.blocks;
 
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyReceiver;
+import com.dta.extracarts.api.IRedstoneFluxCart;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.mods.enderio.client.ContainerRFLoaders;
 import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
+import com.dta.extracarts.utils.CartUtils;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -15,6 +18,8 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.List;
 
 /**
  * Created by Skylar on 11/13/2014.
@@ -39,6 +44,14 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 			lastSyncPowerStored = energyStorage.getEnergyStored();
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			markDirty();
+		}
+
+		if(CartUtils.isMinecartOnSide(worldObj, xCoord, yCoord, zCoord, 0, ForgeDirection.DOWN)) {
+			List<EntityMinecart> minecartsOnSide = CartUtils.getMinecartsOnSide(worldObj, xCoord, yCoord, zCoord, 0,
+					ForgeDirection.DOWN);
+			if(minecartsOnSide.get(0) instanceof IRedstoneFluxCart) {
+				//Send energy
+			}
 		}
 	}
 
