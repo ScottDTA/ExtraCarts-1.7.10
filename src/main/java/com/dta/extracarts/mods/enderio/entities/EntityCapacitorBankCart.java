@@ -1,30 +1,29 @@
 package com.dta.extracarts.mods.enderio.entities;
 
-import com.dta.extracarts.api.IRedstoneFluxCart;
+import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyStorage;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.enderio.EnderIOItems;
 import com.dta.extracarts.mods.enderio.blocks.TileEntityRFLoaders;
-import com.dta.extracarts.utils.CartFakeWorld;
-import com.dta.extracarts.utils.FakeWorldUtils;
 import cpw.mods.fml.common.Optional;
-import crazypants.enderio.machine.capbank.TileCapBank;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Created by Skylar on 10/26/2014.
  */
 @Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
-public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IRedstoneFluxCart {
+public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage {
+	private EnergyStorage energyStorage;
 	private Block capacitorBank = Block.getBlockFromName("extracarts:blockRFLoaders");
 
 	public EntityCapacitorBankCart(World world) {
 		super(world);
+		energyStorage = new EnergyStorage(100000);
 		setCartBlock(capacitorBank);
 		this.setTileEntity(new TileEntityRFLoaders());
 	}
@@ -52,9 +51,10 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 	@Override
 	public boolean interactFirst(EntityPlayer player) {
 		if (!this.worldObj.isRemote) {
-			CartFakeWorld cartFakeWorld = new CartFakeWorld(this, worldObj, FakeWorldUtils.createWorldSettings(worldObj));
-			getCartBlock().onBlockActivated(cartFakeWorld, (int) this.posX, (int) this.posY,
-					(int) this.posZ, player, 0, (int) player.posX, (int) player.posY, (int) player.posZ);
+			//CartFakeWorld cartFakeWorld = new CartFakeWorld(this, worldObj, FakeWorldUtils.createWorldSettings(worldObj));
+			//getCartBlock().onBlockActivated(cartFakeWorld, (int) this.posX, (int) this.posY,
+			//(int) this.posZ, player, 0, (int) player.posX, (int) player.posY, (int) player.posZ);
+			System.out.println(energyStorage.getEnergyStored());
 		}
 		return true;
 	}
@@ -70,21 +70,21 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		return ((TileEntityRFLoaders)getTileEntity()).receiveEnergy(ForgeDirection.NORTH, maxReceive, simulate);
+		return energyStorage.receiveEnergy(maxReceive, simulate);
 	}
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		return 0;
+		return energyStorage.extractEnergy(maxExtract, simulate);
 	}
 
 	@Override
 	public int getEnergyStored() {
-		return ((TileCapBank)getTileEntity()).getEnergyStored();
+		return energyStorage.getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored() {
-		return ((TileCapBank)getTileEntity()).getMaxEnergyStored();
+		return energyStorage.getMaxEnergyStored();
 	}
 }

@@ -2,7 +2,7 @@ package com.dta.extracarts.mods.enderio.blocks;
 
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyReceiver;
-import com.dta.extracarts.api.IRedstoneFluxCart;
+import cofh.api.energy.IEnergyStorage;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.mods.enderio.client.ContainerRFLoaders;
 import com.dta.extracarts.mods.enderio.client.GuiRFLoaders;
@@ -28,6 +28,7 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 
 	private EnergyStorage energyStorage = new EnergyStorage(100000);
 	private int lastSyncPowerStored = 0;
+	protected int cartSendAmount = 100;
 
 	public TileEntityRFLoaders() {
 		super();
@@ -35,6 +36,7 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 
 	@Override
 	public void updateEntity() {
+		super.updateEntity();
 		if(worldObj == null) { // sanity check
 			return;
 		}
@@ -49,8 +51,10 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 		if(CartUtils.isMinecartOnSide(worldObj, xCoord, yCoord, zCoord, 0, ForgeDirection.DOWN)) {
 			List<EntityMinecart> minecartsOnSide = CartUtils.getMinecartsOnSide(worldObj, xCoord, yCoord, zCoord, 0,
 					ForgeDirection.DOWN);
-			if(minecartsOnSide.get(0) instanceof IRedstoneFluxCart) {
-				//Send energy
+			if(minecartsOnSide.get(0) instanceof IEnergyStorage) {
+				int amountToSend = this.extractEnergy(cartSendAmount, true);
+				int amountSent = this.sendEnergyToCart(amountToSend, (IEnergyStorage)minecartsOnSide.get(0));
+				this.extractEnergy(amountSent, false);
 			}
 		}
 	}
@@ -150,6 +154,14 @@ public class TileEntityRFLoaders extends TileEntity implements IInventory, Opena
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
 		return false;
+	}
+
+	public int sendEnergyToCart(int maxSend, IEnergyStorage iEnergyStorageCart) {
+		return iEnergyStorageCart.receiveEnergy(maxSend, false);
+	}
+
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		return energyStorage.extractEnergy(maxExtract, simulate);
 	}
 
 	@Override
