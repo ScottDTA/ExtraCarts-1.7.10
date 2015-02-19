@@ -1,12 +1,15 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
+import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.ironchest.IronChestItems;
 import com.dta.extracarts.mods.ironchest.client.ContainerDiamondChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
-
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import mods.railcraft.api.carts.IItemTransfer;
+import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,12 +17,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.dta.extracarts.ExtraCarts;
-
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-
-@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
-public class EntityObsidianChestCart extends EntityExtraCartChestMinecart implements OpenableGUI{
+@Optional.InterfaceList({
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts"),
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IItemTransfer", modid = "RailcraftAPI|carts")
+})
+public class EntityObsidianChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart, IItemTransfer {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	

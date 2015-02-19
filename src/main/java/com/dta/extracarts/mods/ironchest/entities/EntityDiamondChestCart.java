@@ -7,6 +7,8 @@ import com.dta.extracarts.mods.ironchest.client.ContainerDiamondChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
 
 import cpw.mods.fml.common.Optional;
+import mods.railcraft.api.carts.IItemTransfer;
+import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +26,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 		@Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts"),
 		@Optional.Interface(iface = "mods.railcraft.api.carts.IItemTransfer", modid = "RailcraftAPI|carts")
 })
-public class EntityDiamondChestCart extends EntityExtraCartChestMinecart implements OpenableGUI{
+public class EntityDiamondChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart, IItemTransfer {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item DiamondCrystalUpgrade = GameRegistry.findItem("IronChest", "diamondCrystalUpgrade");

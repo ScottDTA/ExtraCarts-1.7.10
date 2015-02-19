@@ -9,6 +9,8 @@ import com.dta.extracarts.mods.mfr.client.GuiDSUCart;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
+import mods.railcraft.api.carts.IItemTransfer;
+import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
@@ -18,8 +20,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
-public class EntityDSUCart extends EntityExtraCartChestMinecart implements OpenableGUI {
+@Optional.InterfaceList({
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts"),
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IItemTransfer", modid = "RailcraftAPI|carts")
+})
+public class EntityDSUCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart, IItemTransfer {
 	private ItemStack storedItem = null;
 	private int storedQty = 0;
 	private NBTTagCompound compound = null;
