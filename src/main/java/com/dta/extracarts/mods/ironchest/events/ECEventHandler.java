@@ -1,12 +1,11 @@
 package com.dta.extracarts.mods.ironchest.events;
 
+import com.dta.extracarts.mods.ironchest.entities.EntityCopperChestCarts;
+import com.dta.extracarts.mods.ironchest.entities.EntityIronChestCarts;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
-
-import com.dta.extracarts.mods.ironchest.entities.EntityCopperChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -22,7 +21,7 @@ public class ECEventHandler {
 			ItemStack curItem = event.player.getCurrentEquippedItem();
 	    	EntityMinecartChest oldCart = (EntityMinecartChest) event.entity;
 	    	if (curItem != null && curItem.getItem() == WoodIronUpgrade) {
-	    		EntityIronChestCart ironCart = new EntityIronChestCart(oldCart.worldObj);
+	    		EntityIronChestCarts ironCart = new EntityIronChestCarts(oldCart.worldObj);
 	    		ironCart.copyDataFrom(event.entity, true);
 	    		ironCart.setDisplayTileData(0);
 	 	        if (!event.entity.worldObj.isRemote) {
@@ -35,7 +34,7 @@ public class ECEventHandler {
 	    		event.player.destroyCurrentEquippedItem();
 	    		event.setCanceled(true);
 	    	} else if (curItem != null && curItem.getItem() == WoodCopperUpgrade) {	
-	    		EntityCopperChestCart copperCart = new EntityCopperChestCart(oldCart.worldObj);
+	    		EntityCopperChestCarts copperCart = new EntityCopperChestCarts(oldCart.worldObj);
 	    		copperCart.copyDataFrom(event.entity, true);
 	    		copperCart.setDisplayTileData(3);
 	 	        if (!event.entity.worldObj.isRemote) {

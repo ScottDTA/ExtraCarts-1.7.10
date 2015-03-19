@@ -1,6 +1,6 @@
 package com.dta.extracarts.utils;
 
-import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
+import com.dta.extracarts.entities.EntityExtraCartsChestMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
@@ -16,10 +16,10 @@ import java.lang.reflect.Method;
  */
 public class CartFakeWorld extends World {
 
-	private EntityExtraCartChestMinecart entityExtraCartChestMinecart;
-	public CartFakeWorld(EntityExtraCartChestMinecart entityExtraCartChestMinecart, World world, WorldSettings worldSettings) {
+	private EntityExtraCartsChestMinecart entityExtraCartsChestMinecart;
+	public CartFakeWorld(EntityExtraCartsChestMinecart entityExtraCartsChestMinecart, World world, WorldSettings worldSettings) {
 		super(world.getSaveHandler(), world.getWorldInfo().getWorldName(), worldSettings, world.provider, world.theProfiler);
-		this.entityExtraCartChestMinecart = entityExtraCartChestMinecart;
+		this.entityExtraCartsChestMinecart = entityExtraCartsChestMinecart;
 	}
 
 	@Override
@@ -39,12 +39,12 @@ public class CartFakeWorld extends World {
 
 	@Override
 	public Block getBlock(int x, int y, int z) {
-		return entityExtraCartChestMinecart.getCartBlock();
+		return entityExtraCartsChestMinecart.getCartBlock();
 	}
 
 	@Override
 	public TileEntity getTileEntity(int x, int y, int z) {
-		return entityExtraCartChestMinecart.getTileEntity();
+		return entityExtraCartsChestMinecart.getTileEntity();
 	}
 
 	@Override
@@ -59,10 +59,10 @@ public class CartFakeWorld extends World {
 
 	@Override
 	protected boolean chunkExists(int p_72916_1_, int p_72916_2_) {
-		Class clazz = this.entityExtraCartChestMinecart.worldObj.getClass();
+		Class clazz = this.entityExtraCartsChestMinecart.worldObj.getClass();
 		try {
 			Method chunk = clazz.getDeclaredMethod("chunkExists", int.class, int.class);
-			boolean exists = (Boolean)chunk.invoke(this.entityExtraCartChestMinecart.worldObj, p_72916_1_, p_72916_2_);
+			boolean exists = (Boolean)chunk.invoke(this.entityExtraCartsChestMinecart.worldObj, p_72916_1_, p_72916_2_);
 			return exists;
 		} catch(Exception e) {
 			return false;
@@ -72,11 +72,11 @@ public class CartFakeWorld extends World {
 	@Override
 	public boolean blockExists(int p_72899_1_, int p_72899_2_, int p_72899_3_)
 	{
-		return this.entityExtraCartChestMinecart.worldObj.blockExists(p_72899_1_, p_72899_2_, p_72899_3_);
+		return this.entityExtraCartsChestMinecart.worldObj.blockExists(p_72899_1_, p_72899_2_, p_72899_3_);
 	}
 
 	@Override
 	public Chunk getChunkFromChunkCoords(int p_72964_1_, int p_72964_2_) {
-		return this.entityExtraCartChestMinecart.worldObj.getChunkFromChunkCoords(p_72964_1_, p_72964_2_);
+		return this.entityExtraCartsChestMinecart.worldObj.getChunkFromChunkCoords(p_72964_1_, p_72964_2_);
 	}
 }

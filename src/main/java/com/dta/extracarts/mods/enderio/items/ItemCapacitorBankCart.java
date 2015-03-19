@@ -1,7 +1,7 @@
 package com.dta.extracarts.mods.enderio.items;
 
 import com.dta.extracarts.items.ExtraCartItem;
-import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCarts;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -44,8 +44,8 @@ public class ItemCapacitorBankCart extends ExtraCartItem {
 
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
-		EntityCapacitorBankCart entityMinecart;
-		entityMinecart = new EntityCapacitorBankCart(world);
+		EntityCapacitorBankCarts entityMinecart;
+		entityMinecart = new EntityCapacitorBankCarts(world);
 		return placeCart(itemstack, player, world, x, y, z, entityMinecart);
 	}
 

@@ -7,19 +7,19 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import com.dta.extracarts.mods.mfr.entities.EntityDSUCart;
+import com.dta.extracarts.mods.mfr.entities.EntityDSUCarts;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ContainerDSUCart extends Container {
 
-	private EntityDSUCart cart;
+	private EntityDSUCarts cart;
 	private int tempQty;
 	private int ySize;
 	private int xSize;
 	
-	public ContainerDSUCart (IInventory invPlayer, EntityDSUCart cart) {
+	public ContainerDSUCart (IInventory invPlayer, EntityDSUCarts cart) {
 		this.cart = cart;
 		this.ySize=205;
 		this.xSize=184;

@@ -3,10 +3,9 @@ package com.dta.extracarts.mods.base;
 import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.ModInfo;
 import com.dta.extracarts.Module;
-import com.dta.extracarts.mods.base.entities.EntityEnderChestCart;
+import com.dta.extracarts.mods.base.entities.EntityEnderChestCarts;
 import com.dta.extracarts.mods.base.items.ItemEnderChestCart;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -35,6 +34,6 @@ public class BaseModule extends Module {
 	@Override
 	public void load(FMLInitializationEvent event) {
 		GameRegistry.addShapelessRecipe(new ItemStack(EnderChestCart, 1, 0), Blocks.ender_chest, Items.minecart);
-		EntityRegistry.registerModEntity(EntityEnderChestCart.class, "EntityEnderChestCart", 0, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityEnderChestCarts.class, "EntityEnderChestCarts", 0, ExtraCarts.instance, 80, 3, true);
 	}
 }

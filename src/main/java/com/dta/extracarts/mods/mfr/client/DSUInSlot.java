@@ -3,13 +3,13 @@ package com.dta.extracarts.mods.mfr.client;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import com.dta.extracarts.mods.mfr.entities.EntityDSUCart;
+import com.dta.extracarts.mods.mfr.entities.EntityDSUCarts;
 
 public class DSUInSlot extends Slot {
 	
-	private EntityDSUCart cart = null;
+	private EntityDSUCarts cart = null;
 	
-	public DSUInSlot(EntityDSUCart cart, int par2, int par3, int par4) {
+	public DSUInSlot(EntityDSUCarts cart, int par2, int par3, int par4) {
 		super(cart, par2, par3, par4);
 		this.cart = cart;
 	}

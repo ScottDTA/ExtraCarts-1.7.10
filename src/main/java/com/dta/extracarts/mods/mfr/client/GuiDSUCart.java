@@ -1,25 +1,24 @@
 package com.dta.extracarts.mods.mfr.client;
 
-import com.dta.extracarts.mods.mfr.client.ContainerDSUCart;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import com.dta.extracarts.mods.mfr.entities.EntityDSUCart;
+import com.dta.extracarts.mods.mfr.entities.EntityDSUCarts;
 
 public class GuiDSUCart extends GuiContainer {
 
 	private static final ResourceLocation DSUTexture = new ResourceLocation("minefactoryreloaded", "textures/gui/deepstorageunit.png");
-	private EntityDSUCart cart = null;
+	private EntityDSUCarts cart = null;
 		
 	@Override
 	public void initGui() {
 		super.initGui();
 	}
 	
-	public GuiDSUCart(IInventory invPlayer, EntityDSUCart cart) {
+	public GuiDSUCart(IInventory invPlayer, EntityDSUCarts cart) {
 		super(new ContainerDSUCart(invPlayer, cart));
 		this.cart = cart;
 		this.ySize=205;

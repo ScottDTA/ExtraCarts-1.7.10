@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import com.dta.extracarts.ModInfo;
-import com.dta.extracarts.mods.mfr.entities.EntityDSUCart;
+import com.dta.extracarts.mods.mfr.entities.EntityDSUCarts;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,7 +26,7 @@ public class ItemMFRCart extends ExtraCartItem {
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7,
 							 float par8, float par9, float par10) {
-		EntityDSUCart cart = new EntityDSUCart(world);
+		EntityDSUCarts cart = new EntityDSUCarts(world);
 		NBTTagCompound compound = itemstack.getTagCompound();
 		if (compound != null) {
 			cart.setQuantity(compound.getInteger("storedQuantity"));

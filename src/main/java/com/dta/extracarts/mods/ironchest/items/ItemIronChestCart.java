@@ -3,6 +3,7 @@ package com.dta.extracarts.mods.ironchest.items;
 import java.util.List;
 
 import com.dta.extracarts.items.ExtraCartItem;
+import com.dta.extracarts.mods.ironchest.entities.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityMinecart;
@@ -12,14 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import com.dta.extracarts.mods.ironchest.entities.EntityCopperChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityCrystalChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityDiamondChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityDirtChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityGoldChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntityObsidianChestCart;
-import com.dta.extracarts.mods.ironchest.entities.EntitySilverChestCart;
+import com.dta.extracarts.mods.ironchest.entities.EntityCopperChestCarts;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,28 +40,28 @@ public class ItemIronChestCart extends ExtraCartItem {
 		EntityMinecart entityMinecart;
 		switch (itemstack.getItemDamage()) {
 			default:
-				entityMinecart = new EntityIronChestCart(world);
+				entityMinecart = new EntityIronChestCarts(world);
 				break;
 			case 1:
-				entityMinecart = new EntityGoldChestCart(world);
+				entityMinecart = new EntityGoldChestCarts(world);
 				break;
 			case 2:
-				entityMinecart = new EntityDiamondChestCart(world);
+				entityMinecart = new EntityDiamondChestCarts(world);
 				break;
 			case 3:
-				entityMinecart = new EntityCopperChestCart(world);
+				entityMinecart = new EntityCopperChestCarts(world);
 				break;
 			case 4:
-				entityMinecart = new EntitySilverChestCart(world);
+				entityMinecart = new EntitySilverChestCarts(world);
 				break;
 			case 5:
-				entityMinecart = new EntityCrystalChestCart(world);
+				entityMinecart = new EntityCrystalChestCarts(world);
 				break;
 			case 6:
-				entityMinecart = new EntityObsidianChestCart(world);
+				entityMinecart = new EntityObsidianChestCarts(world);
 				break;
 			case 7:
-				entityMinecart = new EntityDirtChestCart(world);
+				entityMinecart = new EntityDirtChestCarts(world);
 				break;
 		}
 		return placeCart(itemstack, player, world, x, y, z, entityMinecart);

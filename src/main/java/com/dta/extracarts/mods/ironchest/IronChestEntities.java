@@ -7,13 +7,13 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class IronChestEntities {
 	public static void init() {
-		EntityRegistry.registerModEntity(EntityIronChestCart.class, "EntityIronChestCart", 1, ExtraCarts.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityGoldChestCart.class, "EntityGoldChestCart", 2, ExtraCarts.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityDiamondChestCart.class, "EntityDiamondChestCart", 3, ExtraCarts.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityCopperChestCart.class, "EntityCopperChestCart", 4, ExtraCarts.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntitySilverChestCart.class, "EntitySilverChestCart", 5, ExtraCarts.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityCrystalChestCart.class, "EntityCrystalChestCart", 6, ExtraCarts.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityObsidianChestCart.class, "EntityObsidianChestCart", 7, ExtraCarts.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityDirtChestCart.class, "EntityDirtChestCart", 8, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityIronChestCarts.class, "EntityIronChestCarts", 1, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityGoldChestCarts.class, "EntityGoldChestCarts", 2, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityDiamondChestCarts.class, "EntityDiamondChestCarts", 3, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityCopperChestCarts.class, "EntityCopperChestCarts", 4, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntitySilverChestCarts.class, "EntitySilverChestCarts", 5, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityCrystalChestCarts.class, "EntityCrystalChestCarts", 6, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityObsidianChestCarts.class, "EntityObsidianChestCarts", 7, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityDirtChestCarts.class, "EntityDirtChestCarts", 8, ExtraCarts.instance, 80, 3, true);
 	}
 }
