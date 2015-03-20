@@ -8,6 +8,7 @@ import com.dta.extracarts.mods.ironchest.client.ContainerDirtChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDirtChestCart;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +17,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 @Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts")
-public class EntityDirtChestCart extends EntityExtraCartChestMinecart implements OpenableGUI {
+public class EntityDirtChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	

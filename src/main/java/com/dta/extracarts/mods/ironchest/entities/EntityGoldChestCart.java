@@ -9,6 +9,7 @@ import com.dta.extracarts.mods.ironchest.client.GuiGoldChestCart;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
+import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +19,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 @Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts")
-public class EntityGoldChestCart extends EntityExtraCartChestMinecart implements OpenableGUI {
+public class EntityGoldChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item GoldDiamondUpgrade = GameRegistry.findItem("IronChest", "goldDiamondUpgrade");
