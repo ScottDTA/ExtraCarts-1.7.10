@@ -1,11 +1,15 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
+import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.ironchest.IronChestItems;
 import com.dta.extracarts.mods.ironchest.client.ContainerSilverChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiSilverChestCart;
-
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
+import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,12 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.dta.extracarts.ExtraCarts;
-
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
-
-public class EntitySilverChestCart extends EntityExtraCartChestMinecart implements OpenableGUI {
+@Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts")
+public class EntitySilverChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item SilverGoldUpgrade = GameRegistry.findItem("IronChest", "silverGoldUpgrade");
@@ -77,7 +77,7 @@ public class EntitySilverChestCart extends EntityExtraCartChestMinecart implemen
 		return new ContainerSilverChestCart(player.inventory, this);
 	}
 
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
 		ItemStack CartStack = new ItemStack(IronChestItems.IronChestCart, 1, 4);
 		if (cart instanceof EntitySilverChestCart && stack.getItem() == CartStack.getItem() && stack.getItemDamage() == 4) {

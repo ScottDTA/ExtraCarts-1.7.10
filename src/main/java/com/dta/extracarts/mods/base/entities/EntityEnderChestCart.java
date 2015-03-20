@@ -1,16 +1,21 @@
 package com.dta.extracarts.mods.base.entities;
 
+import com.dta.extracarts.mods.base.BaseModule;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityMinecartContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 
+@Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
 public class EntityEnderChestCart extends EntityMinecartContainer {
 
 	public EntityEnderChestCart(World world) {
@@ -52,5 +57,13 @@ public class EntityEnderChestCart extends EntityMinecartContainer {
         return true;
     }
 
+	@Optional.Method(modid = "RailcraftAPI|carts")
+	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
+		ItemStack CartStack = new ItemStack(BaseModule.EnderChestCart, 1, 0);
+		if (cart instanceof EntityEnderChestCart && stack.getItem() == CartStack.getItem()) {
+			return true;
+		}
+		return false;
+	}
 
 }
