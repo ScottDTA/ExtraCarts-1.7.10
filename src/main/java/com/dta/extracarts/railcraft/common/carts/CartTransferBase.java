@@ -47,7 +47,7 @@ public abstract class CartTransferBase extends EntityMinecartContainer implement
 		super(world, x, y, z);
 	}
 
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public ItemStack offerItem(Object source, ItemStack offer) {
 		if (!passThrough && getSizeInventory() > 0) {
 			offer = moveItemStack(offer, this);
@@ -71,17 +71,17 @@ public abstract class CartTransferBase extends EntityMinecartContainer implement
 		return offer;
 	}
 
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public ItemStack requestItem(Object source) {
 		return requestItem(this, IStackFilter.filters.get("ALL"));
 	}
 
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public ItemStack requestItem(Object source, ItemStack request) {
 		return requestItem(this, new ArrayStackFilter(request));
 	}
 
-	@Override
+	@Optional.Method(modid = "RailcraftAPI|carts")
 	public ItemStack requestItem(Object source, IStackFilter request) {
 		ItemStack result = null;
 		if (!passThrough && getSizeInventory() > 0) {
@@ -114,7 +114,7 @@ public abstract class CartTransferBase extends EntityMinecartContainer implement
 	 * @param filter EnumItemType to match against
 	 * @return An ItemStack
 	 */
-	private ItemStack removeOneItem(IInventory inv, IStackFilter filter) {
+	protected ItemStack removeOneItem(IInventory inv, IStackFilter filter) {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack slot = inv.getStackInSlot(i);
 			if (slot != null && filter.matches(slot))
@@ -123,7 +123,7 @@ public abstract class CartTransferBase extends EntityMinecartContainer implement
 		return null;
 	}
 
-	private ItemStack moveItemStack(ItemStack stack, IInventory dest) {
+	protected ItemStack moveItemStack(ItemStack stack, IInventory dest) {
 		if (stack == null)
 			return null;
 		stack = stack.copy();

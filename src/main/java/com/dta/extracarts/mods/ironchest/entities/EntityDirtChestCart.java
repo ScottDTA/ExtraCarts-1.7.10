@@ -12,6 +12,8 @@ import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -66,5 +68,16 @@ public class EntityDirtChestCart extends EntityExtraCartChestMinecart implements
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	protected ItemStack moveItemStack(ItemStack stack, IInventory dest) {
+		if(stack == null) {
+			return null;
+		}
+		if(stack.getItem() == new ItemStack(Blocks.dirt).getItem()) {
+			stack = super.moveItemStack(stack, dest);
+		}
+		return stack;
 	}
 }
