@@ -1,5 +1,8 @@
 package com.dta.extracarts.entities;
 
+import com.dta.extracarts.railcraft.common.carts.CartTransferBase;
+import cpw.mods.fml.common.Optional;
+import mods.railcraft.api.carts.IItemTransfer;
 import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
@@ -11,11 +14,15 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-abstract public class EntityExtraCartChestMinecart extends EntityMinecart implements IInventory, IMinecart {
+@Optional.InterfaceList({
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts"),
+		@Optional.Interface(iface = "mods.railcraft.api.carts.IItemTransfer", modid = "RailcraftAPI|carts")
+})
+abstract public class EntityExtraCartChestMinecart extends CartTransferBase implements IInventory, IMinecart, IItemTransfer {
 
 	private ItemStack[] minecartContainerItems = new ItemStack[108];
-
     private boolean dropContentsWhenDead = true;
+	protected boolean passThrough = false;
 
     public EntityExtraCartChestMinecart(World world) {
         super(world);
@@ -122,7 +129,7 @@ abstract public class EntityExtraCartChestMinecart extends EntityMinecart implem
 
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
-    {
+	{
         return true;
     }
 
@@ -273,5 +280,10 @@ abstract public class EntityExtraCartChestMinecart extends EntityMinecart implem
 
 	public void setDropContentsWhenDead(boolean dropContentsWhenDead) {
 		this.dropContentsWhenDead = dropContentsWhenDead;
+	}
+
+	@Optional.Method(modid = "RailcraftAPI|carts")
+	public boolean doesCartMatchFilter(ItemStack stack, EntityMinecart cart) {
+		return false;
 	}
 }
