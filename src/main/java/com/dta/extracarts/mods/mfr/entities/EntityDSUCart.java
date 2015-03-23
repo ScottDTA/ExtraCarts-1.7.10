@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -22,7 +23,6 @@ import net.minecraft.world.World;
 public class EntityDSUCart extends EntityExtraCartChestMinecart implements OpenableGUI {
 	private ItemStack storedItem = null;
 	private int storedQty = 0;
-	private NBTTagCompound compound = null;
 	private Block dsu = GameRegistry.findBlock("MineFactoryReloaded", "tile.mfr.machine.1");
 	
 	public EntityDSUCart(World world) {
@@ -51,7 +51,7 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
         float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
         float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
 		ItemStack dropCart = new ItemStack(dsu, 1, 3);
-		compound = new NBTTagCompound();
+		NBTTagCompound compound = new NBTTagCompound();
 		if (storedItem != null)	{
 			compound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
 			compound.setInteger("storedQuantity", storedQty + this.getMinecartContainerItems()[2].stackSize);
@@ -227,5 +227,21 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	protected ItemStack moveItemStack(ItemStack stack, IInventory dest) {
+		if(stack == null) {
+			return null;
+		}
+		if(storedItem == null) {
+			storedItem = stack;
+		} else if (stack.getItem() == storedItem.getItem()) {
+			if (stack.stackSize + storedQty < Integer.MAX_VALUE) {
+				storedQty += stack.stackSize;
+				stack = null;
+			}
+		}
+		return stack;
 	}
 }
