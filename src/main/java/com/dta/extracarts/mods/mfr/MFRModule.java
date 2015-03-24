@@ -1,14 +1,11 @@
 package com.dta.extracarts.mods.mfr;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.ModInfo;
 import com.dta.extracarts.Module;
+import com.dta.extracarts.mods.mfr.block.FakeDSUBlock;
 import com.dta.extracarts.mods.mfr.entities.EntityDSUCart;
-
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
 /**
@@ -30,5 +27,6 @@ public class MFRModule extends Module {
 		MFRItems.registerItems();
 		MFRItems.registerRecipes();
 		EntityRegistry.registerModEntity(EntityDSUCart.class, "EntityDSUCart", 9, ExtraCarts.instance, 80, 3, true);
+		FakeDSUBlock fakeDSUBlock = new FakeDSUBlock();
 	}
 }
