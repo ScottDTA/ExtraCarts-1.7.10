@@ -7,11 +7,14 @@ import com.dta.extracarts.mods.mfr.entities.EntityDSUCart;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * Created by Skylar on 10/17/2014.
  */
 public class MFRModule extends Module {
+	public static FakeDSUBlock fakeDSUBlock;
+
 	@Override
     public String getModuleName() {
         return "MFR";
@@ -27,6 +30,7 @@ public class MFRModule extends Module {
 		MFRItems.registerItems();
 		MFRItems.registerRecipes();
 		EntityRegistry.registerModEntity(EntityDSUCart.class, "EntityDSUCart", 9, ExtraCarts.instance, 80, 3, true);
-		FakeDSUBlock fakeDSUBlock = new FakeDSUBlock();
+		fakeDSUBlock = new FakeDSUBlock();
+		GameRegistry.registerBlock(fakeDSUBlock, "fakeDSUBlock");
 	}
 }

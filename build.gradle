@@ -27,8 +27,13 @@ minecraft {
     version = "1.7.10-10.13.2.1291"
 }
 
-dependencies {
+repositories {
+    maven { url = "http://chickenbones.net/maven/" }
+}
 
+dependencies {
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.4.90:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.4.35:dev"
 }
 
 processResources {
