@@ -24,13 +24,10 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
 	private ItemStack storedItem = null;
 	private int storedQty = 0;
 	private Block dsu = GameRegistry.findBlock("extracarts", "fakeDSUBlock");
-			//GameRegistry.findBlock("MineFactoryReloaded", "tile.mfr.machine.1");
 	
 	public EntityDSUCart(World world) {
 		super(world);
-		this.setDisplayTileData(3);
 		this.setDropContentsWhenDead(false);
-		System.out.println(dsu.getUnlocalizedName());
 	}
 
 	@Override
