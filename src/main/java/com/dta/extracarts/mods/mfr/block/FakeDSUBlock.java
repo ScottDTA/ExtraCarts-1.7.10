@@ -11,7 +11,7 @@ import net.minecraft.util.IIcon;
  * Created by Skylar on 3/23/2015.
  */
 public class FakeDSUBlock extends Block {
-	@SideOnly(Side.CLIENT)
+
 	private IIcon[] textures = new IIcon[3];
 
 	public FakeDSUBlock() {
