@@ -1,12 +1,8 @@
 package com.dta.extracarts;
 
-import com.dta.extracarts.mods.base.BaseModule;
-import com.dta.extracarts.mods.ironchest.IronChestModule;
-import com.dta.extracarts.mods.mfr.MFRModule;
-
+import com.dta.extracarts.block.FakeBlockRegistry;
 import com.dta.extracarts.client.GuiHandler;
 import com.dta.extracarts.config.ConfigHandler;
-
 import com.dta.extracarts.utils.LogUtils;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -15,8 +11,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Level;
-
-import java.util.ArrayList;
 
 @Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class ExtraCarts {
@@ -42,6 +36,7 @@ public class ExtraCarts {
 			if(module.getIsActive())
 				module.init(event);
 		}
+		FakeBlockRegistry.registerBlocks();
 	}
 	
 	@EventHandler

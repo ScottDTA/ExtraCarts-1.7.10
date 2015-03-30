@@ -1,23 +1,19 @@
 package com.dta.extracarts.mods.mfr.block;
 
+import com.dta.extracarts.block.FakeSubBlock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
 /**
  * Created by Skylar on 3/23/2015.
  */
-public class FakeDSUBlock extends Block {
-	@SideOnly(Side.CLIENT)
+public class FakeDSUBlock extends FakeSubBlock {
 	private IIcon[] textures = new IIcon[3];
 
 	public FakeDSUBlock() {
-		super(Material.iron);
-		setHardness(1.0f);
-		setBlockName("fakeDSUBlock");
+		super("fakeDSUBlock");
 	}
 
 	@Override
@@ -39,10 +35,6 @@ public class FakeDSUBlock extends Block {
 			default:
 				return getTextures()[2];
 		}
-	}
-
-	public String getUnlocalizedName() {
-		return "fakeDSUBlock";
 	}
 
 	public IIcon[] getTextures() {
