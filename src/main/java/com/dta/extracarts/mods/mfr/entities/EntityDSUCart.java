@@ -1,6 +1,7 @@
 package com.dta.extracarts.mods.mfr.entities;
 
 import com.dta.extracarts.ExtraCarts;
+import com.dta.extracarts.block.FakeBlockRegistry;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.mfr.MFRItems;
@@ -23,11 +24,14 @@ import net.minecraft.world.World;
 public class EntityDSUCart extends EntityExtraCartChestMinecart implements OpenableGUI {
 	private ItemStack storedItem = null;
 	private int storedQty = 0;
-	private Block dsu = GameRegistry.findBlock("extracarts", "fakeDSUBlock");
+	private Block dsu = GameRegistry.findBlock("extracarts", "fakeBlock." +
+			FakeBlockRegistry.getFakeBlockByName("fakeDSUBlock").getBlockNumber());
 	
 	public EntityDSUCart(World world) {
 		super(world);
 		this.setDropContentsWhenDead(false);
+		this.setDisplayTileData(FakeBlockRegistry.getFakeBlockByName("fakeDSUBlock").getMetaNumber());
+		System.out.println(dsu.toString());
 	}
 
 	@Override
