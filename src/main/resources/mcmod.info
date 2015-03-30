@@ -3,7 +3,7 @@
   "modid": "extracarts",
   "name": "Extra Carts",
   "description": "Adding more carts.  Putting all the things in carts.",
-  "version": "b0.7.2",
+  "version": "0.7.5",
   "mcversion": "1.7.10",
   "url": "",
   "updateUrl": "",
