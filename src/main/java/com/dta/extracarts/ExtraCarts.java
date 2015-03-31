@@ -3,10 +3,12 @@ package com.dta.extracarts;
 import com.dta.extracarts.block.FakeBlockRegistry;
 import com.dta.extracarts.client.GuiHandler;
 import com.dta.extracarts.config.ConfigHandler;
+import com.dta.extracarts.proxy.CommonProxy;
 import com.dta.extracarts.utils.LogUtils;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -16,6 +18,9 @@ import org.apache.logging.log4j.Level;
 public class ExtraCarts {
 	@Instance(ModInfo.MODID)
 	public static ExtraCarts instance;
+
+	@SidedProxy(clientSide = "com.dta.extracarts.proxy.ClientProxy", serverSide = "com.dta.extracarts.proxy.CommonProxy")
+	public static CommonProxy proxy;
 
 	@EventHandler
 	public void init(FMLPreInitializationEvent event) {
@@ -37,6 +42,7 @@ public class ExtraCarts {
 				module.init(event);
 		}
 		FakeBlockRegistry.registerBlocks();
+		proxy.init(event);
 	}
 	
 	@EventHandler

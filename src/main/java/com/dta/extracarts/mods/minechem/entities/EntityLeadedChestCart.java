@@ -14,7 +14,7 @@ import net.minecraft.world.World;
  * Created by Skylar on 3/30/2015.
  */
 public class EntityLeadedChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
-	private Block leadedChest = GameRegistry.findBlock("minechem", "tile.leadedChest");
+	private Block leadedChest = GameRegistry.findBlock("minechem", "tile.leadChest");
 
 	public EntityLeadedChestCart(World world) {
 		super(world);
@@ -32,6 +32,11 @@ public class EntityLeadedChestCart extends EntityExtraCartChestMinecart implemen
 
 	@Override
 	public Block func_145817_o() {
+		return leadedChest;
+	}
+
+	@Override
+	public Block func_145820_n() {
 		return leadedChest;
 	}
 

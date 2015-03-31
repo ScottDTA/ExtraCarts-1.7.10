@@ -65,8 +65,8 @@ task getLibraries {
         libsFolder.mkdirs()
     }
 
-    def minechemSource = 'http://minecraft.curseforge.com/mc-mods/73373-minechem/files/2230656/download'
-    def minechemDest = new File('libs', 'Minechem-1.7.10-5.0.5.394-api.zip')
+    def minechemSource = 'https://github.com/jakimfett/Minechem/releases/download/1.7.10-5.0.5.394/Minechem-1.7.10-5.0.5.394.jar'
+    def minechemDest = new File('libs', 'Minechem-1.7.10-5.0.5.394.zip')
 
     if(!minechemDest.exists() ){
         download {
