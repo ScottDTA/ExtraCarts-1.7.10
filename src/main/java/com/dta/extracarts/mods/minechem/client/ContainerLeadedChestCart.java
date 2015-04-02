@@ -1,6 +1,7 @@
 package com.dta.extracarts.mods.minechem.client;
 
 import com.dta.extracarts.client.ContainerExtraChestCart;
+import com.dta.extracarts.mods.minechem.entities.EntityLeadedChestCart;
 import minechem.api.INoDecay;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -12,10 +13,11 @@ import java.util.List;
  * Created by Skylar on 3/30/2015.
  */
 public class ContainerLeadedChestCart extends ContainerExtraChestCart implements INoDecay {
-	public ContainerLeadedChestCart(IInventory invPlayer, IInventory cart) {
+	public ContainerLeadedChestCart(IInventory invPlayer, EntityLeadedChestCart cart) {
 		super(invPlayer, cart, 176, 217, 1, 9);
 	}
 
+	//Begin Minechem Code
 	public List<ItemStack> getStorageInventory()
 	{
 		List<ItemStack> storageInventory = new ArrayList<ItemStack>();
@@ -42,4 +44,5 @@ public class ContainerLeadedChestCart extends ContainerExtraChestCart implements
 		}
 		return playerInventory;
 	}
+	//End Minechem Code
 }

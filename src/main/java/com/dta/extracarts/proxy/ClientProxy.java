@@ -8,7 +8,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 /**
  * Created by Skylar on 3/31/2015.
  */
-public class ClientProxy extends CommonProxy{
+public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLPreInitializationEvent event) {
 		this.registerRenderers();

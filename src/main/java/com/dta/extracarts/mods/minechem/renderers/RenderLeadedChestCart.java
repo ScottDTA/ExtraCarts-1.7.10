@@ -23,5 +23,6 @@ public class RenderLeadedChestCart extends RenderMinecart {
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 		super.doRender(entityMinecart, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+		GL11.glPopMatrix();
 	}
 }

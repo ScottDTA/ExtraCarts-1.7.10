@@ -2,6 +2,8 @@ package com.dta.extracarts.mods.minechem.entities;
 
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
+import com.dta.extracarts.mods.minechem.client.ContainerLeadedChestCart;
+import com.dta.extracarts.mods.minechem.client.GUILeadedChestCart;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
@@ -42,11 +44,11 @@ public class EntityLeadedChestCart extends EntityExtraCartChestMinecart implemen
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return null;
+		return new GUILeadedChestCart(player.inventory, this);
 	}
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return null;
+		return new ContainerLeadedChestCart(player.inventory, this);
 	}
 }
