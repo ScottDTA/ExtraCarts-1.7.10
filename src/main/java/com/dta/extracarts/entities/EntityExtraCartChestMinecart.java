@@ -1,7 +1,9 @@
 package com.dta.extracarts.entities;
 
+import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.railcraft.common.carts.CartTransferBase;
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import mods.railcraft.api.carts.IItemTransfer;
 import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.entity.item.EntityItem;
@@ -13,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 
 @Optional.InterfaceList({
 		@Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts"),
@@ -239,12 +242,15 @@ abstract public class EntityExtraCartChestMinecart extends CartTransferBase impl
     }
 
     @Override
-    public boolean interactFirst(EntityPlayer p_130002_1_)
+    public boolean interactFirst(EntityPlayer player)
     {
-        if(net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.minecart.MinecartInteractEvent(this, p_130002_1_))) return true;
+        if(net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new MinecartInteractEvent(this, player))) {
+            return true;
+        }
+
         if (!this.worldObj.isRemote)
         {
-            p_130002_1_.displayGUIChest(this);
+            FMLNetworkHandler.openGui(player, ExtraCarts.instance, 2, player.worldObj, this.getEntityId(), 0, 0);
         }
 
         return true;

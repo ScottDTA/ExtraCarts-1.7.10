@@ -18,11 +18,11 @@ public class RenderLeadedChestCart extends RenderMinecart {
 	}
 
 	public void doRender(EntityMinecart entityMinecart, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
+		GL11.glPopMatrix();
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(this.leadedChest, p_76986_2_ - 0.5,
 				p_76986_4_ - 0.3, p_76986_6_ - 0.5, 0.0F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
 		super.doRender(entityMinecart, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
-		GL11.glPopMatrix();
+		GL11.glPushMatrix();
 	}
 }
