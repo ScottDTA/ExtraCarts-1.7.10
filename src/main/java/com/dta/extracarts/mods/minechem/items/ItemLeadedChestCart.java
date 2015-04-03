@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 /**
  * Created by Skylar on 3/30/2015.
  */
-public class ItemLeadedChestCart extends ExtraCartItem{
+public class ItemLeadedChestCart extends ExtraCartItem {
 	public ItemLeadedChestCart() {
 		super(1);
 		this.setUnlocalizedName("LeadedChestCart");

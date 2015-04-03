@@ -32,6 +32,6 @@ public class MinechemModule extends Module {
 	public void init(FMLPreInitializationEvent event) {
 		itemLeadedChestCart = new ItemLeadedChestCart();
 		GameRegistry.registerItem(itemLeadedChestCart, ModInfo.MODID + "_" + itemLeadedChestCart.getUnlocalizedName().substring(5));
-		EntityRegistry.registerModEntity(EntityLeadedChestCart.class, "EntityLeadChestCart", 9, ExtraCarts.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityLeadedChestCart.class, "EntityLeadChestCart", 10, ExtraCarts.instance, 80, 3, true);
 	}
 }
