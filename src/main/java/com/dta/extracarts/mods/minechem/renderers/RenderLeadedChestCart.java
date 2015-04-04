@@ -34,21 +34,17 @@ public class RenderLeadedChestCart extends RenderMinecart {
 		double d5 = entityMinecart.lastTickPosZ + (entityMinecart.posZ - entityMinecart.lastTickPosZ) * (double)p_76986_9_;
 		double d6 = 0.30000001192092896D;
 		Vec3 vec3 = entityMinecart.func_70489_a(d3, d4, d5);
-		float f5 = entityMinecart.prevRotationPitch + (entityMinecart.rotationPitch - entityMinecart.prevRotationPitch)
-				* p_76986_9_;
+		float f5 = entityMinecart.prevRotationPitch + (entityMinecart.rotationPitch - entityMinecart.prevRotationPitch) * p_76986_9_;
 
-		if (vec3 != null)
-		{
+		if (vec3 != null) {
 			Vec3 vec31 = entityMinecart.func_70495_a(d3, d4, d5, d6);
 			Vec3 vec32 = entityMinecart.func_70495_a(d3, d4, d5, -d6);
 
-			if (vec31 == null)
-			{
+			if (vec31 == null) {
 				vec31 = vec3;
 			}
 
-			if (vec32 == null)
-			{
+			if (vec32 == null) {
 				vec32 = vec3;
 			}
 
@@ -57,8 +53,7 @@ public class RenderLeadedChestCart extends RenderMinecart {
 			zCoord += vec3.zCoord - d5;
 			Vec3 vec33 = vec32.addVector(-vec31.xCoord, -vec31.yCoord, -vec31.zCoord);
 
-			if (vec33.lengthVector() != 0.0D)
-			{
+			if (vec33.lengthVector() != 0.0D) {
 				vec33 = vec33.normalize();
 				p_76986_8_ = (float)(Math.atan2(vec33.zCoord, vec33.xCoord) * 180.0D / Math.PI);
 				f5 = (float)(Math.atan(vec33.yCoord) * 73.0D);
@@ -71,27 +66,29 @@ public class RenderLeadedChestCart extends RenderMinecart {
 		float f7 = (float)entityMinecart.getRollingAmplitude() - p_76986_9_;
 		float f8 = entityMinecart.getDamage() - p_76986_9_;
 
-		if (f8 < 0.0F)
-		{
+		if (f8 < 0.0F) {
 			f8 = 0.0F;
 		}
 
-		if (f7 > 0.0F)
-		{
+		if (f7 > 0.0F) {
 			GL11.glRotatef(MathHelper.sin(f7) * f7 * f8 / 10.0F * (float)entityMinecart.getRollingDirection(), 1.0F, 0.0F, 0.0F);
 		}
 
 		int k = entityMinecart.getDisplayTileOffset();
 
 		GL11.glPushMatrix();
-		ModelChest var14 = new ModelChest();
-
-		bindTexture(new ResourceLocation("minechem", "textures/model/LeadedChestModel.png"));
+		ModelChest modelChest = new ModelChest();
+		this.bindTexture(new ResourceLocation("minechem", "textures/model/LeadedChestModel.png"));
+		GL11.glRotatef(-90, 0.0F, 1.0F, 0.0F);
+		GL11.glRotatef(180, 0.0F, 0.0F, 1.0F);
+		GL11.glTranslatef(-0.38F, -0.65F, -0.38F);
+		float f6 = 0.75F;
+		GL11.glScalef(f6, f6, f6);
+		modelChest.chestLid.rotateAngleX = 0;
+		modelChest.renderAll();
 
 		GL11.glTranslatef(0.0F, (float) k / 16.0F, 0.0F);
-		GL11.glScalef(0.75F, -0.75F, -0.75F);
-		var14.chestLid.rotateAngleX = 0;
-		var14.renderAll();
+
 		GL11.glPopMatrix();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.bindEntityTexture(entityMinecart);
@@ -99,29 +96,5 @@ public class RenderLeadedChestCart extends RenderMinecart {
 		GL11.glScalef(-1.0F, -1.0F, 1.0F);
 		this.modelMinecart.render(entityMinecart, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 		GL11.glPopMatrix();
-		
-		/*Tweaked Render Code from LeadedChestTileEntityRenderer.java from minechem
-		GL11.glPushMatrix();
-		ModelChest var14 = new ModelChest();
-
-		bindTexture(new ResourceLocation("minechem", "textures/model/LeadedChestModel.png"));
-
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glTranslatef((float) xCoord - 0.48F, (float) yCoord + 1.4F, (float) zCoord + 1.83F);
-		GL11.glScalef(0.75F, -0.75F, -0.75F);
-
-		float rollingDirection = entityMinecart.getRollingDirection();
-		float rollingAmplitude = entityMinecart.getRollingAmplitude();
-		System.out.println(var11);
-
-		GL11.glRotatef(var11, 0.0F, 1.0F, 0.0F);
-		//GL11.glTranslatef(-0.48F, 0.4F, 0.83F);
-		var14.chestLid.rotateAngleX = 0;
-		var14.renderAll();
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glPopMatrix();
-		super.doRender(entityMinecart, xCoord, yCoord, zCoord, p_76986_8_, p_76986_9_); */
 	}
 }
