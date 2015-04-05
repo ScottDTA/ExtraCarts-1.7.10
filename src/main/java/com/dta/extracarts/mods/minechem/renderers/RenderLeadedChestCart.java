@@ -1,12 +1,12 @@
 package com.dta.extracarts.mods.minechem.renderers;
 
+import com.dta.extracarts.othermodcode.minechem.reference.Resources;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import org.lwjgl.opengl.GL11;
 
@@ -78,7 +78,7 @@ public class RenderLeadedChestCart extends RenderMinecart {
 
 		GL11.glPushMatrix();
 		ModelChest modelChest = new ModelChest();
-		this.bindTexture(new ResourceLocation("minechem", "textures/model/LeadedChestModel.png"));
+		this.bindTexture(Resources.Model.LEADED_CHEST);
 		GL11.glRotatef(-90, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(180, 0.0F, 0.0F, 1.0F);
 		GL11.glTranslatef(-0.38F, -0.65F, -0.38F);
