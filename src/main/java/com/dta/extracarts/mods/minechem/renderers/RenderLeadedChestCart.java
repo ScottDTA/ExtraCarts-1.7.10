@@ -1,6 +1,6 @@
 package com.dta.extracarts.mods.minechem.renderers;
 
-import com.dta.extracarts.othermodcode.minechem.reference.Resources;
+import minechem.reference.Resources;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelChest;

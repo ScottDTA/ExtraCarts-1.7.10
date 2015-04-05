@@ -1,14 +1,12 @@
 package com.dta.extracarts.mods.minechem.client;
 
 import com.dta.extracarts.mods.minechem.entities.EntityLeadedChestCart;
-import com.dta.extracarts.othermodcode.minechem.gui.GuiContainerTabbed;
-import com.dta.extracarts.othermodcode.minechem.gui.GuiTabHelp;
-import com.dta.extracarts.othermodcode.minechem.gui.GuiTabPatreon;
-import com.dta.extracarts.othermodcode.minechem.reference.Reference;
-import com.dta.extracarts.othermodcode.minechem.reference.Textures;
-import com.dta.extracarts.othermodcode.minechem.utils.MinechemUtil;
+import minechem.gui.GuiContainerTabbed;
+import minechem.gui.GuiTabHelp;
+import minechem.gui.GuiTabPatreon;
+import minechem.reference.Resources;
+import minechem.utils.MinechemUtil;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -39,7 +37,7 @@ public class GUILeadedChestCart extends GuiContainerTabbed {
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-		this.mc.renderEngine.bindTexture(new ResourceLocation(Reference.ID, Textures.Gui.LEADED_CHEST));
+		this.mc.renderEngine.bindTexture(Resources.Gui.LEADED_CHEST);
 
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
