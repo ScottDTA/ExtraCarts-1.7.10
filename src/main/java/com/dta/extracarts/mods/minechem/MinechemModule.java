@@ -9,7 +9,10 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * Created by Skylar on 3/30/2015.
@@ -17,6 +20,7 @@ import net.minecraft.item.Item;
 public class MinechemModule extends Module {
 
 	public static Item itemLeadedChestCart;
+	public static Block leadedChest;
 
 	@Override
 	public String getModuleName() {
@@ -32,6 +36,8 @@ public class MinechemModule extends Module {
 	public void init(FMLPreInitializationEvent event) {
 		itemLeadedChestCart = new ItemLeadedChestCart();
 		GameRegistry.registerItem(itemLeadedChestCart, ModInfo.MODID + "_" + itemLeadedChestCart.getUnlocalizedName().substring(5));
+		leadedChest = GameRegistry.findBlock("minechem", "tile.leadChest");
+		GameRegistry.addShapelessRecipe(new ItemStack(itemLeadedChestCart, 1, 0), new ItemStack(leadedChest, 1, 0), Items.minecart);
 		EntityRegistry.registerModEntity(EntityLeadedChestCart.class, "EntityLeadChestCart", 10, ExtraCarts.instance, 80, 3, true);
 	}
 }
