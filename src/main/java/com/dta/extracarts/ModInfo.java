@@ -11,7 +11,7 @@ public class ModInfo {
 	
 	public static final String NAME = "Extra Carts";
     public static final String MODID = "extracarts";
-    public static final String VERSION = "0.7.5";
+    public static final String VERSION = "@VERSION@";
 
     private static ArrayList<Module> MODULES_ENABLED = new ArrayList<Module>();
 
