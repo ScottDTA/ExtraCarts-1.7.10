@@ -12,12 +12,14 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'de.undercouch:gradle-download-task:1.2'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'forge'
 apply plugin: 'curseforge'
+apply plugin: 'de.undercouch.download'
 
 version = "1.7.10-0.7.5"
 group = "com.scottdta.extracarts"
@@ -29,12 +31,17 @@ minecraft {
 
 repositories {
     maven { url = "http://chickenbones.net/maven/" }
+    maven {
+        name "API Depot"
+        url "http://dl.tsr.me/artifactory/libs-release-local"
+    }
 }
 
 dependencies {
     compile "codechicken:NotEnoughItems:1.7.10-1.0.4.90:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.4.35:dev"
     compile "codechicken:CodeChickenLib:1.7.10-1.1.3.127:dev"
+    compile fileTree(dir: 'libs', include: '*.zip')
 }
 
 processResources {
@@ -52,9 +59,28 @@ processResources {
 	}
 }
 
+task getLibraries {
+    def libsFolder = new File('libs')
+    if (!libsFolder.isDirectory()) {
+        libsFolder.mkdirs()
+    }
+
+    def minechemSource = 'https://github.com/jakimfett/Minechem/releases/download/1.7.10-5.0.5.394/Minechem-1.7.10-5.0.5.394.jar'
+    def minechemDest = new File('libs', 'Minechem-1.7.10-5.0.5.394.zip')
+
+    if(!minechemDest.exists() ){
+        download {
+            src minechemSource
+            dest minechemDest
+        }
+    }
+}
+
 curse {
     projectId = '222379'
     apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
     releaseType = 'beta'
     changelog = '0.7.5:Fixed Server side crash\n0.7.4:Added Railcraft IItemTransfer Methods and fixed DSU problems'
 }
+
+build.dependsOn 'getLibraries'

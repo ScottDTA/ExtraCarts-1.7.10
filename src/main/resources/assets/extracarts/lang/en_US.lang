@@ -8,7 +8,7 @@ item.CrystalChestCart.name=Minecart with Crystal Chest
 item.ObsidianChestCart.name=Minecart with Obsidian Chest
 item.DirtChestCart.name=Minecart with Dirt Chest 9000!
 item.DSUCart.name=Minecart with Deep Storage Unit
-item.StrongBoxCart.name=Minecart with StrongBox
+item.LeadedChestCart.name=Minecart with Leaded Chest
 
 entity.extracarts.EntityEnderChestCart.name=Minecart with Ender Chest
 entity.extracarts.EntityIronChestCart.name=Minecart with Iron Chest
@@ -20,3 +20,4 @@ entity.extracarts.EntityCrystalChestCart.name=Minecart with Crystal Chest
 entity.extracarts.EntityObsidianChestCart.name=Minecart with Obsidian Chest
 entity.extracarts.EntityDirtChestCart.name=Minecart with Dirt Chest 9000!
 entity.extracarts.EntityDSUCart.name=Minecart with Deep Storage Unit
+entity.extracarts.EntityLeadChestCart.name=Minecart with Leaded Chest

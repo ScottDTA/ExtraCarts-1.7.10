@@ -7,7 +7,7 @@
  * license page at http://railcraft.info/wiki/info:license.
  */
 
-package com.dta.extracarts.railcraft.common.util.inventory;
+package com.dta.extracarts.othermodcode.railcraft.common.util.inventory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
