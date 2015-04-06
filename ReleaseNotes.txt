@@ -1,0 +1,24 @@
+------------------------------------------------------
+Version 0.8.0
+------------------------------------------------------
+New
+- Minechem module
+- Leaded Chest Cart
+------------------------------------------------------
+Version 0.7.5
+------------------------------------------------------
+Bugs
+- Fixed Server side crash on Start up
+------------------------------------------------------
+Version 0.7.4
+------------------------------------------------------
+Changes
+- Carts implement IItemTransfer from Railcraft, allowing them to work with the tunnel bore and other carts
+
+Bugs
+- DSU now rendering properly in Cart
+------------------------------------------------------
+Version 0.7.3
+------------------------------------------------------
+Changes
+- Carts implement IMinecart from Railcraft, that can now be used with filters in Railcraft loaders
