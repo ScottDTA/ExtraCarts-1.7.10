@@ -47,12 +47,25 @@ repositories {
         name "API Depot"
         url "http://dl.tsr.me/artifactory/libs-release-local"
     }
+    maven {
+        name 'tterrag Repo'
+        url "http://maven.tterrag.com/"
+    }
+    maven {
+        name = "Forestry repo"
+        url = "http://maven.ic2.player.to/"
+    }
 }
 
 dependencies {
     compile "codechicken:NotEnoughItems:${config.minecraft.version}-${config.nei.version}:dev"
     compile "codechicken:CodeChickenCore:${config.minecraft.version}-${config.codechickencore.version}:dev"
     compile "codechicken:CodeChickenLib:${config.minecraft.version}-${config.codechickenlib.version}:dev"
+    compile("com.enderio:EnderIO:${config.minecraft.version}-${config.enderio.version}:dev") {
+        exclude module: "appliedenergistics2"
+        exclude module: "buildcraft"
+        exclude module: "Waila"
+    }
     compile files("libs/Minechem-${config.minecraft.version}-${config.minechem.version}.jar")
 }
 
