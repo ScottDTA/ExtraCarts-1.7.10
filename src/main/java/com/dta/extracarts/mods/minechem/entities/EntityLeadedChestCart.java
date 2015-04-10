@@ -37,6 +37,11 @@ public class EntityLeadedChestCart extends EntityExtraCartChestMinecart implemen
 	}
 
 	@Override
+	public int getMinecartType() {
+		return 1;
+	}
+
+	@Override
 	public Block func_145817_o() {
 		return leadedChest;
 	}

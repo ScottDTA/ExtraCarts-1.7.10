@@ -1,13 +1,11 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
-import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.ironchest.IronChestItems;
 import com.dta.extracarts.mods.ironchest.client.ContainerDiamondChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDiamondChestCart;
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
@@ -18,7 +16,6 @@ import net.minecraft.world.World;
 
 @Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts")
 public class EntityObsidianChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
-	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	
 	public EntityObsidianChestCart(World world) {
@@ -44,14 +41,6 @@ public class EntityObsidianChestCart extends EntityExtraCartChestMinecart implem
 	@Override
 	public void killMinecart(DamageSource par1DamageSource) {
 		super.killMinecart(par1DamageSource, new ItemStack(ironChest, 1, 6));
-    }
-	
-	@Override
-	public boolean interactFirst(EntityPlayer player) {
-	    if (!this.worldObj.isRemote) {
-	    	FMLNetworkHandler.openGui(player, ExtraCarts.instance, 2, player.worldObj, this.getEntityId(), 0, 0);
-	    }
-        return true;
     }
 
 	@Override

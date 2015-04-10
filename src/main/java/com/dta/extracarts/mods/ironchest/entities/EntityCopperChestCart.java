@@ -34,7 +34,12 @@ public class EntityCopperChestCart extends EntityExtraCartChestMinecart implemen
 	public int getSizeInventory() {
 		return 45;
 	}
-	
+
+	@Override
+	public int getMinecartType() {
+		return 1;
+	}
+
 	@Override
 	public Block func_145817_o() {
 		return ironChest;

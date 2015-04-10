@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 
 @Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts")
 public class EntitySilverChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
-	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item SilverGoldUpgrade = GameRegistry.findItem("IronChest", "silverGoldUpgrade");
 	
@@ -32,6 +31,11 @@ public class EntitySilverChestCart extends EntityExtraCartChestMinecart implemen
 	@Override
 	public int getSizeInventory() {
 		return 72;
+	}
+
+	@Override
+	public int getMinecartType() {
+		return 1;
 	}
 
 	@Override

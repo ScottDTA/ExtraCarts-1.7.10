@@ -19,7 +19,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 @Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts")
-public class EntityDiamondChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart{
+public class EntityDiamondChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
 	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item DiamondCrystalUpgrade = GameRegistry.findItem("IronChest", "diamondCrystalUpgrade");

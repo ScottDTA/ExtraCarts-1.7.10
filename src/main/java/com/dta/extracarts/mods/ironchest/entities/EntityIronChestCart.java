@@ -20,10 +20,8 @@ import net.minecraft.world.World;
 
 @Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts")
 public class EntityIronChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
-	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	private Item IronGoldUpgrade = GameRegistry.findItem("IronChest", "ironGoldUpgrade");
-	
 	
 	public EntityIronChestCart(World world) {
 		super(world);
