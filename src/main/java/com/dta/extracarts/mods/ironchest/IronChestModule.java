@@ -24,7 +24,7 @@ public class IronChestModule extends Module {
 	}
 
 	@Override
-	public void load(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new ECEventHandler());
     }
 

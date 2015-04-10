@@ -26,7 +26,7 @@ public class MFRModule extends Module {
 	}
 
 	@Override
-	public void init(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		fakeDSUBlock = new FakeDSUBlock();
 		FakeBlockRegistry.registerSubBlock(fakeDSUBlock);
 	}

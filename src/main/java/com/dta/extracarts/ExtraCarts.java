@@ -23,7 +23,7 @@ public class ExtraCarts {
 	public static CommonProxy proxy;
 
 	@EventHandler
-	public void init(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		ConfigHandler.setConfigFile(event.getSuggestedConfigurationFile());
         ConfigHandler.init();
 
@@ -39,17 +39,17 @@ public class ExtraCarts {
 
         for(Module module : ModInfo.getModules()) {
 			if(module.getIsActive())
-				module.init(event);
+				module.preInit(event);
 		}
 		FakeBlockRegistry.registerBlocks();
 		proxy.init(event);
 	}
 	
 	@EventHandler
-	public void load(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {
 	    new GuiHandler();
 		for(Module module : ModInfo.getModules()) {
-			if(module.getIsActive()) module.load(event);
+			if(module.getIsActive()) module.init(event);
 		}
 	}
 	    

@@ -33,7 +33,7 @@ public class MinechemModule extends Module {
 	}
 
 	@Override
-	public void init(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		itemLeadedChestCart = new ItemLeadedChestCart();
 		GameRegistry.registerItem(itemLeadedChestCart, ModInfo.MODID + "_" + itemLeadedChestCart.getUnlocalizedName().substring(5));
 		leadedChest = GameRegistry.findBlock("minechem", "tile.leadChest");

@@ -27,13 +27,13 @@ public class BaseModule extends Module {
 	}
 
 	@Override
-	public void init(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		EnderChestCart = new ItemEnderChestCart();
 		GameRegistry.registerItem(EnderChestCart, ModInfo.MODID + "_" + EnderChestCart.getUnlocalizedName().substring(5));
 	}
 
 	@Override
-	public void load(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {
 		GameRegistry.addShapelessRecipe(new ItemStack(EnderChestCart, 1, 0), Blocks.ender_chest, Items.minecart);
 		EntityRegistry.registerModEntity(EntityEnderChestCart.class, "EntityEnderChestCart", 0, ExtraCarts.instance, 80, 3, true);
 	}

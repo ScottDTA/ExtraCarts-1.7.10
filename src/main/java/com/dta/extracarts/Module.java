@@ -24,7 +24,7 @@ public abstract class Module {
 		return isActive;
 	}
 
-	public void init(FMLPreInitializationEvent event) {}
-	public void load(FMLInitializationEvent event) {}
+	public void preInit(FMLPreInitializationEvent event) {}
+	public void init(FMLInitializationEvent event) {}
 	public void postInit(FMLPostInitializationEvent event) {}
 }

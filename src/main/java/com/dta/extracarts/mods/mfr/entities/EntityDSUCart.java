@@ -31,7 +31,6 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
 		super(world);
 		this.setDropContentsWhenDead(false);
 		this.setDisplayTileData(FakeBlockRegistry.getFakeBlockByName("fakeDSUBlock").getMetaNumber());
-		System.out.println(dsu.toString());
 	}
 
 	@Override
