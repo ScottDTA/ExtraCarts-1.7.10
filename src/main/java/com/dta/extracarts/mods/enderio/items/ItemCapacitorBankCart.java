@@ -39,6 +39,7 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 							 float par8, float par9, float par10) {
 		EntityMinecart entityMinecart;
 		entityMinecart = new CapacitorBankCart(world, itemstack.getItemDamage());
+		((CapacitorBankCart)entityMinecart).setEnergyStored(getEnergyStored(itemstack));
 		return placeCart(itemstack, player, world, x, y, z, entityMinecart);
 	}
 

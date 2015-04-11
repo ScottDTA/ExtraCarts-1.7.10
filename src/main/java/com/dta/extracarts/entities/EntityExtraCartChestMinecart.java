@@ -23,7 +23,7 @@ import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 })
 abstract public class EntityExtraCartChestMinecart extends CartTransferBase implements IInventory, IMinecart, IItemTransfer {
 
-	private ItemStack[] minecartContainerItems = new ItemStack[108];
+	protected ItemStack[] minecartContainerItems = new ItemStack[108];
     private boolean dropContentsWhenDead = true;
 
     public EntityExtraCartChestMinecart(World world) {
