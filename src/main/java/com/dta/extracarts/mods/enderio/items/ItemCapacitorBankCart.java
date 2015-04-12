@@ -2,7 +2,7 @@ package com.dta.extracarts.mods.enderio.items;
 
 import cofh.api.energy.IEnergyContainerItem;
 import com.dta.extracarts.items.ExtraCartItem;
-import com.dta.extracarts.mods.enderio.entities.CapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import crazypants.enderio.machine.capbank.CapBankType;
@@ -38,8 +38,7 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7,
 							 float par8, float par9, float par10) {
 		EntityMinecart entityMinecart;
-		entityMinecart = new CapacitorBankCart(world, itemstack.getItemDamage());
-		((CapacitorBankCart)entityMinecart).setEnergyStored(getEnergyStored(itemstack));
+		entityMinecart = new EntityCapacitorBankCart(world, itemstack.getItemDamage(), getEnergyStored(itemstack));
 		return placeCart(itemstack, player, world, x, y, z, entityMinecart);
 	}
 
