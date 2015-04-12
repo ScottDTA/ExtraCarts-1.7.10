@@ -61,6 +61,8 @@ dependencies {
     compile "codechicken:NotEnoughItems:${config.minecraft.version}-${config.nei.version}:dev"
     compile "codechicken:CodeChickenCore:${config.minecraft.version}-${config.codechickencore.version}:dev"
     compile "codechicken:CodeChickenLib:${config.minecraft.version}-${config.codechickenlib.version}:dev"
+    compile "api:railcraft:${config.railcraft.version}"
+    compile "api:rf:${config.rf.version}"
     compile("com.enderio:EnderIO:${config.minecraft.version}-${config.enderio.version}:dev") {
         exclude module: "appliedenergistics2"
         exclude module: "buildcraft"

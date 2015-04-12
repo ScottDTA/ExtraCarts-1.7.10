@@ -104,7 +104,7 @@ abstract public class EntityExtraCartChestMinecart extends CartTransferBase impl
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.isDead ? false : player.getDistanceSqToEntity(this) <= 64.0D;
+        return !this.isDead && player.getDistanceSqToEntity(this) <= 64.0D;
     }
 
     @Override
