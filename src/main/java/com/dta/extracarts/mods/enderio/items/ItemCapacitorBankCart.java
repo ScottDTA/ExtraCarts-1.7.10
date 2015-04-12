@@ -64,7 +64,7 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 			case 3:
 				return itemVibrantCapBankCart;
 			default:
-				return itemSimpleCapBankCart;
+				return itemCreativeCapBankCart;
 		}
 	}
 

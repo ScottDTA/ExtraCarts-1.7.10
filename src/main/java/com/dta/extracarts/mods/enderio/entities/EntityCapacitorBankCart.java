@@ -18,7 +18,7 @@ import net.minecraft.world.World;
  * Created by Skylar on 4/9/2015.
  */
 public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI {
-	private Block block = GameRegistry.findBlock("EnderIO", "capbank");
+	private Block capBank = GameRegistry.findBlock("EnderIO", "blockCapBank");
 	private EnergyStorage energyStorage;
 	private CapBankType type;
 
@@ -47,6 +47,16 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 	@Override
 	public int getMinecartType() {
 		return 1;
+	}
+
+	@Override
+	public Block func_145817_o() {
+		return capBank;
+	}
+
+	@Override
+	public Block func_145820_n() {
+		return capBank;
 	}
 
 	public CapBankType getType() {
@@ -91,7 +101,6 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 		}
 		return itemstack.getItem() instanceof IEnergyContainerItem;
 	}
-
 
 	// Client Network stuff
 	public double getEnergyStoredRatio() {
