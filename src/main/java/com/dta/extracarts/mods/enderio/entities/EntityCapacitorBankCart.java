@@ -20,7 +20,9 @@ import net.minecraft.world.World;
 public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI {
 	private Block capBank = GameRegistry.findBlock("EnderIO", "blockCapBank");
 	private EnergyStorage energyStorage;
-	private CapBankType type;
+
+	private static final int CAP_BANK_TYPE_ID = 30;
+	private static final int STORED_ENERGY_ID = 31;
 
 	public EntityCapacitorBankCart(World world) {
 		this(world, 0);
@@ -34,9 +36,15 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 		super(world);
 		this.setDisplayTileData(capBankType);
 		minecartContainerItems = new ItemStack[getSizeInventory()];
-		type = CapBankType.getTypeFromMeta(capBankType);
-		energyStorage = new EnergyStorage(type.getMaxEnergyStored(), type.getMaxIO(), type.getMaxIO());
-		this.setEnergyStored(energy);
+		dataWatcher.updateObject(CAP_BANK_TYPE_ID, capBankType);
+		dataWatcher.updateObject(STORED_ENERGY_ID, energy);
+	}
+
+	@Override
+	public void entityInit(){
+		super.entityInit();
+		dataWatcher.addObject(CAP_BANK_TYPE_ID, new Integer(0));
+		dataWatcher.addObject(STORED_ENERGY_ID, new Integer(0));
 	}
 
 	@Override
@@ -60,7 +68,7 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 	}
 
 	public CapBankType getType() {
-		return type;
+		return CapBankType.getTypeFromMeta(dataWatcher.getWatchableObjectInt(CAP_BANK_TYPE_ID));
 	}
 
 	// Energy Stuff
@@ -70,22 +78,32 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		return energyStorage.receiveEnergy(maxReceive, simulate);
+		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(getMaxInput(), maxReceive));
+
+		if (!simulate) {
+			setEnergyStored(getEnergyStored() + energyReceived);
+		}
+		return energyReceived;
 	}
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		return energyStorage.extractEnergy(maxExtract, simulate);
+		int energyExtracted = Math.min(getEnergyStored(), Math.min(getMaxOutput(), maxExtract));
+
+		if (!simulate) {
+			setEnergyStored(getEnergyStored() - energyExtracted);
+		}
+		return energyExtracted;
 	}
 
 	@Override
 	public int getEnergyStored() {
-		return energyStorage.getEnergyStored();
+		return dataWatcher.getWatchableObjectInt(STORED_ENERGY_ID);
 	}
 
 	@Override
 	public int getMaxEnergyStored() {
-		return energyStorage.getMaxEnergyStored();
+		return getType().getMaxEnergyStored();
 	}
 
 	// Inventory Stuff

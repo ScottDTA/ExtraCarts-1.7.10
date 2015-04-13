@@ -10,7 +10,7 @@ item.DirtChestCart.name=泥土箱子运输矿车
 item.DSUCart.name=异次元储存器运输矿车
 item.LeadedChestCart.name=Minecart with Leaded Chest
 item.CreativeCapBankCart.name=Minecart with Creative Capacitor Bank
-item.SimpleCapBankCart.name=Minecart with Basic Capacitor Bank
+item.BasicCapBankCart.name=Minecart with Basic Capacitor Bank
 item.ActivatedCapBankCart.name=Minecart with Activated Capacitor Bank
 item.VibrantCapBankCart.name=Minecart with Vibrant Capacitor Bank
 
@@ -25,4 +25,4 @@ entity.extracarts.EntityObsidianChestCart.name=黑曜石箱子运输矿车
 entity.extracarts.EntityDirtChestCart.name=泥土箱子运输矿车
 entity.extracarts.EntityDSUCart.name=异次元储存器运输矿车
 entity.extracarts.EntityLeadChestCart.name=Minecart with Leaded Chest
-entity.extracarts.EntityCapacitorBankCart.name=Minecart with Capacitor Bank Cart
+entity.EntityCapacitorBankCart.name=Minecart with Capacitor Bank

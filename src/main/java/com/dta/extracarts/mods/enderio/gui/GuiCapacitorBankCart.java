@@ -38,17 +38,15 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 	private int outputX = 78 + 24;
 	private int outputY = 36;
 
-	private int rightMargin = 8 + 24;
-
 	private TextFieldEIO maxInputTF;
 	private TextFieldEIO maxOutputTF;
 
-	//private final ContainerCapacitorBankCart containerCapacitorBankCart;
+	private final ContainerCapacitorBankCart containerCapacitorBankCart;
 
 	public GuiCapacitorBankCart(EntityPlayer player, final EntityCapacitorBankCart entityCapacitorBankCart) {
 		super(new ContainerCapacitorBankCart(player, player.inventory, entityCapacitorBankCart));
 		this.entityCapacitorBankCart = entityCapacitorBankCart;
-		//containerCapacitorBankCart = (ContainerCapacitorBankCart) inventorySlots;
+		containerCapacitorBankCart = (ContainerCapacitorBankCart) inventorySlots;
 
 		xSize = 176 + 42;
 
@@ -60,18 +58,6 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 				text.add(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getEnergyStored()) + " " + PowerDisplayUtil.ofStr());
 				text.add(EnumChatFormatting.WHITE + PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxEnergyStored()) + " " + EnumChatFormatting.GRAY
 						+ PowerDisplayUtil.abrevation());
-				/*
-				float change = network.getAverageChangePerTick();
-				String color = EnumChatFormatting.WHITE.toString();
-				if(change > 0) {
-					color = EnumChatFormatting.GREEN.toString() + "+";
-				} else if(change < 0) {
-					color = EnumChatFormatting.RED.toString();
-				}
-				text.add(String.format("%s%s%s" + PowerDisplayUtil.abrevation() + PowerDisplayUtil.perTickStr(), color,
-						PowerDisplayUtil.formatPower(Math.round(change)), " "
-								+ EnumChatFormatting.GRAY.toString()));
-				 */
 			}
 		});
 
@@ -133,6 +119,8 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 		y = guiTop + outputY + 2;
 		drawString(fontRenderer, str, x, y, -1);
 
+		updateFieldsFromState();
+
 		super.drawGuiContainerBackgroundLayer(par1, par2, par3);
 	}
 
@@ -178,6 +166,7 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 	private void updateFieldsFromState() {
 		maxInputTF.setText(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxInput()));
 		maxOutputTF.setText(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxOutput()));
+
 	}
 
 }

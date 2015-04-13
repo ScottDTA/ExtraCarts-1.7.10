@@ -72,15 +72,15 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 	public String getUnlocalizedName(ItemStack itemStack) {
 		switch (itemStack.getItemDamage()) {
 			case 0:
-				return "item.creativeCapBankCart";
+				return "item.CreativeCapBankCart";
 			case 1:
-				return "item.basicCapBankCart";
+				return "item.BasicCapBankCart";
 			case 2:
-				return "item.activatedCapBankCart";
+				return "item.ActivatedCapBankCart";
 			case 3:
-				return "item.vibrantCapBankCart";
+				return "item.VibrantCapBankCart";
 			default:
-				return "item.creativeCapBankCart";
+				return "item.CreativeCapBankCart";
 		}
 	}
 
@@ -121,7 +121,6 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 			PowerHandlerUtil.setStoredEnergyForItem(container, energy);
 		}
 		return energyReceived;
-
 	}
 
 	@Override
@@ -139,7 +138,6 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 			PowerHandlerUtil.setStoredEnergyForItem(container, energy);
 		}
 		return energyExtracted;
-
 	}
 
 	@Override

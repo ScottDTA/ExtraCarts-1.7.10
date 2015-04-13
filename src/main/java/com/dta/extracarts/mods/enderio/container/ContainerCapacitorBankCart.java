@@ -22,28 +22,28 @@ public class ContainerCapacitorBankCart extends ContainerExtraChestCart {
 		this.entityCapacitorBankCart = entityCapacitorBankCart;
 
 		int armorOffset = 21;
-		addSlotToContainer(new Slot(entityCapacitorBankCart, 0, 59 + armorOffset, 59) {
+		addSlotToContainer(new Slot(this.entityCapacitorBankCart, 0, 59 + armorOffset, 59) {
 			@Override
 			public boolean isItemValid(ItemStack itemStack) {
 				return isItemElectric(itemStack);
 			}
 		});
 
-		addSlotToContainer(new Slot(entityCapacitorBankCart, 1, 79 + armorOffset, 59) {
+		addSlotToContainer(new Slot(this.entityCapacitorBankCart, 1, 79 + armorOffset, 59) {
 			@Override
 			public boolean isItemValid(ItemStack itemStack) {
 				return isItemElectric(itemStack);
 			}
 		});
 
-		addSlotToContainer(new Slot(entityCapacitorBankCart, 2, 99 + armorOffset, 59) {
+		addSlotToContainer(new Slot(this.entityCapacitorBankCart, 2, 99 + armorOffset, 59) {
 			@Override
 			public boolean isItemValid(ItemStack itemStack) {
 				return isItemElectric(itemStack);
 			}
 		});
 
-		addSlotToContainer(new Slot(entityCapacitorBankCart, 3, 119 + armorOffset, 59) {
+		addSlotToContainer(new Slot(this.entityCapacitorBankCart, 3, 119 + armorOffset, 59) {
 			@Override
 			public boolean isItemValid(ItemStack itemStack) {
 				return isItemElectric(itemStack);
