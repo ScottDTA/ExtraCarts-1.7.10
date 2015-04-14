@@ -7,22 +7,30 @@ import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.enderio.container.ContainerCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.gui.GuiCapacitorBankCart;
+import com.dta.extracarts.utils.LogUtils;
+import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import crazypants.enderio.machine.capbank.CapBankType;
+import crazypants.vecmath.VecmathUtil;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 /**
  * Created by Skylar on 4/9/2015.
  */
-public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI {
+public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI,
+		IEntityAdditionalSpawnData {
 	private Block capBank = GameRegistry.findBlock("EnderIO", "blockCapBank");
 	private EnergyStorage energyStorage;
+	private CapBankType capBankType;
 
-	private static final int CAP_BANK_TYPE_ID = 30;
-	private static final int STORED_ENERGY_ID = 31;
+	private int maxInput;
+	private int maxOutput;
 
 	public EntityCapacitorBankCart(World world) {
 		this(world, 0);
@@ -36,15 +44,14 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 		super(world);
 		this.setDisplayTileData(capBankType);
 		minecartContainerItems = new ItemStack[getSizeInventory()];
-		dataWatcher.updateObject(CAP_BANK_TYPE_ID, capBankType);
-		dataWatcher.updateObject(STORED_ENERGY_ID, energy);
+		setCapBankType(capBankType);
+		energyStorage = new EnergyStorage(this.capBankType.getMaxEnergyStored(), this.capBankType.getMaxIO());
+		setEnergyStored(energy);
 	}
 
 	@Override
 	public void entityInit(){
 		super.entityInit();
-		dataWatcher.addObject(CAP_BANK_TYPE_ID, new Integer(0));
-		dataWatcher.addObject(STORED_ENERGY_ID, new Integer(0));
 	}
 
 	@Override
@@ -67,8 +74,57 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 		return capBank;
 	}
 
-	public CapBankType getType() {
-		return CapBankType.getTypeFromMeta(dataWatcher.getWatchableObjectInt(CAP_BANK_TYPE_ID));
+	@Override
+	public boolean interactFirst(EntityPlayer player) {
+		return super.interactFirst(player);
+	}
+
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound nbtTagCompound) {
+		super.readEntityFromNBT(nbtTagCompound);
+		energyStorage = energyStorage.readFromNBT(nbtTagCompound);
+		capBankType = capBankType.readTypeFromNBT(nbtTagCompound);
+	}
+
+	@Override
+	protected void writeEntityToNBT(NBTTagCompound nbtTagCompound) {
+		super.writeEntityToNBT(nbtTagCompound);
+		energyStorage.writeToNBT(nbtTagCompound);
+		capBankType.writeTypeToNBT(nbtTagCompound);
+	}
+
+	@Override
+	public void writeSpawnData(ByteBuf data) {
+		NBTTagCompound tag = new NBTTagCompound();
+		energyStorage.writeToNBT(tag);
+		capBankType.writeTypeToNBT(tag);
+		ByteBufUtils.writeTag(data, tag);
+	}
+
+	@Override
+	public void readSpawnData(ByteBuf data) {
+		try {
+			NBTTagCompound nbtTagCompound = ByteBufUtils.readTag(data);
+			energyStorage = energyStorage.readFromNBT(nbtTagCompound);
+			capBankType = capBankType.readTypeFromNBT(nbtTagCompound);
+		}
+		catch(Exception e) {
+			LogUtils.debug("Failed to retreive information from server.");
+			super.setDead();
+			e.printStackTrace();
+		}
+	}
+
+	public void setCapBankType(int capBankType) {
+		setCapBankType(CapBankType.getTypeFromMeta(capBankType));
+	}
+
+	public void setCapBankType(CapBankType capBankType) {
+		this.capBankType = capBankType;
+	}
+
+	public CapBankType getCapBankType() {
+		return capBankType;
 	}
 
 	// Energy Stuff
@@ -78,32 +134,22 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(getMaxInput(), maxReceive));
-
-		if (!simulate) {
-			setEnergyStored(getEnergyStored() + energyReceived);
-		}
-		return energyReceived;
+		return energyStorage.receiveEnergy(maxReceive, simulate);
 	}
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		int energyExtracted = Math.min(getEnergyStored(), Math.min(getMaxOutput(), maxExtract));
-
-		if (!simulate) {
-			setEnergyStored(getEnergyStored() - energyExtracted);
-		}
-		return energyExtracted;
+		return energyStorage.extractEnergy(maxExtract, simulate);
 	}
 
 	@Override
 	public int getEnergyStored() {
-		return dataWatcher.getWatchableObjectInt(STORED_ENERGY_ID);
+		return energyStorage.getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored() {
-		return getType().getMaxEnergyStored();
+		return getCapBankType().getMaxEnergyStored();
 	}
 
 	// Inventory Stuff
@@ -128,16 +174,34 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 		return (double) getEnergyStored() / getMaxEnergyStored();
 	}
 
+	public void setMaxOutput(int maxOutput) {
+		if(maxOutput > getMaxIO()) {
+			maxOutput = getMaxIO();
+		}
+		this.maxOutput = maxOutput;
+	}
+
+	public void setMaxInput(int maxInput) {
+		if(maxInput > getMaxIO()) {
+			maxInput = getMaxIO();
+		}
+		this.maxInput = maxInput;
+	}
+
 	public int getMaxOutput() {
-		return 0;
+		return getMaxIO();
 	}
 
 	public int getMaxInput() {
-		return 0;
+		return getMaxIO();
 	}
 
 	public int getMaxIO() {
-		return 0;
+		return getCapBankType().getMaxIO();
+	}
+
+	public int getEnergyStoredScaled(int scale) {
+		return (int) VecmathUtil.clamp(Math.round(scale * this.getEnergyStoredRatio()), 0, scale);
 	}
 
 	@Override

@@ -8,7 +8,6 @@ import crazypants.gui.GuiContainerBase;
 import crazypants.gui.GuiToolTip;
 import crazypants.render.RenderUtil;
 import crazypants.util.Lang;
-import crazypants.vecmath.VecmathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -88,7 +87,7 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 
 		drawTexturedModalRect(sx, sy, 0, 0, xSize - 21, ySize);
 
-		int i1 = getEnergyStoredScaled(POWER_HEIGHT);
+		int i1 = entityCapacitorBankCart.getEnergyStoredScaled(POWER_HEIGHT);
 		drawTexturedModalRect(sx + POWER_X, sy + BOTTOM_POWER_Y - i1, 176 + 21, 0, POWER_WIDTH, i1);
 
 		for (int i = 0; i < buttonList.size(); ++i) {
@@ -159,14 +158,8 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 		return Minecraft.getMinecraft().fontRenderer;
 	}
 
-	private int getEnergyStoredScaled(int scale) {
-		return (int) VecmathUtil.clamp(Math.round(scale * entityCapacitorBankCart.getEnergyStoredRatio()), 0, scale);
-	}
-
 	private void updateFieldsFromState() {
 		maxInputTF.setText(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxInput()));
-		maxOutputTF.setText(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxOutput()));
-
+		maxOutputTF.setText(PowerDisplayUtil.formatPower(containerCapacitorBankCart.getMaxOutput()));
 	}
-
 }
