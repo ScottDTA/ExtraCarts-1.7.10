@@ -1,9 +1,9 @@
-package com.dta.extracarts.mods.minechem.renderers;
+package com.dta.extracarts.mods.enderio.renderers;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import minechem.reference.Resources;
-import net.minecraft.client.model.ModelChest;
+import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
+import crazypants.enderio.EnderIO;
+import crazypants.render.ConnectedTextureRenderer;
+import crazypants.render.CustomCubeRenderer;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.MathHelper;
@@ -11,12 +11,13 @@ import net.minecraft.util.Vec3;
 import org.lwjgl.opengl.GL11;
 
 /**
- * Created by Skylar on 3/31/2015.
+ * Created by Skylar on 4/14/2015.
  */
-@SideOnly(Side.CLIENT)
-public class RenderLeadedChestCart extends RenderMinecart {
+public class RenderCapacitorBankCart extends RenderMinecart {
+	private ConnectedTextureRenderer connectedTexRenderer;
 
-	public RenderLeadedChestCart() {
+	public RenderCapacitorBankCart() {
+		connectedTexRenderer = new ConnectedTextureRenderer();
 	}
 
 	public void doRender(EntityMinecart entityMinecart, double xCoord, double yCoord, double zCoord, float p_76986_8_,
@@ -76,7 +77,7 @@ public class RenderLeadedChestCart extends RenderMinecart {
 
 		int k = entityMinecart.getDisplayTileOffset();
 
-		renderBlockInMinecart();
+		//renderBlockInMinecart(entityMinecart, xCoord, yCoord, zCoord);
 
 		GL11.glTranslatef(0.0F, (float) k / 16.0F, 0.0F);
 
@@ -89,16 +90,14 @@ public class RenderLeadedChestCart extends RenderMinecart {
 		GL11.glPopMatrix();
 	}
 
-	protected void renderBlockInMinecart() {
+	public void renderBlockInMinecart(EntityMinecart entityMinecart, double xCoord, double yCoord, double zCoord) {
 		GL11.glPushMatrix();
-		ModelChest modelChest = new ModelChest();
-		this.bindTexture(Resources.Model.LEADED_CHEST);
-		GL11.glRotatef(-90, 0.0F, 1.0F, 0.0F);
-		GL11.glRotatef(180, 0.0F, 0.0F, 1.0F);
-		GL11.glTranslatef(-0.38F, -0.65F, -0.38F);
-		float f6 = 0.75F;
-		GL11.glScalef(f6, f6, f6);
-		modelChest.chestLid.rotateAngleX = 0;
-		modelChest.renderAll();
+		connectedTexRenderer.setForceAllEdges(true);
+		int type = ((EntityCapacitorBankCart) entityMinecart).getCapBankTypeInt();
+		connectedTexRenderer.setEdgeTexture(EnderIO.blockCapBank.getBorderIcon(0, type));
+		CustomCubeRenderer.instance.renderBlock(entityMinecart.worldObj,
+				((EntityCapacitorBankCart) entityMinecart).func_145817_o(), (int) ((EntityCapacitorBankCart) entityMinecart).posX,
+				(int) ((EntityCapacitorBankCart) entityMinecart).posY, (int) ((EntityCapacitorBankCart) entityMinecart).posZ);
+		GL11.glPopMatrix();
 	}
 }
