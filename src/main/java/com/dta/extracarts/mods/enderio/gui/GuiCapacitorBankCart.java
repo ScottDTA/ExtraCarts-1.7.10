@@ -134,6 +134,37 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 	}
 
 	@Override
+	protected void keyTyped(char par1, int par2) {
+		super.keyTyped(par1, par2);
+		updateInputOutput();
+	}
+
+	private void updateInputOutput() {
+		int input = PowerDisplayUtil.parsePower(maxInputTF);
+		if(input >= 0 && entityCapacitorBankCart.getMaxInput() != input) {
+			setMaxInput(input);
+		}
+		int output = PowerDisplayUtil.parsePower(maxOutputTF);
+		if(output >= 0 && entityCapacitorBankCart.getMaxOutput() != output) {
+			setMaxOutput(output);
+		}
+	}
+
+	private void setMaxOutput(int output) {
+		if(output != entityCapacitorBankCart.getMaxOutput()) {
+			entityCapacitorBankCart.setMaxOutput(output);
+			maxOutputTF.setText(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxOutput()));
+		}
+	}
+
+	private void setMaxInput(int input) {
+		if(input != entityCapacitorBankCart.getMaxInput()) {
+			entityCapacitorBankCart.setMaxInput(input);
+			maxInputTF.setText(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxInput()));
+		}
+	}
+
+	@Override
 	public int getGuiLeft() {
 		return guiLeft + 24;
 	}
@@ -160,6 +191,6 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 
 	private void updateFieldsFromState() {
 		maxInputTF.setText(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxInput()));
-		maxOutputTF.setText(PowerDisplayUtil.formatPower(containerCapacitorBankCart.getMaxOutput()));
+		maxOutputTF.setText(PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxOutput()));
 	}
 }

@@ -5,7 +5,6 @@ import com.dta.extracarts.client.ContainerExtraChestCart;
 import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import crazypants.vecmath.VecmathUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -174,17 +173,5 @@ public class ContainerCapacitorBankCart extends ContainerExtraChestCart {
 			return false;
 		}
 		return itemStack.getItem() instanceof IEnergyContainerItem;
-	}
-
-	public int getMaxInput() {
-		return entityCapacitorBankCart.getMaxInput();
-	}
-
-	public int getMaxOutput() {
-		return entityCapacitorBankCart.getMaxOutput();
-	}
-
-	public int getEnergyStoredScaled(int scale) {
-		return (int) VecmathUtil.clamp(Math.round(scale * entityCapacitorBankCart.getEnergyStoredRatio()), 0, scale);
 	}
 }

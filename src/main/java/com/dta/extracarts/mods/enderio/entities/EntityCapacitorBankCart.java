@@ -13,13 +13,13 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 /**
  * Created by Skylar on 4/9/2015.
  */
-public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI
-		/*IEntityAdditionalSpawnData*/ {
+public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI {
 	private Block capBank = GameRegistry.findBlock("EnderIO", "blockCapBank");
 
 	private static final int INPUT_ID = 28;
@@ -96,32 +96,6 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 		nbtTagCompound.setInteger("Input", getMaxInput());
 		nbtTagCompound.setInteger("Output", getMaxOutput());
 	}
-/*
-	@Override
-	public void writeSpawnData(ByteBuf data) {
-		NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		nbtTagCompound.setInteger("Energy", getEnergyStored());
-		nbtTagCompound.setInteger("CapBankType", getCapBankTypeInt());
-		nbtTagCompound.setInteger("Input", getMaxInput());
-		nbtTagCompound.setInteger("Output", getMaxOutput());
-		ByteBufUtils.writeTag(data, nbtTagCompound);
-	}
-
-	@Override
-	public void readSpawnData(ByteBuf data) {
-		try {
-			NBTTagCompound nbtTagCompound = ByteBufUtils.readTag(data);
-			setEnergyStored(nbtTagCompound.getInteger("Energy"));
-			setCapBankType(nbtTagCompound.getInteger("CapBankType"));
-			setMaxInput(nbtTagCompound.getInteger("Input"));
-			setMaxOutput(nbtTagCompound.getInteger("Output"));
-		}
-		catch(Exception e) {
-			LogUtils.debug("Failed to retreive information from server.");
-			super.setDead();
-			e.printStackTrace();
-		}
-	}*/
 
 	public void setCapBankType(int capBankType) {
 		dataWatcher.updateObject(CAP_BANK_TYPE_ID, capBankType);
@@ -198,21 +172,11 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 
 	// Client Network stuff
 	public void setMaxOutput(int maxOutput) {
-		if(maxOutput > getMaxIO()) {
-			maxOutput = getMaxIO();
-		} else if(maxOutput < 0) {
-			maxOutput = 0;
-		}
-		dataWatcher.updateObject(OUTPUT_ID, maxOutput);
+		dataWatcher.updateObject(OUTPUT_ID, MathHelper.clamp_int(maxOutput, 0, getMaxIO()));
 	}
 
 	public void setMaxInput(int maxInput) {
-		if(maxInput > getMaxIO()) {
-			maxInput = getMaxIO();
-		} else if(maxInput < 0) {
-			maxInput = 0;
-		}
-		dataWatcher.updateObject(INPUT_ID, maxInput);
+		dataWatcher.updateObject(INPUT_ID, MathHelper.clamp_int(maxInput, 0, getMaxIO()));
 	}
 
 	public int getMaxOutput() {
