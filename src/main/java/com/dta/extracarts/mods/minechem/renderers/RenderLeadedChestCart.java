@@ -76,11 +76,8 @@ public class RenderLeadedChestCart extends RenderMinecart {
 
 		int k = entityMinecart.getDisplayTileOffset();
 
-		renderBlockInMinecart();
+		renderBlockInMinecart(entityMinecart);
 
-		GL11.glTranslatef(0.0F, (float) k / 16.0F, 0.0F);
-
-		GL11.glPopMatrix();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.bindEntityTexture(entityMinecart);
 
@@ -89,7 +86,7 @@ public class RenderLeadedChestCart extends RenderMinecart {
 		GL11.glPopMatrix();
 	}
 
-	protected void renderBlockInMinecart() {
+	protected void renderBlockInMinecart(EntityMinecart entityMinecart) {
 		GL11.glPushMatrix();
 		ModelChest modelChest = new ModelChest();
 		this.bindTexture(Resources.Model.LEADED_CHEST);
@@ -100,5 +97,9 @@ public class RenderLeadedChestCart extends RenderMinecart {
 		GL11.glScalef(f6, f6, f6);
 		modelChest.chestLid.rotateAngleX = 0;
 		modelChest.renderAll();
+		int k = entityMinecart.getDisplayTileOffset();
+		GL11.glTranslatef(0.0F, (float) k / 16.0F, 0.0F);
+
+		GL11.glPopMatrix();
 	}
 }

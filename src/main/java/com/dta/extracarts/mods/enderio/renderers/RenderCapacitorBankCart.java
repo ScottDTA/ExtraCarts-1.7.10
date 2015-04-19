@@ -18,6 +18,8 @@ public class RenderCapacitorBankCart extends RenderMinecart {
 
 	public RenderCapacitorBankCart() {
 		connectedTexRenderer = new ConnectedTextureRenderer();
+		connectedTexRenderer.setMatchMeta(true);
+
 	}
 
 	public void doRender(EntityMinecart entityMinecart, double xCoord, double yCoord, double zCoord, float p_76986_8_,
@@ -75,13 +77,8 @@ public class RenderCapacitorBankCart extends RenderMinecart {
 			GL11.glRotatef(MathHelper.sin(f7) * f7 * f8 / 10.0F * (float)entityMinecart.getRollingDirection(), 1.0F, 0.0F, 0.0F);
 		}
 
-		int k = entityMinecart.getDisplayTileOffset();
+		renderBlockInMinecart(entityMinecart);
 
-		//renderBlockInMinecart(entityMinecart, xCoord, yCoord, zCoord);
-
-		GL11.glTranslatef(0.0F, (float) k / 16.0F, 0.0F);
-
-		GL11.glPopMatrix();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.bindEntityTexture(entityMinecart);
 
@@ -90,14 +87,18 @@ public class RenderCapacitorBankCart extends RenderMinecart {
 		GL11.glPopMatrix();
 	}
 
-	public void renderBlockInMinecart(EntityMinecart entityMinecart, double xCoord, double yCoord, double zCoord) {
+	public void renderBlockInMinecart(EntityMinecart entityMinecart) {
+		EntityCapacitorBankCart entityCapacitorBankCart = (EntityCapacitorBankCart)entityMinecart;
 		GL11.glPushMatrix();
 		connectedTexRenderer.setForceAllEdges(true);
-		int type = ((EntityCapacitorBankCart) entityMinecart).getCapBankTypeInt();
+		int type = entityCapacitorBankCart.getCapBankTypeInt();
 		connectedTexRenderer.setEdgeTexture(EnderIO.blockCapBank.getBorderIcon(0, type));
-		CustomCubeRenderer.instance.renderBlock(entityMinecart.worldObj,
-				((EntityCapacitorBankCart) entityMinecart).func_145817_o(), (int) ((EntityCapacitorBankCart) entityMinecart).posX,
-				(int) ((EntityCapacitorBankCart) entityMinecart).posY, (int) ((EntityCapacitorBankCart) entityMinecart).posZ);
+
+		int k = entityCapacitorBankCart.getDisplayTileOffset();
+		GL11.glTranslatef(0.0F, (float) k / 16.0F, 0.0F);
+
+		CustomCubeRenderer.instance.renderBlock(entityCapacitorBankCart.worldObj, entityCapacitorBankCart.func_145817_o(),
+				(int)entityCapacitorBankCart.posX, (int)entityCapacitorBankCart.posY, (int)entityCapacitorBankCart.posZ);
 		GL11.glPopMatrix();
 	}
 }
