@@ -21,7 +21,7 @@ public class FakeBlockRegistry {
 		}
 
 		for(int x = 0; x < getFakeSubBlockArrayList().size(); x++) {
-			int blockNumber = (int) Math.ceil(x / 16.0);
+			int blockNumber = (int) Math.floor(x / 16.0);
 			int metaNumber = x % 16;
 			getFakeSubBlockArrayList().get(x).setBlockNumber(blockNumber);
 			getFakeSubBlockArrayList().get(x).setMetaNumber(metaNumber);
@@ -48,6 +48,6 @@ public class FakeBlockRegistry {
 			if(fakeSubBlock.getBlockName().equals(name))
 				return fakeSubBlock;
 		}
-		return null;
+		return getFakeSubBlockArrayList().get(0);
 	}
 }

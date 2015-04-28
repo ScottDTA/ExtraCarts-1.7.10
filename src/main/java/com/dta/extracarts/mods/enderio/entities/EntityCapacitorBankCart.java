@@ -2,6 +2,7 @@ package com.dta.extracarts.mods.enderio.entities;
 
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyStorage;
+import com.dta.extracarts.block.FakeBlockRegistry;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.enderio.container.ContainerCapacitorBankCart;
@@ -20,7 +21,14 @@ import net.minecraft.world.World;
  * Created by Skylar on 4/9/2015.
  */
 public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI {
-	private Block capBank = GameRegistry.findBlock("EnderIO", "blockCapBank");
+	private Block simpleCapBank = GameRegistry.findBlock("extracarts", "fakeBlock." +
+			FakeBlockRegistry.getFakeBlockByName("fakeSimpleCapacitorBank").getBlockNumber());
+	private Block activatedCapBank = GameRegistry.findBlock("extracarts", "fakeBlock." +
+			FakeBlockRegistry.getFakeBlockByName("fakeSimpleCapacitorBank").getBlockNumber());
+	private Block vibrantCapBank = GameRegistry.findBlock("extracarts", "fakeBlock." +
+			FakeBlockRegistry.getFakeBlockByName("fakeSimpleCapacitorBank").getBlockNumber());
+	private Block creativeCapBank = GameRegistry.findBlock("extracarts", "fakeBlock." +
+			FakeBlockRegistry.getFakeBlockByName("fakeSimpleCapacitorBank").getBlockNumber());
 
 	private static final int INPUT_ID = 28;
 	private static final int OUTPUT_ID = 29;
@@ -37,7 +45,8 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 
 	public EntityCapacitorBankCart(World world, int capBankType, int energy) {
 		super(world);
-		this.setDisplayTileData(capBankType);
+		System.out.println(capBankType);
+		this.setDisplayTileData(getCapBankMeta());
 		minecartContainerItems = new ItemStack[getSizeInventory()];
 		setCapBankType(capBankType);
 		setEnergyStored(energy);
@@ -66,12 +75,12 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 
 	@Override
 	public Block func_145817_o() {
-		return capBank;
+		return getCapBankBlock();
 	}
 
 	@Override
 	public Block func_145820_n() {
-		return capBank;
+		return getCapBankBlock();
 	}
 
 	@Override
@@ -124,6 +133,40 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 			stored = 0;
 		}
 		dataWatcher.updateObject(STORED_ENERGY_ID, stored);
+	}
+
+	public Block getCapBankBlock() {
+		switch(getCapBankTypeInt()) {
+			case 1:
+				return simpleCapBank;
+			case 2:
+				return activatedCapBank;
+			case 3:
+				return vibrantCapBank;
+			default:
+				return creativeCapBank;
+		}
+
+	}
+
+	public int getCapBankMeta() {
+		String fakeBlock = "";
+		switch(getCapBankTypeInt()) {
+			case 1:
+				fakeBlock = "fakeSimpleCapacitorBank";
+				break;
+			case 2:
+				fakeBlock = "fakeActivatedCapacitorBank";
+				break;
+			case 3:
+				fakeBlock = "fakeVibrantCapacitorBank";
+				break;
+			default:
+				fakeBlock = "fakeCreativeCapacitorBank";
+				break;
+		}
+		System.out.println(fakeBlock);
+		return FakeBlockRegistry.getFakeBlockByName(fakeBlock).getMetaNumber();
 	}
 
 	@Override

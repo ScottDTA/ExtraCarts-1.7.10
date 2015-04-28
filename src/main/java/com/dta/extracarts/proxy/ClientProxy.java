@@ -1,7 +1,5 @@
 package com.dta.extracarts.proxy;
 
-import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
-import com.dta.extracarts.mods.enderio.renderers.RenderCapacitorBankCart;
 import com.dta.extracarts.mods.minechem.entities.EntityLeadedChestCart;
 import com.dta.extracarts.mods.minechem.renderers.RenderLeadedChestCart;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -18,6 +16,6 @@ public class ClientProxy extends CommonProxy {
 
 	private void registerRenderers() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityLeadedChestCart.class, new RenderLeadedChestCart());
-		RenderingRegistry.registerEntityRenderingHandler(EntityCapacitorBankCart.class, new RenderCapacitorBankCart());
+		//RenderingRegistry.registerEntityRenderingHandler(EntityCapacitorBankCart.class, new RenderCapacitorBankCart());
 	}
 }
