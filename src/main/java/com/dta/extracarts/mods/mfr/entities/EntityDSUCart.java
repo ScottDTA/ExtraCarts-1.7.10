@@ -1,6 +1,5 @@
 package com.dta.extracarts.mods.mfr.entities;
 
-import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.block.FakeBlockRegistry;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
@@ -8,7 +7,6 @@ import com.dta.extracarts.mods.mfr.MFRItems;
 import com.dta.extracarts.mods.mfr.client.ContainerDSUCart;
 import com.dta.extracarts.mods.mfr.client.GuiDSUCart;
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -34,17 +32,9 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
 	}
 
 	@Override
-	public Block func_145817_o() {
+	public Block getCartBlock() {
 		return dsu;
 	}
-
-	@Override
-	public boolean interactFirst(EntityPlayer player) {
-	    if (!this.worldObj.isRemote) {
-	    	FMLNetworkHandler.openGui(player, ExtraCarts.instance, 6, player.worldObj, this.getEntityId(), 0, 0);
-	    }
-        return true;
-    }
 	
 	@Override
 	public void killMinecart(DamageSource par1DamageSource) {
@@ -141,7 +131,6 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
 				this.getMinecartContainerItems()[1] = null;
 			}
 		}
-		
 		
 		if (this.getMinecartContainerItems()[2] == null && storedItem != null) {
 			this.getMinecartContainerItems()[2] = storedItem.copy();

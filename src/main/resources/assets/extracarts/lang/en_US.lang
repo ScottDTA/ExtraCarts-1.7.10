@@ -25,4 +25,4 @@ entity.extracarts.EntityObsidianChestCart.name=Minecart with Obsidian Chest
 entity.extracarts.EntityDirtChestCart.name=Minecart with Dirt Chest 9000!
 entity.extracarts.EntityDSUCart.name=Minecart with Deep Storage Unit
 entity.extracarts.EntityLeadChestCart.name=Minecart with Leaded Chest
-entity.EntityCapacitorBankCart.name=Minecart with Capacitor Bank
+entity.EntitySimpleCapacitorBankCart.name=Minecart with Simple Capacitor Bank

@@ -16,14 +16,18 @@ import net.minecraft.world.World;
 
 @Optional.Interface(iface = "mods.railcraft.api.carts.IMinecart", modid = "RailcraftAPI|carts")
 public class EntityCrystalChestCart extends EntityExtraCartChestMinecart implements OpenableGUI, IMinecart {
-	
 	private Block ironChest = Block.getBlockFromName("IronChest:BlockIronChest");
 	
 	public EntityCrystalChestCart(World world) {
 		super(world);
 		this.setDisplayTileData(5);
 	}
-	
+
+	@Override
+	public Block getCartBlock() {
+		return ironChest;
+	}
+
 	@Override
 	public int getSizeInventory() {
 		return 108;
@@ -32,11 +36,6 @@ public class EntityCrystalChestCart extends EntityExtraCartChestMinecart impleme
 	@Override
 	public int getMinecartType() {
 		return 1;
-	}
-	
-	@Override
-	public Block func_145817_o() {
-		return ironChest;
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import mods.railcraft.api.carts.IItemTransfer;
 import mods.railcraft.api.carts.IMinecart;
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,6 +81,19 @@ abstract public class EntityExtraCartChestMinecart extends CartTransferBase impl
             return null;
         }
     }
+
+    public abstract Block getCartBlock();
+
+    @Override
+    public Block func_145820_n() {
+        return getCartBlock();
+    }
+
+    @Override
+    public Block func_145817_o() {
+        return getCartBlock();
+    }
+
 
     @Override
     public ItemStack getStackInSlotOnClosing(int p_70304_1_) {

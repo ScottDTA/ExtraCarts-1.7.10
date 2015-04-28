@@ -7,10 +7,8 @@ import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.enderio.container.ContainerCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.gui.GuiCapacitorBankCart;
-import cpw.mods.fml.common.registry.GameRegistry;
 import crazypants.enderio.machine.capbank.CapBankType;
 import crazypants.vecmath.VecmathUtil;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,35 +18,19 @@ import net.minecraft.world.World;
 /**
  * Created by Skylar on 4/9/2015.
  */
-public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI {
-	private Block simpleCapBank = GameRegistry.findBlock("extracarts", "fakeBlock." +
-			FakeBlockRegistry.getFakeBlockByName("fakeSimpleCapacitorBank").getBlockNumber());
-	private Block activatedCapBank = GameRegistry.findBlock("extracarts", "fakeBlock." +
-			FakeBlockRegistry.getFakeBlockByName("fakeSimpleCapacitorBank").getBlockNumber());
-	private Block vibrantCapBank = GameRegistry.findBlock("extracarts", "fakeBlock." +
-			FakeBlockRegistry.getFakeBlockByName("fakeSimpleCapacitorBank").getBlockNumber());
-	private Block creativeCapBank = GameRegistry.findBlock("extracarts", "fakeBlock." +
-			FakeBlockRegistry.getFakeBlockByName("fakeSimpleCapacitorBank").getBlockNumber());
-
-	private static final int INPUT_ID = 28;
-	private static final int OUTPUT_ID = 29;
-	private static final int CAP_BANK_TYPE_ID = 30;
+abstract public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implements IEnergyStorage, OpenableGUI {
+	private static final int INPUT_ID = 29;
+	private static final int OUTPUT_ID = 30;
 	private static final int STORED_ENERGY_ID = 31;
 
 	public EntityCapacitorBankCart(World world) {
 		this(world, 0);
 	}
 
-	public EntityCapacitorBankCart(World world, int capBankType) {
-		this(world, capBankType, 0);
-	}
-
-	public EntityCapacitorBankCart(World world, int capBankType, int energy) {
+	public EntityCapacitorBankCart(World world, int energy) {
 		super(world);
-		System.out.println(capBankType);
-		this.setDisplayTileData(getCapBankMeta());
+		this.setDisplayTileData(FakeBlockRegistry.getFakeBlockByName(getBlockName()).getMetaNumber());
 		minecartContainerItems = new ItemStack[getSizeInventory()];
-		setCapBankType(capBankType);
 		setEnergyStored(energy);
 		setMaxInput(getCapBankType().getMaxIO());
 		setMaxOutput(getCapBankType().getMaxIO());
@@ -59,7 +41,6 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 		super.entityInit();
 		dataWatcher.addObject(INPUT_ID, 0);
 		dataWatcher.addObject(OUTPUT_ID, 0);
-		dataWatcher.addObject(CAP_BANK_TYPE_ID, 0);
 		dataWatcher.addObject(STORED_ENERGY_ID, 0);
 	}
 
@@ -74,16 +55,6 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 	}
 
 	@Override
-	public Block func_145817_o() {
-		return getCapBankBlock();
-	}
-
-	@Override
-	public Block func_145820_n() {
-		return getCapBankBlock();
-	}
-
-	@Override
 	public boolean interactFirst(EntityPlayer player) {
 		return super.interactFirst(player);
 	}
@@ -92,7 +63,6 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 	protected void readEntityFromNBT(NBTTagCompound nbtTagCompound) {
 		super.readEntityFromNBT(nbtTagCompound);
 		setEnergyStored(nbtTagCompound.getInteger("Energy"));
-		setCapBankType(nbtTagCompound.getInteger("CapBankType"));
 		setMaxInput(nbtTagCompound.getInteger("Input"));
 		setMaxOutput(nbtTagCompound.getInteger("Output"));
 	}
@@ -101,29 +71,17 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 	protected void writeEntityToNBT(NBTTagCompound nbtTagCompound) {
 		super.writeEntityToNBT(nbtTagCompound);
 		nbtTagCompound.setInteger("Energy", getEnergyStored());
-		nbtTagCompound.setInteger("CapBankType", getCapBankTypeInt());
 		nbtTagCompound.setInteger("Input", getMaxInput());
 		nbtTagCompound.setInteger("Output", getMaxOutput());
 	}
 
-	public void setCapBankType(int capBankType) {
-		dataWatcher.updateObject(CAP_BANK_TYPE_ID, capBankType);
-		int maxIO = CapBankType.getTypeFromMeta(capBankType).getMaxIO();
-		if(getMaxInput() > maxIO) {
-			setMaxInput(maxIO);
-		}
-		if(getMaxOutput() > maxIO) {
-			setMaxOutput(maxIO);
-		}
-	}
-
 	public int getCapBankTypeInt() {
-		return dataWatcher.getWatchableObjectInt(CAP_BANK_TYPE_ID);
+		return CapBankType.getMetaFromType(getCapBankType());
 	}
 
-	public CapBankType getCapBankType() {
-		return CapBankType.getTypeFromMeta(dataWatcher.getWatchableObjectInt(CAP_BANK_TYPE_ID));
-	}
+	abstract public CapBankType getCapBankType();
+
+	abstract public String getBlockName();
 
 	// Energy Stuff
 	public void setEnergyStored(int stored) {
@@ -133,40 +91,6 @@ public class EntityCapacitorBankCart extends EntityExtraCartChestMinecart implem
 			stored = 0;
 		}
 		dataWatcher.updateObject(STORED_ENERGY_ID, stored);
-	}
-
-	public Block getCapBankBlock() {
-		switch(getCapBankTypeInt()) {
-			case 1:
-				return simpleCapBank;
-			case 2:
-				return activatedCapBank;
-			case 3:
-				return vibrantCapBank;
-			default:
-				return creativeCapBank;
-		}
-
-	}
-
-	public int getCapBankMeta() {
-		String fakeBlock = "";
-		switch(getCapBankTypeInt()) {
-			case 1:
-				fakeBlock = "fakeSimpleCapacitorBank";
-				break;
-			case 2:
-				fakeBlock = "fakeActivatedCapacitorBank";
-				break;
-			case 3:
-				fakeBlock = "fakeVibrantCapacitorBank";
-				break;
-			default:
-				fakeBlock = "fakeCreativeCapacitorBank";
-				break;
-		}
-		System.out.println(fakeBlock);
-		return FakeBlockRegistry.getFakeBlockByName(fakeBlock).getMetaNumber();
 	}
 
 	@Override

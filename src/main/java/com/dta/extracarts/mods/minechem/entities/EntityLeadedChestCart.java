@@ -27,6 +27,11 @@ public class EntityLeadedChestCart extends EntityExtraCartChestMinecart implemen
 	}
 
 	@Override
+	public Block getCartBlock() {
+		return leadedChest;
+	}
+
+	@Override
 	public void killMinecart(DamageSource par1DamageSource) {
 		super.killMinecart(par1DamageSource, new ItemStack(leadedChest, 1, 0));
 	}
@@ -41,15 +46,6 @@ public class EntityLeadedChestCart extends EntityExtraCartChestMinecart implemen
 		return 1;
 	}
 
-	@Override
-	public Block func_145817_o() {
-		return leadedChest;
-	}
-
-	@Override
-	public Block func_145820_n() {
-		return leadedChest;
-	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {

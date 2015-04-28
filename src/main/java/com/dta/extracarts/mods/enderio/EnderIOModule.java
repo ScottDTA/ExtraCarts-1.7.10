@@ -8,7 +8,10 @@ import com.dta.extracarts.mods.enderio.block.FakeActivatedCapacitorBank;
 import com.dta.extracarts.mods.enderio.block.FakeCreativeCapacitorBank;
 import com.dta.extracarts.mods.enderio.block.FakeSimpleCapacitorBank;
 import com.dta.extracarts.mods.enderio.block.FakeVibrantCapacitorBank;
-import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityActivatedCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityCreativeCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntitySimpleCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityVibrantCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.items.ItemCapacitorBankCart;
 import com.dta.extracarts.utils.EntityUtils;
 import cpw.mods.fml.common.Loader;
@@ -41,8 +44,9 @@ public class EnderIOModule extends Module {
 	public void preInit(FMLPreInitializationEvent event) {
 		itemCapacitorBankCart = new ItemCapacitorBankCart();
 		GameRegistry.registerItem(itemCapacitorBankCart, ModInfo.MODID + "_" + itemCapacitorBankCart.getUnlocalizedName());
-		EntityUtils.registerEntity(EntityCapacitorBankCart.class, "EntityCapacitorBankCart");
+
 		registerFakeBlocks();
+		registerEntities();
 	}
 
 	public void registerFakeBlocks() {
@@ -55,5 +59,12 @@ public class EnderIOModule extends Module {
 		FakeBlockRegistry.registerSubBlock(fakeActivatedCapacitorBlock);
 		FakeBlockRegistry.registerSubBlock(fakeVibrantCapacitorBlock);
 		FakeBlockRegistry.registerSubBlock(fakeCreativeCapacitorBlock);
+	}
+
+	public void registerEntities() {
+		EntityUtils.registerEntity(EntitySimpleCapacitorBankCart.class, "EntitySimpleCapacitorBankCart");
+		EntityUtils.registerEntity(EntityActivatedCapacitorBankCart.class, "EntityActivatedCapacitorBankCart");
+		EntityUtils.registerEntity(EntityVibrantCapacitorBankCart.class, "EntityVibrantCapacitorBankCart");
+		EntityUtils.registerEntity(EntityCreativeCapacitorBankCart.class, "EntityCreativeCapacitorBankCart");
 	}
 }

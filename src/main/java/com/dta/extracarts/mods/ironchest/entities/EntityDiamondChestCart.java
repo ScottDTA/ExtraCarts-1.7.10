@@ -29,7 +29,12 @@ public class EntityDiamondChestCart extends EntityExtraCartChestMinecart impleme
 		super(world);
 		this.setDisplayTileData(2);
 	}
-	
+
+	@Override
+	public Block getCartBlock() {
+		return ironChest;
+	}
+
 	@Override
 	public int getSizeInventory() {
 		return 108;
@@ -38,11 +43,6 @@ public class EntityDiamondChestCart extends EntityExtraCartChestMinecart impleme
 	@Override
 	public int getMinecartType() {
 		return 1;
-	}
-	
-	@Override
-	public Block func_145817_o() {
-		return ironChest;
 	}
 
 	@Override

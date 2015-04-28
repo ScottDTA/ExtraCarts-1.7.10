@@ -2,7 +2,10 @@ package com.dta.extracarts.mods.enderio.items;
 
 import cofh.api.energy.IEnergyContainerItem;
 import com.dta.extracarts.items.ExtraCartItem;
-import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityActivatedCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityCreativeCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntitySimpleCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityVibrantCapacitorBankCart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import crazypants.enderio.machine.capbank.CapBankType;
@@ -38,7 +41,20 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7,
 							 float par8, float par9, float par10) {
 		EntityMinecart entityMinecart;
-		entityMinecart = new EntityCapacitorBankCart(world, itemstack.getItemDamage(), getEnergyStored(itemstack));
+		switch (itemstack.getItemDamage()) {
+			case 1:
+				entityMinecart = new EntitySimpleCapacitorBankCart(world, getEnergyStored(itemstack));
+				break;
+			case 2:
+				entityMinecart = new EntityActivatedCapacitorBankCart(world, getEnergyStored(itemstack));
+				break;
+			case 3:
+				entityMinecart = new EntityVibrantCapacitorBankCart(world, getEnergyStored(itemstack));
+				break;
+			default:
+				entityMinecart = new EntityCreativeCapacitorBankCart(world, getEnergyStored(itemstack));
+				break;
+		}
 		return placeCart(itemstack, player, world, x, y, z, entityMinecart);
 	}
 
@@ -55,8 +71,6 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int dmg) {
 		switch (dmg) {
-			case 0:
-				return itemCreativeCapBankCart;
 			case 1:
 				return itemSimpleCapBankCart;
 			case 2:
@@ -71,8 +85,6 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack) {
 		switch (itemStack.getItemDamage()) {
-			case 0:
-				return "item.CreativeCapBankCart";
 			case 1:
 				return "item.BasicCapBankCart";
 			case 2:
