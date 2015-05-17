@@ -16,6 +16,5 @@ public class ClientProxy extends CommonProxy {
 
 	private void registerRenderers() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityLeadedChestCart.class, new RenderLeadedChestCart());
-		//RenderingRegistry.registerEntityRenderingHandler(EntityCapacitorBankCart.class, new RenderCapacitorBankCart());
 	}
 }
