@@ -75,13 +75,55 @@ abstract public class EntityCapacitorBankCart extends EntityExtraCartChestMineca
 		nbtTagCompound.setInteger("Output", getMaxOutput());
 	}
 
-	public int getCapBankTypeInt() {
-		return CapBankType.getMetaFromType(getCapBankType());
+	@Override
+	public void onUpdate() {
+		chargeItems(getMinecartContainerItems());
 	}
 
 	abstract public CapBankType getCapBankType();
 
 	abstract public String getBlockName();
+
+	public boolean chargeItems(ItemStack[] items) {
+		if(items == null) {
+			return false;
+		}
+		boolean chargedItem = false;
+		int available = Math.min(getEnergyStored(), getMaxIO());
+		for (ItemStack item : items) {
+			if(item != null && available > 0) {
+				int used = 0;
+				if(item.getItem() instanceof IEnergyContainerItem) {
+					IEnergyContainerItem chargeable = (IEnergyContainerItem) item.getItem();
+
+					int max = chargeable.getMaxEnergyStored(item);
+					int cur = chargeable.getEnergyStored(item);
+					int canUse = Math.min(available, max - cur);
+					if(cur < max) {
+						used = chargeable.receiveEnergy(item, canUse, false);
+					}
+
+				}
+				if(used > 0) {
+					addEnergy(-used);
+					chargedItem = true;
+					available -= used;
+				}
+			}
+		}
+		return chargedItem;
+	}
+
+	public void addEnergy(int energy) {
+		if(!getCapBankType().isCreative()) {
+			setEnergyStored(getEnergyStored() + energy);
+			if(getEnergyStored() > getMaxEnergyStored()) {
+				setEnergyStored(getMaxEnergyStored());
+			} else if(getEnergyStored() < 0) {
+				setEnergyStored(0);
+			}
+		}
+	}
 
 	// Energy Stuff
 	public void setEnergyStored(int stored) {
