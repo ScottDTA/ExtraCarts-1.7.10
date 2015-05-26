@@ -4,7 +4,7 @@ import cofh.api.energy.IEnergyContainerItem;
 import com.dta.extracarts.items.ExtraCartItem;
 import com.dta.extracarts.mods.enderio.entities.EntityActivatedCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.entities.EntityCreativeCapacitorBankCart;
-import com.dta.extracarts.mods.enderio.entities.EntitySimpleCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityBasicCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.entities.EntityVibrantCapacitorBankCart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -43,7 +43,7 @@ public class ItemCapacitorBankCart extends ExtraCartItem implements IEnergyConta
 		EntityMinecart entityMinecart;
 		switch (itemstack.getItemDamage()) {
 			case 1:
-				entityMinecart = new EntitySimpleCapacitorBankCart(world, getEnergyStored(itemstack));
+				entityMinecart = new EntityBasicCapacitorBankCart(world, getEnergyStored(itemstack));
 				break;
 			case 2:
 				entityMinecart = new EntityActivatedCapacitorBankCart(world, getEnergyStored(itemstack));

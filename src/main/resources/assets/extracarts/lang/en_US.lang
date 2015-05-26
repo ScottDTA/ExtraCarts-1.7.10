@@ -11,7 +11,7 @@ item.DSUCart.name=Minecart with Deep Storage Unit
 item.LeadedChestCart.name=Minecart with Leaded Chest
 item.CreativeCapBankCart.name=Minecart with Creative Capacitor Bank
 item.BasicCapBankCart.name=Minecart with Basic Capacitor Bank
-item.ActivatedCapBankCart.name=Minecart with Activated Capacitor Bank
+item.ActivatedCapBankCart.name=Minecart with Capacitor Bank
 item.VibrantCapBankCart.name=Minecart with Vibrant Capacitor Bank
 
 entity.extracarts.EntityEnderChestCart.name=Minecart with Ender Chest
@@ -25,4 +25,7 @@ entity.extracarts.EntityObsidianChestCart.name=Minecart with Obsidian Chest
 entity.extracarts.EntityDirtChestCart.name=Minecart with Dirt Chest 9000!
 entity.extracarts.EntityDSUCart.name=Minecart with Deep Storage Unit
 entity.extracarts.EntityLeadChestCart.name=Minecart with Leaded Chest
-entity.EntitySimpleCapacitorBankCart.name=Minecart with Simple Capacitor Bank
+entity.EntityCreativeCapacitorBankCart.name=Minecart with Creative Capacitor Bank
+entity.EntityBasicCapacitorBankCart.name=Minecart with Basic Capacitor Bank
+entity.EntityActivatedCapacitorBankCart.name=Minecart with Capacitor Bank
+entity.EntityVibrantCapacitorBankCart.name=Minecraft with Vibrant Capacitor Bank

@@ -10,7 +10,7 @@ import com.dta.extracarts.mods.enderio.block.FakeSimpleCapacitorBank;
 import com.dta.extracarts.mods.enderio.block.FakeVibrantCapacitorBank;
 import com.dta.extracarts.mods.enderio.entities.EntityActivatedCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.entities.EntityCreativeCapacitorBankCart;
-import com.dta.extracarts.mods.enderio.entities.EntitySimpleCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityBasicCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.entities.EntityVibrantCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.items.ItemCapacitorBankCart;
 import com.dta.extracarts.utils.EntityUtils;
@@ -62,7 +62,7 @@ public class EnderIOModule extends Module {
 	}
 
 	public void registerEntities() {
-		EntityUtils.registerEntity(EntitySimpleCapacitorBankCart.class, "EntitySimpleCapacitorBankCart");
+		EntityUtils.registerEntity(EntityBasicCapacitorBankCart.class, "EntityBasicCapacitorBankCart");
 		EntityUtils.registerEntity(EntityActivatedCapacitorBankCart.class, "EntityActivatedCapacitorBankCart");
 		EntityUtils.registerEntity(EntityVibrantCapacitorBankCart.class, "EntityVibrantCapacitorBankCart");
 		EntityUtils.registerEntity(EntityCreativeCapacitorBankCart.class, "EntityCreativeCapacitorBankCart");
