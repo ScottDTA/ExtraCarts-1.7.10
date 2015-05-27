@@ -35,4 +35,14 @@ public class EntityCreativeCapacitorBankCart extends EntityCapacitorBankCart {
 	public CapBankType getCapBankType() {
 		return CapBankType.CREATIVE;
 	}
+
+	@Override
+	public int getEnergyStored() {
+		return getMaxEnergyStored() / 2;
+	}
+
+	@Override
+	public void setEnergyStored(int stored) {
+
+	}
 }
