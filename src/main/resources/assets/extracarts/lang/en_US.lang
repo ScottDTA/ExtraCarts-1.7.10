@@ -29,3 +29,6 @@ entity.EntityCreativeCapacitorBankCart.name=Minecart with Creative Capacitor Ban
 entity.EntityBasicCapacitorBankCart.name=Minecart with Basic Capacitor Bank
 entity.EntityActivatedCapacitorBankCart.name=Minecart with Capacitor Bank
 entity.EntityVibrantCapacitorBankCart.name=Minecraft with Vibrant Capacitor Bank
+
+tile.blockRFLoaders.loader.name=RF Loader
+tile.blockRFLoaders.unloader.name=RF Unloader

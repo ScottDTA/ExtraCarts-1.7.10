@@ -28,7 +28,7 @@ public class EntityBasicCapacitorBankCart extends EntityCapacitorBankCart {
 
 	@Override
 	public String getBlockName() {
-		return "fakeSimpleCapacitorBank";
+		return "fakeBasicCapacitorBank";
 	}
 
 	@Override

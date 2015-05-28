@@ -4,15 +4,14 @@ import com.dta.extracarts.ModInfo;
 import com.dta.extracarts.Module;
 import com.dta.extracarts.block.FakeBlockRegistry;
 import com.dta.extracarts.block.FakeSubBlock;
-import com.dta.extracarts.mods.enderio.block.FakeActivatedCapacitorBank;
-import com.dta.extracarts.mods.enderio.block.FakeCreativeCapacitorBank;
-import com.dta.extracarts.mods.enderio.block.FakeSimpleCapacitorBank;
-import com.dta.extracarts.mods.enderio.block.FakeVibrantCapacitorBank;
+import com.dta.extracarts.mods.enderio.block.*;
 import com.dta.extracarts.mods.enderio.entities.EntityActivatedCapacitorBankCart;
-import com.dta.extracarts.mods.enderio.entities.EntityCreativeCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.entities.EntityBasicCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.entities.EntityCreativeCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.entities.EntityVibrantCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.items.ItemBlockRFLoader;
 import com.dta.extracarts.mods.enderio.items.ItemCapacitorBankCart;
+import com.dta.extracarts.mods.enderio.tileentity.TileEntityRFLoader;
 import com.dta.extracarts.utils.EntityUtils;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -29,6 +28,8 @@ public class EnderIOModule extends Module {
 	public static FakeSubBlock fakeActivatedCapacitorBlock;
 	public static FakeSubBlock fakeVibrantCapacitorBlock;
 	public static FakeSubBlock fakeCreativeCapacitorBlock;
+	public static BlockRFLoader blockRFLoaders = new BlockRFLoader();
+
 
 	@Override
 	public String getModuleName() {
@@ -46,11 +47,18 @@ public class EnderIOModule extends Module {
 		GameRegistry.registerItem(itemCapacitorBankCart, ModInfo.MODID + "_" + itemCapacitorBankCart.getUnlocalizedName());
 
 		registerFakeBlocks();
+		registerRealBlocks();
 		registerEntities();
 	}
 
+	private void registerRealBlocks() {
+		GameRegistry.registerBlock(blockRFLoaders, ItemBlockRFLoader.class, "blockRFLoader");
+
+		GameRegistry.registerTileEntity(TileEntityRFLoader.class, "tileRFLoader");
+	}
+
 	public void registerFakeBlocks() {
-		fakeSimpleCapacitorBlock = new FakeSimpleCapacitorBank();
+		fakeSimpleCapacitorBlock = new FakeBasicCapacitorBank();
 		fakeActivatedCapacitorBlock = new FakeActivatedCapacitorBank();
 		fakeVibrantCapacitorBlock = new FakeVibrantCapacitorBank();
 		fakeCreativeCapacitorBlock = new FakeCreativeCapacitorBank();
