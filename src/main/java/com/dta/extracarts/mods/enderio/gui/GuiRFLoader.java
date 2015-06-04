@@ -19,8 +19,8 @@ public class GuiRFLoader extends GuiContainer {
 	protected static final int POWER_WIDTH = 10;
 	protected static final int POWER_HEIGHT = 42;
 
-	public GuiRFLoader(InventoryPlayer inventoryPlayer, TileEntityRFLoader tileEntityRFLoaders) {
-		super(new ContainerRFLoader(inventoryPlayer, tileEntityRFLoaders));
+	public GuiRFLoader(InventoryPlayer inventoryPlayer, TileEntityRFLoader tileEntityRFLoader) {
+		super(new ContainerRFLoader(inventoryPlayer, tileEntityRFLoader));
 		this.tileEntityRFLoader = tileEntityRFLoader;
 	}
 

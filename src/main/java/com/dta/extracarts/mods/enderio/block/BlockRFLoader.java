@@ -55,11 +55,7 @@ public class BlockRFLoader extends BlockContainer {
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z,
-									EntityPlayer player, int metadata, float what, float these, float are) {
-		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if (tileEntity == null || player.isSneaking()) {
-			return false;
-		}
+									EntityPlayer player, int metadata, float fx, float fy, float fz) {
 		player.openGui(ExtraCarts.instance, 0, world, x, y, z);
 		return true;
 	}

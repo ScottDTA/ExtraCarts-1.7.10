@@ -12,7 +12,7 @@ import net.minecraft.inventory.Slot;
 public class ContainerRFLoader extends Container {
 	private TileEntityRFLoader tileEntityRFLoader;
 
-	public ContainerRFLoader(InventoryPlayer inventoryPlayer, TileEntityRFLoader tileEntityRFLoaders){
+	public ContainerRFLoader(InventoryPlayer inventoryPlayer, TileEntityRFLoader tileEntityRFLoader){
 		super();
 		this.setTileEntityRFLoader(tileEntityRFLoader);
 		this.bindPlayerInventory(inventoryPlayer);
