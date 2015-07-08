@@ -2,12 +2,12 @@ package com.dta.extracarts.mods.enderio.gui;
 
 import com.dta.extracarts.mods.enderio.container.ContainerCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
-import crazypants.enderio.gui.TextFieldEIO;
+import com.enderio.core.client.gui.GuiContainerBase;
+import com.enderio.core.client.gui.widget.GuiToolTip;
+import com.enderio.core.client.gui.widget.TextFieldEnder;
+import com.enderio.core.client.render.RenderUtil;
+import com.enderio.core.common.Lang;
 import crazypants.enderio.machine.power.PowerDisplayUtil;
-import crazypants.gui.GuiContainerBase;
-import crazypants.gui.GuiToolTip;
-import crazypants.render.RenderUtil;
-import crazypants.util.Lang;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -37,8 +37,8 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 	private int outputX = 78 + 24;
 	private int outputY = 36;
 
-	private TextFieldEIO maxInputTF;
-	private TextFieldEIO maxOutputTF;
+	private TextFieldEnder maxInputTF;
+	private TextFieldEnder maxOutputTF;
 
 	private final ContainerCapacitorBankCart containerCapacitorBankCart;
 
@@ -64,15 +64,15 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 
 		int x = inputX - 24;
 		int y = inputY;
-		maxInputTF = new TextFieldEIO(fontRenderer, x, y, 68, 16);
+		maxInputTF = new TextFieldEnder(fontRenderer, x, y, 68, 16);
 		maxInputTF.setMaxStringLength(10);
-		maxInputTF.setCharFilter(TextFieldEIO.FILTER_NUMERIC);
+		maxInputTF.setCharFilter(TextFieldEnder.FILTER_NUMERIC);
 
 		x = outputX - 24;
 		y = outputY;
-		maxOutputTF = new TextFieldEIO(fontRenderer, x, y, 68, 16);
+		maxOutputTF = new TextFieldEnder(fontRenderer, x, y, 68, 16);
 		maxOutputTF.setMaxStringLength(10);
-		maxOutputTF.setCharFilter(TextFieldEIO.FILTER_NUMERIC);
+		maxOutputTF.setCharFilter(TextFieldEnder.FILTER_NUMERIC);
 
 		textFields.add(maxInputTF);
 		textFields.add(maxOutputTF);
@@ -96,8 +96,8 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 		}
 
 		int midX = sx + xSize / 2;
-
-		String str = Lang.localize("gui.capBank.maxIo") + " " + PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxIO()) +
+		Lang lang = new Lang("gui.capBank");
+		String str = lang.localize("maxIo") + " " + PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxIO()) +
 				" " + PowerDisplayUtil.abrevation() + PowerDisplayUtil.perTickStr();
 		FontRenderer fontRenderer = getFontRenderer();
 		int swid = fontRenderer.getStringWidth(str);
@@ -106,13 +106,13 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 
 		drawString(fontRenderer, str, x, y, -1);
 
-		str = Lang.localize("gui.capBank.maxInput") + ":";
+		str = lang.localize("maxInput") + ":";
 		swid = fontRenderer.getStringWidth(str);
 		x = guiLeft + inputX - swid - 3;
 		y = guiTop + inputY + 2;
 		drawString(fontRenderer, str, x, y, -1);
 
-		str = Lang.localize("gui.capBank.maxOutput") + ":";
+		str = lang.localize("maxOutput") + ":";
 		swid = fontRenderer.getStringWidth(str);
 		x = guiLeft + outputX - swid - 3;
 		y = guiTop + outputY + 2;

@@ -32,7 +32,7 @@ group = "com.scottdta.extracarts"
 archivesBaseName = "ExtraCarts"
 
 minecraft {
-    version = "${config.minecraft.version}-${config.forge.version}"
+    version = "${config.minecraft.version}-${config.forge.version}-${config.minecraft.version}"
 
     replace "@VERSION@", project.version
     replaceIn "ModInfo.java"
@@ -61,14 +61,19 @@ dependencies {
     compile "codechicken:NotEnoughItems:${config.minecraft.version}-${config.nei.version}:dev"
     compile "codechicken:CodeChickenCore:${config.minecraft.version}-${config.codechickencore.version}:dev"
     compile "codechicken:CodeChickenLib:${config.minecraft.version}-${config.codechickenlib.version}:dev"
-    compile "api:railcraft:${config.railcraft.version}"
     compile "api:rf:${config.rf.version}"
+    /* Couldn't go on without forestry, but server is down currently
     compile("com.enderio:EnderIO:${config.minecraft.version}-${config.enderio.version}:dev") {
         exclude module: "appliedenergistics2"
         exclude module: "buildcraft"
+        exclude module: "forestry"
         exclude module: "Waila"
-    }
+    }*/
     compile files("libs/Minechem-${config.minecraft.version}-${config.minechem.version}.jar")
+    compile files("libs/Railcraft_${config.minecraft.version}-${config.railcraft.version}.jar")
+    compile files("libs/EnderIO-${config.minecraft.version}-${config.enderio.version}-dev.jar")
+    compile files("libs/EnderCore-1.7.10-0.0.1.9_alpha-dev.jar")
+
 }
 
 processResources {
@@ -102,6 +107,18 @@ task getLibraries {
         download {
             src minechemSource
             dest minechemDest
+        }
+    }
+
+    def railcraftSource = 'https://dl.dropboxusercontent.com/u/38558957/Minecraft/Railcraft/Railcraft_' +
+            config.minecraft.version + '-' + config.railcraft.version + '-dev.jar'
+
+    def railcraftDest = new File('libs', 'Railcraft_' + config.minecraft.version + '-' + config.minechem.version + '.jar')
+
+    if(!railcraftDest.exists() ){
+        download {
+            src railcraftSource
+            dest railcraftDest
         }
     }
 }

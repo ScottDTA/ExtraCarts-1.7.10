@@ -2,7 +2,7 @@ package com.dta.extracarts.mods.enderio.gui;
 
 import com.dta.extracarts.mods.enderio.container.ContainerRFLoader;
 import com.dta.extracarts.mods.enderio.tileentity.TileEntityRFLoader;
-import crazypants.render.RenderUtil;
+import com.enderio.core.client.render.RenderUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
