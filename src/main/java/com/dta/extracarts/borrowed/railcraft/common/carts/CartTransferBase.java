@@ -6,14 +6,14 @@
  * permission unless otherwise specified on the
  * license page at http://railcraft.info/wiki/info:license.
  */
-package com.dta.extracarts.othermodcode.railcraft.common.carts;
+package com.dta.extracarts.borrowed.railcraft.common.carts;
 
 import cpw.mods.fml.common.Optional;
 import mods.railcraft.api.carts.CartTools;
 import mods.railcraft.api.carts.IItemTransfer;
 import mods.railcraft.api.carts.ILinkageManager;
 import mods.railcraft.api.core.items.IStackFilter;
-import com.dta.extracarts.othermodcode.railcraft.common.util.inventory.filters.ArrayStackFilter;
+import com.dta.extracarts.borrowed.railcraft.common.util.inventory.filters.ArrayStackFilter;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityMinecartContainer;
 import net.minecraft.inventory.IInventory;

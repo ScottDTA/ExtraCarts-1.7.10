@@ -1,7 +1,7 @@
 package com.dta.extracarts.entities;
 
 import com.dta.extracarts.ExtraCarts;
-import com.dta.extracarts.othermodcode.railcraft.common.carts.CartTransferBase;
+import com.dta.extracarts.borrowed.railcraft.common.carts.CartTransferBase;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import mods.railcraft.api.carts.IItemTransfer;

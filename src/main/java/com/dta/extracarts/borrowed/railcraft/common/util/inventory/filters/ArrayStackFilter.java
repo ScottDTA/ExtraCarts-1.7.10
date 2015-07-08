@@ -6,9 +6,9 @@
  * permission unless otherwise specified on the
  * license page at http://railcraft.info/wiki/info:license.
  */
-package com.dta.extracarts.othermodcode.railcraft.common.util.inventory.filters;
+package com.dta.extracarts.borrowed.railcraft.common.util.inventory.filters;
 
-import com.dta.extracarts.othermodcode.railcraft.common.util.inventory.InvTools;
+import com.dta.extracarts.borrowed.railcraft.common.util.inventory.InvTools;
 import mods.railcraft.api.core.items.IStackFilter;
 import net.minecraft.item.ItemStack;
 
