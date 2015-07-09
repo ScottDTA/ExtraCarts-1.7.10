@@ -90,7 +90,7 @@ public class BlockRFLoader extends BlockContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata) {
-		return new TileEntityRFLoader();
+		return new TileEntityRFLoader(metadata);
 	}
 
 	public IIcon[] getTextures() {

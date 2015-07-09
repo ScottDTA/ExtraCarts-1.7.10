@@ -1,6 +1,7 @@
 package com.dta.extracarts.mods.enderio.tileentity;
 
 import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 import cofh.api.energy.IEnergyStorage;
 import com.dta.extracarts.client.OpenableGUI;
@@ -24,13 +25,22 @@ import java.util.List;
 /**
  * Created by Skylar on 5/27/2015.
  */
-public class TileEntityRFLoader extends TileEntity implements IInventory, OpenableGUI, IEnergyReceiver {
-	private EnergyStorage energyStorage = new EnergyStorage(100000);
+public class TileEntityRFLoader extends TileEntity implements IInventory, OpenableGUI, IEnergyReceiver, IEnergyProvider {
 	private int lastSyncPowerStored = 0;
-	protected int cartSendAmount = 100;
+
+	private LoaderMode loaderMode;
 
 	public TileEntityRFLoader() {
+		this(0);
+	}
+
+	public TileEntityRFLoader(int metadata) {
 		super();
+		if(metadata == 0) {
+			this.setLoaderMode(new Loader());
+		} else {
+			this.setLoaderMode(new Unloader());
+		}
 	}
 
 	@Override
@@ -40,9 +50,9 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 			return;
 		}
 
-		boolean powerChanged = (lastSyncPowerStored != energyStorage.getEnergyStored() && worldObj.getTotalWorldTime() % 5 == 0);
+		boolean powerChanged = (lastSyncPowerStored != loaderMode.getEnergyStored() && worldObj.getTotalWorldTime() % 5 == 0);
 		if(powerChanged) {
-			lastSyncPowerStored = energyStorage.getEnergyStored();
+			lastSyncPowerStored = loaderMode.getEnergyStored();
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			markDirty();
 		}
@@ -50,10 +60,8 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 		if(CartTools.isMinecartOnSide(worldObj, xCoord, yCoord, zCoord, 0, ForgeDirection.DOWN)) {
 			List<EntityMinecart> minecartsOnSide = CartTools.getMinecartsOnSide(worldObj, xCoord, yCoord, zCoord, 0,
 					ForgeDirection.DOWN);
-			if(minecartsOnSide.get(0) instanceof IEnergyStorage) {
-				int amountToSend = this.extractEnergy(cartSendAmount, true);
-				int amountSent = this.sendEnergyToCart(amountToSend, (IEnergyStorage)minecartsOnSide.get(0));
-				this.extractEnergy(amountSent, false);
+			if(minecartsOnSide.get(0) != null) {
+				loaderMode.doWork(minecartsOnSide.get(0));
 			}
 		}
 	}
@@ -74,13 +82,13 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		energyStorage.readFromNBT(tagCompound);
+		loaderMode.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		energyStorage.writeToNBT(tagCompound);
+		loaderMode.writeToNBT(tagCompound);
 	}
 
 	//EIO
@@ -98,6 +106,14 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new ContainerRFLoader(player.inventory, (TileEntityRFLoader)world.getTileEntity(x, y, z));
+	}
+
+	public LoaderMode getLoaderMode() {
+		return loaderMode;
+	}
+
+	public void setLoaderMode(LoaderMode loaderMode) {
+		this.loaderMode = loaderMode;
 	}
 
 	@Override
@@ -155,31 +171,126 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 		return false;
 	}
 
-	public int sendEnergyToCart(int maxSend, IEnergyStorage iEnergyStorageCart) {
-		return iEnergyStorageCart.receiveEnergy(maxSend, false);
-	}
-
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		return energyStorage.extractEnergy(maxExtract, simulate);
+		return loaderMode.extractEnergy(ForgeDirection.UNKNOWN, maxExtract, simulate);
 	}
 
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-		return energyStorage.receiveEnergy(maxReceive, simulate);
+		return loaderMode.receiveEnergy(from, maxReceive, simulate);
+	}
+
+	@Override
+	public int extractEnergy(ForgeDirection forgeDirection, int maxExtract, boolean simulate) {
+		return extractEnergy(maxExtract, simulate);
 	}
 
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
-		return energyStorage.getEnergyStored();
+		return loaderMode.getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
-		return energyStorage.getMaxEnergyStored();
+		return loaderMode.getMaxEnergyStored();
 	}
 
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from) {
-		return true;
+		return loaderMode.canConnectEnergy(from);
 	}
 }
+
+abstract class LoaderMode implements IEnergyProvider, IEnergyReceiver {
+	protected EnergyStorage energyStorage = new EnergyStorage(100000);
+	protected int cartSendAmount = 100;
+
+	abstract void doWork(EntityMinecart entityMinecart);
+
+	@Override
+	public int extractEnergy(ForgeDirection forgeDirection, int maxExtract, boolean simulate) {
+		if(forgeDirection.equals(ForgeDirection.UNKNOWN)) {
+			return energyStorage.extractEnergy(maxExtract, simulate);
+		}
+		return 0;
+	}
+
+	@Override
+	public int receiveEnergy(ForgeDirection forgeDirection, int maxReceive, boolean simulate) {
+		if(forgeDirection.equals(ForgeDirection.UNKNOWN)) {
+			return energyStorage.receiveEnergy(maxReceive, simulate);
+		}
+		return 0;
+	}
+
+	@Override
+	public int getEnergyStored(ForgeDirection forgeDirection) {
+		return energyStorage.getEnergyStored();
+	}
+
+	@Override
+	public int getMaxEnergyStored(ForgeDirection forgeDirection) {
+		return energyStorage.getMaxEnergyStored();
+	}
+
+	@Override
+	public boolean canConnectEnergy(ForgeDirection forgeDirection) {
+		return true;
+	}
+
+	public int getEnergyStored() {
+		return energyStorage.getEnergyStored();
+	}
+
+	public int getMaxEnergyStored() {
+		return energyStorage.getMaxEnergyStored();
+	}
+
+	public void readFromNBT(NBTTagCompound tagCompound) {
+		energyStorage.readFromNBT(tagCompound);
+	}
+
+	public void writeToNBT(NBTTagCompound tagCompound) {
+		energyStorage.writeToNBT(tagCompound);
+	}
+}
+
+class Loader extends LoaderMode {
+	@Override
+	void doWork(EntityMinecart entityMinecart) {
+		int amountToExtract = this.extractEnergy(ForgeDirection.UNKNOWN, cartSendAmount, true);
+		int amountExtracted = 0;
+		if(entityMinecart instanceof IEnergyStorage) {
+			amountExtracted = ((IEnergyStorage) entityMinecart).receiveEnergy(amountToExtract, false);
+		} else if(entityMinecart instanceof IEnergyReceiver) {
+			amountExtracted = ((IEnergyReceiver) entityMinecart).receiveEnergy(ForgeDirection.UNKNOWN, amountToExtract, false);
+		}
+		this.extractEnergy(ForgeDirection.UNKNOWN, amountExtracted, false);
+	}
+
+	@Override
+	public int receiveEnergy(ForgeDirection forgeDirection, int maxReceive, boolean simulate) {
+		return energyStorage.receiveEnergy(maxReceive, simulate);
+	}
+}
+
+class Unloader extends LoaderMode {
+	@Override
+	void doWork(EntityMinecart entityMinecart) {
+		int amountToReceive = this.receiveEnergy(ForgeDirection.UNKNOWN, cartSendAmount, true);
+		int amountReceived = 0;
+		if(entityMinecart instanceof IEnergyStorage) {
+			amountReceived = ((IEnergyStorage) entityMinecart).extractEnergy(amountToReceive, false);
+		} else if(entityMinecart instanceof IEnergyProvider) {
+			amountReceived = ((IEnergyProvider) entityMinecart).extractEnergy(ForgeDirection.UNKNOWN, amountToReceive, false);
+		}
+		this.receiveEnergy(ForgeDirection.UNKNOWN, amountReceived, false);
+	}
+
+	@Override
+	public int extractEnergy(ForgeDirection forgeDirection, int maxExtract, boolean simulate) {
+		return energyStorage.extractEnergy(maxExtract, simulate);
+	}
+}
+
+
