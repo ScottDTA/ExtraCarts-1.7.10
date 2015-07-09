@@ -29,6 +29,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	private int lastSyncPowerStored = 0;
 
 	private LoaderMode loaderMode;
+	private ForgeDirection facing = ForgeDirection.UP;
 
 	public TileEntityRFLoader() {
 		this(0);
@@ -57,9 +58,8 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 			markDirty();
 		}
 
-		if(CartTools.isMinecartOnSide(worldObj, xCoord, yCoord, zCoord, 0, ForgeDirection.DOWN)) {
-			List<EntityMinecart> minecartsOnSide = CartTools.getMinecartsOnSide(worldObj, xCoord, yCoord, zCoord, 0,
-					ForgeDirection.DOWN);
+		if(CartTools.isMinecartOnSide(worldObj, xCoord, yCoord, zCoord, 0, facing)) {
+			List<EntityMinecart> minecartsOnSide = CartTools.getMinecartsOnSide(worldObj, xCoord, yCoord, zCoord, 0, facing);
 			if(minecartsOnSide.get(0) != null) {
 				loaderMode.doWork(minecartsOnSide.get(0));
 			}
@@ -114,6 +114,14 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	public void setLoaderMode(LoaderMode loaderMode) {
 		this.loaderMode = loaderMode;
+	}
+
+	public ForgeDirection getFacing() {
+		return facing;
+	}
+
+	public void setFacing(ForgeDirection facing) {
+		this.facing = facing;
 	}
 
 	@Override
