@@ -32,7 +32,9 @@ public class BlockRFLoader extends BlockContainer {
 
 	public BlockRFLoader() {
 		super(Material.iron);
-		setHardness(1.0F);
+		setHardness(2.0F);
+		setStepSound(soundTypeMetal);
+		setHarvestLevel("pickaxe", 0);
 		setCreativeTab(CreativeTabs.tabBlock);
 	}
 
@@ -76,11 +78,7 @@ public class BlockRFLoader extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int blockSide) {
 		int metadata = world.getBlockMetadata(x, y, z);
-		TileEntity tileEntityRFLoader = world.getTileEntity(x, y, z);
-		if(tileEntityRFLoader instanceof TileEntityRFLoader) {
-			facing = ((TileEntityRFLoader) tileEntityRFLoader).getFacing();
-			System.out.println(facing);
-		}
+		facing = getTileEntity(world, x, y, z, metadata).getFacing();
 		return getIcon(blockSide, metadata);
 	}
 
@@ -94,7 +92,7 @@ public class BlockRFLoader extends BlockContainer {
 		}
 	}
 
-	public TileEntityRFLoader getTileEntity(World world, int x, int y, int z, int metadata) {
+	public TileEntityRFLoader getTileEntity(IBlockAccess world, int x, int y, int z, int metadata) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityRFLoader) {
 			return (TileEntityRFLoader)tileEntity;
