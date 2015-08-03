@@ -52,28 +52,22 @@ repositories {
         url "http://maven.tterrag.com/"
     }
     maven {
-        name = "Forestry repo"
+        name = "Forestry Repo"
         url = "http://maven.ic2.player.to/"
+    }
+    maven {
+        name = "ProfMobius Repo"
+        url = "http://www.mobiusstrip.eu/maven/"
     }
 }
 
 dependencies {
     compile "codechicken:NotEnoughItems:${config.minecraft.version}-${config.nei.version}:dev"
-    compile "codechicken:CodeChickenCore:${config.minecraft.version}-${config.codechickencore.version}:dev"
-    compile "codechicken:CodeChickenLib:${config.minecraft.version}-${config.codechickenlib.version}:dev"
     compile "api:rf:${config.rf.version}"
-    /* Couldn't go on without forestry, but server is down currently
-    compile("com.enderio:EnderIO:${config.minecraft.version}-${config.enderio.version}:dev") {
-        exclude module: "appliedenergistics2"
-        exclude module: "buildcraft"
-        exclude module: "forestry"
-        exclude module: "Waila"
-    }*/
+    compile "com.enderio:EnderIO:${config.minecraft.version}-${config.enderio.version}:dev"
+
     compile files("libs/Minechem-${config.minecraft.version}-${config.minechem.version}.jar")
     compile files("libs/Railcraft_${config.minecraft.version}-${config.railcraft.version}.jar")
-    compile files("libs/EnderIO-${config.minecraft.version}-${config.enderio.version}-dev.jar")
-    compile files("libs/EnderCore-1.7.10-0.0.1.9_alpha-dev.jar")
-
 }
 
 processResources {

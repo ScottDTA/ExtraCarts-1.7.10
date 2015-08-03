@@ -6,6 +6,7 @@ import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemArmor;
@@ -18,53 +19,34 @@ import net.minecraft.util.IIcon;
 public class ContainerCapacitorBankCart extends ContainerExtraChestCart {
 	private EntityCapacitorBankCart entityCapacitorBankCart;
 
-	public ContainerCapacitorBankCart(final EntityPlayer entityPlayer, IInventory player, EntityCapacitorBankCart entityCapacitorBankCart) {
+	public ContainerCapacitorBankCart(final EntityPlayer entityPlayer,final IInventory player, EntityCapacitorBankCart entityCapacitorBankCart) {
 		this.entityCapacitorBankCart = entityCapacitorBankCart;
 
 		int armorOffset = 21;
-		addSlotToContainer(new Slot(this.entityCapacitorBankCart, 0, 59 + armorOffset, 59) {
-			@Override
-			public boolean isItemValid(ItemStack itemStack) {
-				return isItemElectric(itemStack);
-			}
-		});
-
-		addSlotToContainer(new Slot(this.entityCapacitorBankCart, 1, 79 + armorOffset, 59) {
-			@Override
-			public boolean isItemValid(ItemStack itemStack) {
-				return isItemElectric(itemStack);
-			}
-		});
-
-		addSlotToContainer(new Slot(this.entityCapacitorBankCart, 2, 99 + armorOffset, 59) {
-			@Override
-			public boolean isItemValid(ItemStack itemStack) {
-				return isItemElectric(itemStack);
-			}
-		});
-
-		addSlotToContainer(new Slot(this.entityCapacitorBankCart, 3, 119 + armorOffset, 59) {
-			@Override
-			public boolean isItemValid(ItemStack itemStack) {
-				return isItemElectric(itemStack);
-			}
-		});
+		for(int x = 0; x < 4; x++) {
+			addSlotToContainer(new Slot(this.entityCapacitorBankCart, x, 59 + armorOffset + (x * 20), 59) {
+				@Override
+				public boolean isItemValid(ItemStack itemStack) {
+					return isItemElectric(itemStack);
+				}
+			});
+		}
 
 		// add players inventory
 		for (int i = 0; i < 3; ++i) {
 			for (int j = 0; j < 9; ++j) {
-				addSlotToContainer(new Slot(player, j + i * 9 + 9, +armorOffset + 8 + j * 18, 84 + i * 18));
+				addSlotToContainer(new Slot(player, j + i * 9 + 9, armorOffset + 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (int i = 0; i < 9; ++i) {
-			addSlotToContainer(new Slot(player, i, +armorOffset + 8 + i * 18, 142));
+			addSlotToContainer(new Slot(player, i, armorOffset + 8 + i * 18, 142));
 		}
 
 		//armor slots
 		for (int i = 0; i < 4; ++i) {
 			final int k = i;
-			addSlotToContainer(new Slot(player, player.getSizeInventory() - 1 - i, -15 + armorOffset, 30 + i * 18) {
+			addSlotToContainer(new Slot(player, player.getSizeInventory() - 1 - i, -15 + armorOffset, 12 + i * 18) {
 
 				@Override
 				public int getSlotStackLimit() {
@@ -72,11 +54,11 @@ public class ContainerCapacitorBankCart extends ContainerExtraChestCart {
 				}
 
 				@Override
-				public boolean isItemValid(ItemStack itemStack) {
-					if(itemStack == null) {
+				public boolean isItemValid(ItemStack par1ItemStack) {
+					if (par1ItemStack == null) {
 						return false;
 					}
-					return itemStack.getItem().isValidArmor(itemStack, k, entityPlayer);
+					return par1ItemStack.getItem().isValidArmor(par1ItemStack, k, ((InventoryPlayer) player).player);
 				}
 
 				@Override
@@ -86,7 +68,6 @@ public class ContainerCapacitorBankCart extends ContainerExtraChestCart {
 				}
 			});
 		}
-
 	}
 
 	@Override
@@ -136,7 +117,7 @@ public class ContainerCapacitorBankCart extends ContainerExtraChestCart {
 			}
 
 			if(origStack.stackSize == 0) {
-				slot.putStack((ItemStack) null);
+				slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}
