@@ -117,7 +117,7 @@ String getChangelogText() {
 curse {
     projectId = config.curse.projectId
     apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
-    releaseType = 'beta'
+    releaseType = 'release'
     changelog = getChangelogText()
 }
 

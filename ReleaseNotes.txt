@@ -1,4 +1,10 @@
 ------------------------------------------------------
+Version 1.0.0
+------------------------------------------------------
+Changes
+- Moving to Releast. This is in preparation for actual betas that should be coming soon
+- Inventories no longer open when sneaking
+------------------------------------------------------
 Version 0.8.0
 ------------------------------------------------------
 New
