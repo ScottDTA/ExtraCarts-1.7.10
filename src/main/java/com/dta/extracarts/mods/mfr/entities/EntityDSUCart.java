@@ -1,6 +1,5 @@
 package com.dta.extracarts.mods.mfr.entities;
 
-import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.block.FakeBlockRegistry;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
@@ -8,7 +7,6 @@ import com.dta.extracarts.mods.mfr.MFRItems;
 import com.dta.extracarts.mods.mfr.client.ContainerDSUCart;
 import com.dta.extracarts.mods.mfr.client.GuiDSUCart;
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -31,21 +29,12 @@ public class EntityDSUCart extends EntityExtraCartChestMinecart implements Opena
 		super(world);
 		this.setDropContentsWhenDead(false);
 		this.setDisplayTileData(FakeBlockRegistry.getFakeBlockByName("fakeDSUBlock").getMetaNumber());
-		System.out.println(dsu.toString());
 	}
 
 	@Override
 	public Block func_145817_o() {
 		return dsu;
 	}
-
-	@Override
-	public boolean interactFirst(EntityPlayer player) {
-	    if (!this.worldObj.isRemote) {
-	    	FMLNetworkHandler.openGui(player, ExtraCarts.instance, 6, player.worldObj, this.getEntityId(), 0, 0);
-	    }
-        return true;
-    }
 	
 	@Override
 	public void killMinecart(DamageSource par1DamageSource) {

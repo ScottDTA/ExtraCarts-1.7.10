@@ -1,13 +1,11 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
-import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.ironchest.IronChestItems;
 import com.dta.extracarts.mods.ironchest.client.ContainerIronChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiIronChestCart;
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
@@ -67,10 +65,7 @@ public class EntityIronChestCart extends EntityExtraCartChestMinecart implements
 			player.destroyCurrentEquippedItem();
 			return true;
 		}
-	    if (!this.worldObj.isRemote) {
-	    	FMLNetworkHandler.openGui(player, ExtraCarts.instance, 0, player.worldObj, this.getEntityId(), 0, 0);
-	    }
-        return true;
+		return super.interactFirst(player);
     }
 
 
