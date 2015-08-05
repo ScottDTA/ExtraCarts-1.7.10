@@ -1,13 +1,11 @@
 package com.dta.extracarts.mods.ironchest.entities;
 
-import com.dta.extracarts.ExtraCarts;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.entities.EntityExtraCartChestMinecart;
 import com.dta.extracarts.mods.ironchest.IronChestItems;
 import com.dta.extracarts.mods.ironchest.client.ContainerDirtChestCart;
 import com.dta.extracarts.mods.ironchest.client.GuiDirtChestCart;
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import mods.railcraft.api.carts.IMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
@@ -46,14 +44,6 @@ public class EntityDirtChestCart extends EntityExtraCartChestMinecart implements
 	public void killMinecart(DamageSource par1DamageSource) {
 		super.killMinecart(par1DamageSource, new ItemStack(ironChest, 1, 7));
 	}
-	
-	@Override
-	public boolean interactFirst(EntityPlayer player) {
-	    if (!this.worldObj.isRemote) {
-	    	FMLNetworkHandler.openGui(player, ExtraCarts.instance, 5, player.worldObj, this.getEntityId(), 0, 0);
-	    }
-        return true;
-    }
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {

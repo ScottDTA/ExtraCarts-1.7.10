@@ -12,8 +12,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 
 @Optional.Interface(iface="mods.railcraft.api.carts.IMinecart", modid="RailcraftAPI|carts")
 public class EntityEnderChestCart extends EntityMinecartContainer {
@@ -45,13 +43,9 @@ public class EntityEnderChestCart extends EntityMinecartContainer {
 	
 	@Override
 	public boolean interactFirst(EntityPlayer player) {
-		if(MinecraftForge.EVENT_BUS.post(new MinecartInteractEvent(this, player))) {
-			return true;
-	    }
-		
 		InventoryEnderChest inventoryenderchest = player.getInventoryEnderChest();
         
-	    if (!this.worldObj.isRemote) {
+	    if (!this.worldObj.isRemote && !player.isSneaking()) {
 	    	player.displayGUIChest(inventoryenderchest);
 	    }
         return true;

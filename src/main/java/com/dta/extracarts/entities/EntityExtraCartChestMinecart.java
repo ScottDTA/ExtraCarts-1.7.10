@@ -227,7 +227,7 @@ abstract public class EntityExtraCartChestMinecart extends CartTransferBase impl
             return true;
         }
 
-        if (!this.worldObj.isRemote) {
+        if (!this.worldObj.isRemote && !player.isSneaking()) {
             FMLNetworkHandler.openGui(player, ExtraCarts.instance, 2, player.worldObj, this.getEntityId(), 0, 0);
         }
 
