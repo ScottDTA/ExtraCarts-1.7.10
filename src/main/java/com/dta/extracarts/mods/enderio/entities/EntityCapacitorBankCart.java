@@ -78,6 +78,7 @@ abstract public class EntityCapacitorBankCart extends EntityExtraCartChestMineca
 	@Override
 	public void onUpdate() {
 		chargeItems(getMinecartContainerItems());
+		super.onUpdate();
 	}
 
 	abstract public CapBankType getCapBankType();
@@ -179,7 +180,6 @@ abstract public class EntityCapacitorBankCart extends EntityExtraCartChestMineca
 		return itemstack.getItem() instanceof IEnergyContainerItem;
 	}
 
-	// Client Network stuff
 	public void setMaxOutput(int maxOutput) {
 		dataWatcher.updateObject(OUTPUT_ID, MathHelper.clamp_int(maxOutput, 0, getMaxIO()));
 	}
