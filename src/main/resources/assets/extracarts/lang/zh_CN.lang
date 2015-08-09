@@ -25,10 +25,10 @@ entity.extracarts.EntityObsidianChestCart.name=黑曜石箱子运输矿车
 entity.extracarts.EntityDirtChestCart.name=泥土箱子运输矿车
 entity.extracarts.EntityDSUCart.name=异次元储存器运输矿车
 entity.extracarts.EntityLeadChestCart.name=Minecart with Leaded Chest
-entity.EntityCreativeCapacitorBankCart.name=Minecart with Creative Capacitor Bank
-entity.EntityBasicCapacitorBankCart.name=Minecart with Basic Capacitor Bank
-entity.EntityActivatedCapacitorBankCart.name=Minecart with Capacitor Bank
-entity.EntityVibrantCapacitorBankCart.name=Minecraft with Vibrant Capacitor Bank
+entity.extracarts.EntityCreativeCapacitorBankCart.name=Minecart with Creative Capacitor Bank
+entity.extracarts.EntityBasicCapacitorBankCart.name=Minecart with Basic Capacitor Bank
+entity.extracarts.EntityActivatedCapacitorBankCart.name=Minecart with Capacitor Bank
+entity.extracarts.EntityVibrantCapacitorBankCart.name=Minecraft with Vibrant Capacitor Bank
 
 tile.blockRFLoaders.loader.name=RF Loader
 tile.blockRFLoaders.unloader.name=RF Unloader
