@@ -16,7 +16,6 @@ import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.List;
 
 /**
  * Created by Skylar on 4/11/2015.
@@ -120,16 +119,6 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 		updateFieldsFromState();
 
 		super.drawGuiContainerBackgroundLayer(par1, par2, par3);
-	}
-
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void drawHoveringText(List par1List, int par2, int par3, FontRenderer font) {
-		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
-		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
-		super.drawHoveringText(par1List, par2 + 24, par3, font);
-		GL11.glPopAttrib();
-		GL11.glPopAttrib();
 	}
 
 	@Override

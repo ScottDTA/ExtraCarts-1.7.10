@@ -1,5 +1,6 @@
 package com.dta.extracarts.mods.enderio.gui;
 
+import com.dta.extracarts.mods.enderio.EnderIOModule;
 import com.dta.extracarts.mods.enderio.container.ContainerRFLoader;
 import com.dta.extracarts.mods.enderio.tileentity.TileEntityRFLoader;
 import com.enderio.core.client.gui.GuiContainerBase;
@@ -71,13 +72,21 @@ public class GuiRFLoader extends GuiContainerBase {
 
 		renderPowerBar(sx, sy);
 
+		int midX = sx + xSize / 2;
+
+		String str = EnderIOModule.lang.localize("gui.capBank.maxIo") + " " + PowerDisplayUtil.formatPower(tileEntityRFLoader.getMaxIO()) +
+				" " + PowerDisplayUtil.abrevation() + PowerDisplayUtil.perTickStr();
+		FontRenderer fontRenderer = getFontRenderer();
+		int swid = fontRenderer.getStringWidth(str);
+		int x = midX - swid / 2;
+		int y = guiTop + 5;
+		drawString(fontRenderer, str, x, y, -1);
+
 		super.drawGuiContainerBackgroundLayer(par1, par2, par3);
 	}
 
-	//EIO
 	public void renderPowerBar(int k, int l) {
 		int i1 = tileEntityRFLoader.getEnergyStoredScaled(getPowerHeight());
-		// x, y, u, v, width, height
 		drawTexturedModalRect(k + getPowerX(), l + (getPowerY() + getPowerHeight()) - i1, getPowerU(), getPowerV(), getPowerWidth(), i1);
 	}
 
