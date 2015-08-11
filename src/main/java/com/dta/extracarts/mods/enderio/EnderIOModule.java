@@ -39,7 +39,7 @@ public class EnderIOModule extends Module {
 
 	@Override
 	public Boolean areRequirementsMet(){
-		return Loader.isModLoaded("EnderIO");
+		return Loader.isModLoaded("EnderIO") && Loader.isModLoaded("Railcraft");
 	}
 
 	@Override
