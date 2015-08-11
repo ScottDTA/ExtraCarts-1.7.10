@@ -32,7 +32,7 @@ public class GuiRFLoader extends GuiContainerBase {
 	private int inputX = 78 + 24;
 	private int inputY = 18;
 
-	private TextFieldEnder maxIOTF;
+	private TextFieldEnder setIOTF;
 
 	public GuiRFLoader(InventoryPlayer inventoryPlayer, final TileEntityRFLoader tileEntityRFLoader) {
 		super(new ContainerRFLoader(inventoryPlayer, tileEntityRFLoader));
@@ -52,13 +52,13 @@ public class GuiRFLoader extends GuiContainerBase {
 			}
 		});
 
-		int x = inputX - 24;
+		int x = inputX - 20;
 		int y = inputY;
-		maxIOTF = new TextFieldEnder(fontRenderer, x, y, 68, 16);
-		maxIOTF.setMaxStringLength(10);
-		maxIOTF.setCharFilter(TextFieldEnder.FILTER_NUMERIC);
+		setIOTF = new TextFieldEnder(fontRenderer, x, y, 68, 16);
+		setIOTF.setMaxStringLength(10);
+		setIOTF.setCharFilter(TextFieldEnder.FILTER_NUMERIC);
 
-		textFields.add(maxIOTF);
+		textFields.add(setIOTF);
 	}
 
 	@Override
@@ -82,12 +82,49 @@ public class GuiRFLoader extends GuiContainerBase {
 		int y = guiTop + 5;
 		drawString(fontRenderer, str, x, y, -1);
 
+		String loaderText = "gui.capBank.maxInput";
+		if(!tileEntityRFLoader.isLoader()) {
+			loaderText = "gui.capBank.maxOutput";
+		}
+
+		str = EnderIOModule.lang.localize(loaderText) + ":";
+		swid = fontRenderer.getStringWidth(str);
+		x = guiLeft + inputX - swid - 25;
+		y = guiTop + inputY;
+		drawString(fontRenderer, str, x, y, -1);
+
+		updateFieldsFromState();
+
 		super.drawGuiContainerBackgroundLayer(par1, par2, par3);
+	}
+
+	@Override
+	protected void keyTyped(char par1, int par2) {
+		super.keyTyped(par1, par2);
+		updateInputOutput();
+	}
+
+	private void updateInputOutput() {
+		int input = PowerDisplayUtil.parsePower(setIOTF);
+		if(input >= 0 && tileEntityRFLoader.getMaxIO() != input) {
+			setSetIO(input);
+		}
+	}
+
+	private void setSetIO(int setIO) {
+		if(setIO != tileEntityRFLoader.getSetIO()) {
+			tileEntityRFLoader.setSetIO(setIO);
+			setIOTF.setText(PowerDisplayUtil.formatPower(tileEntityRFLoader.getSetIO()));
+		}
 	}
 
 	public void renderPowerBar(int k, int l) {
 		int i1 = tileEntityRFLoader.getEnergyStoredScaled(getPowerHeight());
 		drawTexturedModalRect(k + getPowerX(), l + (getPowerY() + getPowerHeight()) - i1, getPowerU(), getPowerV(), getPowerWidth(), i1);
+	}
+
+	private void updateFieldsFromState() {
+		setIOTF.setText(PowerDisplayUtil.formatPower(tileEntityRFLoader.getSetIO()));
 	}
 
 	protected int getPowerX() {

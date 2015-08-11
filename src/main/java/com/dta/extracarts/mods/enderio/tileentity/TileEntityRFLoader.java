@@ -7,6 +7,8 @@ import cofh.api.energy.IEnergyStorage;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.mods.enderio.container.ContainerRFLoader;
 import com.dta.extracarts.mods.enderio.gui.GuiRFLoader;
+import crazypants.enderio.power.Capacitors;
+import crazypants.enderio.power.ICapacitor;
 import mods.railcraft.api.carts.CartTools;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +34,10 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	private ForgeDirection facing = ForgeDirection.UP;
 	protected EnergyStorage energyStorage = new EnergyStorage(100000);
 	private int maxIO = 1000;
+	private int setIO = maxIO;
 
+	private ICapacitor capacitor;
+	private Capacitors capacitorType;
 
 	public TileEntityRFLoader() {
 		this(0);
@@ -41,10 +46,12 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	public TileEntityRFLoader(int metadata) {
 		super();
 		if(metadata == 0) {
-			loader = true;
+			setLoader(true);
 		} else {
-			loader = false;
+			setLoader(false);
 		}
+		capacitorType = Capacitors.BASIC_CAPACITOR;
+		onCapacitorTypeChange();
 	}
 
 	@Override
@@ -64,7 +71,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 		if(CartTools.isMinecartOnSide(worldObj, xCoord, yCoord, zCoord, 0, facing)) {
 			List<EntityMinecart> minecartsOnSide = CartTools.getMinecartsOnSide(worldObj, xCoord, yCoord, zCoord, 0, facing);
 			if(minecartsOnSide.get(0) != null) {
-				if(loader) {
+				if(isLoader()) {
 					loadCart(minecartsOnSide.get(0));
 				} else {
 					unloadCart(minecartsOnSide.get(0));
@@ -90,12 +97,14 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		energyStorage.readFromNBT(tagCompound);
+		setCapacitor(Capacitors.values()[tagCompound.getShort("capacitorType")]);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		energyStorage.writeToNBT(tagCompound);
+		tagCompound.setShort("capacitorType", (short) capacitorType.ordinal());
 	}
 
 	//EIO
@@ -153,6 +162,21 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 		this.facing = facing;
 	}
 
+	public void setCapacitor(Capacitors capacitorType) {
+		this.capacitorType = capacitorType;
+		this.capacitor = null;
+		onCapacitorTypeChange();
+		//Force a check that the new value is in bounds
+		energyStorage.setEnergyStored(getEnergyStored());
+		//forceClientUpdate = true;
+	}
+
+	public void onCapacitorTypeChange() {}
+
+	public int getPowerUsePerTick() {
+		return getCapacitor().getMaxEnergyExtracted();
+	}
+	
 	@Override
 	public int getSizeInventory() {
 		return 0;
@@ -210,7 +234,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	@Override
 	public int extractEnergy(ForgeDirection forgeDirection, int maxExtract, boolean simulate) {
-		if(!loader) {
+		if(!isLoader()) {
 			return energyStorage.extractEnergy(maxExtract, simulate);
 		}
 		return 0;
@@ -218,7 +242,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	@Override
 	public int receiveEnergy(ForgeDirection forgeDirection, int maxReceive, boolean simulate) {
-		if(loader) {
+		if(isLoader()) {
 			return energyStorage.receiveEnergy(maxReceive, simulate);
 		}
 		return 0;
@@ -253,6 +277,36 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	public void setMaxIO(int maxIO) {
 		this.maxIO = maxIO;
+	}
+
+	public int getSetIO() {
+		return setIO;
+	}
+
+	public void setSetIO(int setIO) {
+		this.setIO = setIO;
+	}
+
+	public boolean isLoader() {
+		return loader;
+	}
+
+	public void setLoader(boolean loader) {
+		this.loader = loader;
+	}
+
+	public ICapacitor getCapacitor() {
+		return capacitor != null ? capacitor : capacitorType.capacitor;
+	}
+
+	protected void setCapacitor(ICapacitor capacitor) {
+		this.capacitor = capacitor;
+		//Force a check that the new value is in bounds
+		energyStorage.setEnergyStored(getEnergyStored());
+	}
+
+	public Capacitors getCapacitorType() {
+		return capacitorType;
 	}
 }
 
