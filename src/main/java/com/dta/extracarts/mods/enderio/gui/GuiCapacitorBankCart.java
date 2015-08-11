@@ -1,12 +1,12 @@
 package com.dta.extracarts.mods.enderio.gui;
 
+import com.dta.extracarts.mods.enderio.EnderIOModule;
 import com.dta.extracarts.mods.enderio.container.ContainerCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
 import com.enderio.core.client.gui.GuiContainerBase;
 import com.enderio.core.client.gui.widget.GuiToolTip;
 import com.enderio.core.client.gui.widget.TextFieldEnder;
 import com.enderio.core.client.render.RenderUtil;
-import com.enderio.core.common.Lang;
 import crazypants.enderio.machine.power.PowerDisplayUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -96,23 +96,22 @@ public class GuiCapacitorBankCart extends GuiContainerBase {
 		}
 
 		int midX = sx + xSize / 2;
-		Lang lang = new Lang("gui.capBank");
-		String str = lang.localize("maxIo") + " " + PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxIO()) +
+
+		String str = EnderIOModule.lang.localize("gui.capBank.maxIo") + " " + PowerDisplayUtil.formatPower(entityCapacitorBankCart.getMaxIO()) +
 				" " + PowerDisplayUtil.abrevation() + PowerDisplayUtil.perTickStr();
 		FontRenderer fontRenderer = getFontRenderer();
 		int swid = fontRenderer.getStringWidth(str);
 		int x = midX - swid / 2;
 		int y = guiTop + 5;
-
 		drawString(fontRenderer, str, x, y, -1);
 
-		str = lang.localize("maxInput") + ":";
+		str = EnderIOModule.lang.localize("gui.capBank.maxInput") + ":";
 		swid = fontRenderer.getStringWidth(str);
 		x = guiLeft + inputX - swid - 3;
 		y = guiTop + inputY + 2;
 		drawString(fontRenderer, str, x, y, -1);
 
-		str = lang.localize("maxOutput") + ":";
+		str = EnderIOModule.lang.localize("gui.capBank.maxOutput") + ":";
 		swid = fontRenderer.getStringWidth(str);
 		x = guiLeft + outputX - swid - 3;
 		y = guiTop + outputY + 2;

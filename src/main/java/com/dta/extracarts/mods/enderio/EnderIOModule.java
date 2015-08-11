@@ -13,6 +13,7 @@ import com.dta.extracarts.mods.enderio.items.ItemBlockRFLoader;
 import com.dta.extracarts.mods.enderio.items.ItemCapacitorBankCart;
 import com.dta.extracarts.mods.enderio.tileentity.TileEntityRFLoader;
 import com.dta.extracarts.utils.EntityUtils;
+import com.enderio.core.common.Lang;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -30,7 +31,7 @@ public class EnderIOModule extends Module {
 	public static FakeSubBlock fakeCreativeCapacitorBlock;
 	public static BlockRFLoader blockRFLoaders = new BlockRFLoader();
 
-
+	public final static Lang lang = new Lang("enderio");;
 	@Override
 	public String getModuleName() {
 		return "Ender IO";

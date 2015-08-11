@@ -2,15 +2,24 @@ package com.dta.extracarts.mods.enderio.gui;
 
 import com.dta.extracarts.mods.enderio.container.ContainerRFLoader;
 import com.dta.extracarts.mods.enderio.tileentity.TileEntityRFLoader;
+import com.enderio.core.client.gui.GuiContainerBase;
+import com.enderio.core.client.gui.widget.GuiToolTip;
+import com.enderio.core.client.gui.widget.TextFieldEnder;
 import com.enderio.core.client.render.RenderUtil;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import crazypants.enderio.machine.power.PowerDisplayUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
 
 /**
  * Created by Skylar on 5/27/2015.
  */
-public class GuiRFLoader extends GuiContainer {
+public class GuiRFLoader extends GuiContainerBase {
 	protected TileEntityRFLoader tileEntityRFLoader;
 
 	//EIO
@@ -19,9 +28,36 @@ public class GuiRFLoader extends GuiContainer {
 	protected static final int POWER_WIDTH = 10;
 	protected static final int POWER_HEIGHT = 42;
 
-	public GuiRFLoader(InventoryPlayer inventoryPlayer, TileEntityRFLoader tileEntityRFLoader) {
+	private int inputX = 78 + 24;
+	private int inputY = 18;
+
+	private TextFieldEnder maxIOTF;
+
+	public GuiRFLoader(InventoryPlayer inventoryPlayer, final TileEntityRFLoader tileEntityRFLoader) {
 		super(new ContainerRFLoader(inventoryPlayer, tileEntityRFLoader));
 		this.tileEntityRFLoader = tileEntityRFLoader;
+
+		FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+
+		addToolTip(new GuiToolTip(new Rectangle(getPowerX(), getPowerY(), getPowerWidth(), getPowerHeight()), "") {
+			@Override
+			protected void updateText() {
+				text.clear();
+				text.add(PowerDisplayUtil.formatPower(tileEntityRFLoader.getEnergyStored(ForgeDirection.UNKNOWN)) + " "
+						+ PowerDisplayUtil.ofStr());
+				text.add(EnumChatFormatting.WHITE + PowerDisplayUtil
+						.formatPower(tileEntityRFLoader.getMaxEnergyStored(ForgeDirection.UNKNOWN)) + " "
+						+ EnumChatFormatting.GRAY + PowerDisplayUtil.abrevation());
+			}
+		});
+
+		int x = inputX - 24;
+		int y = inputY;
+		maxIOTF = new TextFieldEnder(fontRenderer, x, y, 68, 16);
+		maxIOTF.setMaxStringLength(10);
+		maxIOTF.setCharFilter(TextFieldEnder.FILTER_NUMERIC);
+
+		textFields.add(maxIOTF);
 	}
 
 	@Override
@@ -34,6 +70,8 @@ public class GuiRFLoader extends GuiContainer {
 		drawTexturedModalRect(sx, sy, 0, 0, xSize, ySize);
 
 		renderPowerBar(sx, sy);
+
+		super.drawGuiContainerBackgroundLayer(par1, par2, par3);
 	}
 
 	//EIO
@@ -42,27 +80,27 @@ public class GuiRFLoader extends GuiContainer {
 		// x, y, u, v, width, height
 		drawTexturedModalRect(k + getPowerX(), l + (getPowerY() + getPowerHeight()) - i1, getPowerU(), getPowerV(), getPowerWidth(), i1);
 	}
-	//EIO
+
 	protected int getPowerX() {
 		return POWER_X;
 	}
-	//EIO
+
 	protected int getPowerY() {
 		return POWER_Y;
 	}
-	//EIO
+
 	protected int getPowerWidth() {
 		return POWER_WIDTH;
 	}
-	//EIO
+
 	protected int getPowerHeight() {
 		return POWER_HEIGHT;
 	}
-	//EIO
+
 	protected int getPowerV() {
 		return 31;
 	}
-	//EIO
+
 	protected int getPowerU() {
 		return 176;
 	}
