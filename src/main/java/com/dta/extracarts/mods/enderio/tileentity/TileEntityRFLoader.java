@@ -7,6 +7,7 @@ import cofh.api.energy.IEnergyStorage;
 import com.dta.extracarts.client.OpenableGUI;
 import com.dta.extracarts.mods.enderio.container.ContainerRFLoader;
 import com.dta.extracarts.mods.enderio.gui.GuiRFLoader;
+import crazypants.enderio.EnderIO;
 import crazypants.enderio.power.Capacitors;
 import crazypants.enderio.power.ICapacitor;
 import mods.railcraft.api.carts.CartTools;
@@ -35,6 +36,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	protected EnergyStorage energyStorage = new EnergyStorage(100000);
 	private int maxIO = 1000;
 	private int setIO = maxIO;
+	private ItemStack[] inventory = new ItemStack[3];
 
 	private ICapacitor capacitor;
 	private Capacitors capacitorType;
@@ -179,30 +181,60 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	
 	@Override
 	public int getSizeInventory() {
-		return 0;
+		return 3;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int p_70301_1_) {
-		return null;
+	public ItemStack getStackInSlot(int slot) {
+		return getInventory()[slot];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-		return null;
+	public ItemStack decrStackSize(int slot, int numberOfItems) {
+		if (getInventory()[slot] != null) {
+			ItemStack itemstack;
+
+			if (getInventory()[slot].stackSize <= numberOfItems) {
+				itemstack = getInventory()[slot];
+				getInventory()[slot] = null;
+				return itemstack;
+			} else {
+				itemstack = getInventory()[slot].splitStack(numberOfItems);
+
+				if (getInventory()[slot].stackSize == 0) {
+					getInventory()[slot] = null;
+				}
+
+				return itemstack;
+			}
+		} else {
+			return null;
+		}
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		return null;
+	public ItemStack getStackInSlotOnClosing(int slot) {
+		if(getStackInSlot(slot) != null) {
+			ItemStack itemstack = getStackInSlot(slot);
+			setInventorySlotContents(slot, null);
+			return itemstack;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) { }
+	public void setInventorySlotContents(int slot, ItemStack itemStack) {
+		getInventory()[slot] = itemStack;
+
+		if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
+			itemStack.stackSize = getInventoryStackLimit();
+		}
+	}
 
 	@Override
 	public String getInventoryName() {
-		return null;
+		return "RFLoader";
 	}
 
 	@Override
@@ -212,7 +244,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -229,6 +261,11 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
+		if(itemStack != null || itemStack.getItem() != null) {
+			if(slot == 0) {
+				return itemStack.getItem() == EnderIO.itemBasicCapacitor && itemStack.getItemDamage() > 0;
+			}
+		}
 		return false;
 	}
 
@@ -301,12 +338,19 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	protected void setCapacitor(ICapacitor capacitor) {
 		this.capacitor = capacitor;
-		//Force a check that the new value is in bounds
 		energyStorage.setEnergyStored(getEnergyStored());
 	}
 
 	public Capacitors getCapacitorType() {
 		return capacitorType;
+	}
+
+	public ItemStack[] getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(ItemStack[] inventory) {
+		this.inventory = inventory;
 	}
 }
 

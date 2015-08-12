@@ -5,17 +5,33 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 /**
  * Created by Skylar on 5/27/2015.
  */
 public class ContainerRFLoader extends Container {
 	private TileEntityRFLoader tileEntityRFLoader;
+	protected Slot upgradeSlot;
 
-	public ContainerRFLoader(InventoryPlayer inventoryPlayer, TileEntityRFLoader tileEntityRFLoader){
+	public ContainerRFLoader(InventoryPlayer inventoryPlayer, final TileEntityRFLoader tileEntityRFLoader){
 		super();
 		this.setTileEntityRFLoader(tileEntityRFLoader);
 		this.bindPlayerInventory(inventoryPlayer);
+
+		upgradeSlot = new Slot(getTileEntityRFLoader(), 0, 12, 60) {
+
+			@Override
+			public int getSlotStackLimit() {
+				return getTileEntityRFLoader().getInventoryStackLimit();
+			}
+
+			@Override
+			public boolean isItemValid(ItemStack itemStack) {
+				return getTileEntityRFLoader().isItemValidForSlot(0, itemStack);
+			}
+		};
+		addSlotToContainer(upgradeSlot);
 	}
 
 	protected void bindPlayerInventory(InventoryPlayer inventory) {
