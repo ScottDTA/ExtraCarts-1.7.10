@@ -53,7 +53,6 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 			setLoader(false);
 		}
 		capacitorType = Capacitors.BASIC_CAPACITOR;
-		onCapacitorTypeChange();
 	}
 
 	@Override
@@ -167,16 +166,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	public void setCapacitor(Capacitors capacitorType) {
 		this.capacitorType = capacitorType;
 		this.capacitor = null;
-		onCapacitorTypeChange();
-		//Force a check that the new value is in bounds
 		energyStorage.setEnergyStored(getEnergyStored());
-		//forceClientUpdate = true;
-	}
-
-	public void onCapacitorTypeChange() {}
-
-	public int getPowerUsePerTick() {
-		return getCapacitor().getMaxEnergyExtracted();
 	}
 	
 	@Override
