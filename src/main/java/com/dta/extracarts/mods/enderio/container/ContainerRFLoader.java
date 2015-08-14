@@ -1,5 +1,6 @@
 package com.dta.extracarts.mods.enderio.container;
 
+import com.dta.extracarts.mods.enderio.gui.SlotMinecart;
 import com.dta.extracarts.mods.enderio.tileentity.TileEntityRFLoader;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -13,6 +14,8 @@ import net.minecraft.item.ItemStack;
 public class ContainerRFLoader extends Container {
 	private TileEntityRFLoader tileEntityRFLoader;
 	protected Slot upgradeSlot;
+	protected SlotMinecart cartFilter1;
+	protected SlotMinecart cartFilter2;
 
 	public ContainerRFLoader(InventoryPlayer inventoryPlayer, final TileEntityRFLoader tileEntityRFLoader){
 		super();
@@ -20,7 +23,6 @@ public class ContainerRFLoader extends Container {
 		this.bindPlayerInventory(inventoryPlayer);
 
 		upgradeSlot = new Slot(getTileEntityRFLoader(), 0, 12, 60) {
-
 			@Override
 			public int getSlotStackLimit() {
 				return getTileEntityRFLoader().getInventoryStackLimit();
@@ -32,6 +34,11 @@ public class ContainerRFLoader extends Container {
 			}
 		};
 		addSlotToContainer(upgradeSlot);
+
+		cartFilter1 = new SlotMinecart(getTileEntityRFLoader(), 1, 98, 48);
+		addSlotToContainer(cartFilter1);
+		cartFilter2 = new SlotMinecart(getTileEntityRFLoader(), 2, 116, 48);
+		addSlotToContainer(cartFilter2);
 	}
 
 	protected void bindPlayerInventory(InventoryPlayer inventory) {

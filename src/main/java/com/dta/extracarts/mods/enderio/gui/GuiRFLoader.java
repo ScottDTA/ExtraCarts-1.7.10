@@ -109,6 +109,7 @@ public class GuiRFLoader extends GuiContainerBase {
 		if(input >= 0 && tileEntityRFLoader.getMaxIO() != input) {
 			setSetIO(input);
 		}
+		updateFieldsFromState();
 	}
 
 	private void setSetIO(int setIO) {

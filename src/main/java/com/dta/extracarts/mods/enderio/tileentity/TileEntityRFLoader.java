@@ -311,6 +311,9 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	}
 
 	public void setSetIO(int setIO) {
+		if(setIO > getMaxIO()) {
+			setIO = maxIO;
+		}
 		this.setIO = setIO;
 	}
 
