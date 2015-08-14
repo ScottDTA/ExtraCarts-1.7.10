@@ -64,7 +64,7 @@ public class GuiRFLoader extends GuiContainerBase {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderUtil.bindTexture("enderio:textures/gui/poweredSpawner.png");
+		RenderUtil.bindTexture("extracarts:textures/gui/rfLoader.png");
 		int sx = (width - xSize) / 2;
 		int sy = (height - ySize) / 2;
 
