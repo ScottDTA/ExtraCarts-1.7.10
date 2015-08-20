@@ -134,7 +134,7 @@ abstract public class EntityExtraCartChestMinecart extends CartTransferBase impl
 
     @Override
     public String getInventoryName() {
-        return this.hasCustomInventoryName() ? this.func_95999_t() : "container.minecart";
+        return this.hasCustomInventoryName() ? this.func_95999_t() : "com.dta.extracarts.container.minecart";
     }
 
     @Override

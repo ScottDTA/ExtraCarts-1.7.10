@@ -1,6 +1,5 @@
 package com.dta.extracarts.mods.enderio.container;
 
-import com.dta.extracarts.mods.enderio.gui.SlotMinecart;
 import com.dta.extracarts.mods.enderio.tileentity.TileEntityRFLoader;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

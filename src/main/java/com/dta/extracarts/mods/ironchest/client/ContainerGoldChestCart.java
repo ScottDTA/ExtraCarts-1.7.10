@@ -1,6 +1,6 @@
 package com.dta.extracarts.mods.ironchest.client;
 
-import com.dta.extracarts.client.ContainerExtraChestCart;
+import com.dta.extracarts.container.ContainerExtraChestCart;
 import net.minecraft.inventory.IInventory;
 
 public class ContainerGoldChestCart extends ContainerExtraChestCart {

@@ -1,7 +1,7 @@
 package com.dta.extracarts.mods.enderio.container;
 
 import cofh.api.energy.IEnergyContainerItem;
-import com.dta.extracarts.client.ContainerExtraChestCart;
+import com.dta.extracarts.container.ContainerExtraChestCart;
 import com.dta.extracarts.mods.enderio.entities.EntityCapacitorBankCart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

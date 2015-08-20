@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 /** 
  * A marker for containers that have a chest-like persistant storage component. Enables the Inventroy Tweaks sorting 
-  * buttons for this container. 
+  * buttons for this com.dta.extracarts.container.
   */ 
  @Retention(RetentionPolicy.RUNTIME) 
  @Target(ElementType.TYPE) 
@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
      boolean isLargeChest() default false; 
  
  
-     // Annotation for method to get size of a chest row if it is not a fixed size for this container class 
+     // Annotation for method to get size of a chest row if it is not a fixed size for this com.dta.extracarts.container class
      // Signature int func() 
      @Retention(RetentionPolicy.RUNTIME) 
      @Target(ElementType.METHOD) 

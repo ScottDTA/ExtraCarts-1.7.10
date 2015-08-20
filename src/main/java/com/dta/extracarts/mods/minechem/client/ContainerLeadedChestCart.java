@@ -1,9 +1,8 @@
 package com.dta.extracarts.mods.minechem.client;
 
-import com.dta.extracarts.client.ContainerExtraChestCart;
+import com.dta.extracarts.container.ContainerExtraChestCart;
 import com.dta.extracarts.mods.minechem.entities.EntityLeadedChestCart;
 import minechem.api.INoDecay;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

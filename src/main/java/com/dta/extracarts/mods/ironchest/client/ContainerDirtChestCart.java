@@ -1,6 +1,6 @@
 package com.dta.extracarts.mods.ironchest.client;
 
-import com.dta.extracarts.client.ContainerExtraChestCart;
+import com.dta.extracarts.container.ContainerExtraChestCart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
