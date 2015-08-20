@@ -11,6 +11,9 @@ import crazypants.enderio.EnderIO;
 import crazypants.enderio.power.Capacitors;
 import crazypants.enderio.power.ICapacitor;
 import mods.railcraft.api.carts.CartTools;
+import mods.railcraft.api.carts.IMinecart;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -22,8 +25,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
 
 /**
  * Created by Skylar on 5/27/2015.
@@ -37,6 +38,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 	private int maxIO = 1000;
 	private int setIO = maxIO;
 	private ItemStack[] inventory = new ItemStack[3];
+	private boolean sendCart = false;
 
 	private ICapacitor capacitor;
 	private Capacitors capacitorType;
@@ -70,15 +72,28 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 		}
 
 		if(CartTools.isMinecartOnSide(worldObj, xCoord, yCoord, zCoord, 0, facing)) {
-			List<EntityMinecart> minecartsOnSide = CartTools.getMinecartsOnSide(worldObj, xCoord, yCoord, zCoord, 0, facing);
-			if(minecartsOnSide.get(0) != null) {
-				if(isLoader()) {
-					loadCart(minecartsOnSide.get(0));
-				} else {
-					unloadCart(minecartsOnSide.get(0));
+			EntityMinecart entityMinecart = CartTools.getMinecartOnSide(worldObj, xCoord, yCoord, zCoord, 0, facing);
+			if(entityMinecart != null) {
+				if(doesCartMatchFilter(entityMinecart)) {
+					setSendCart(false);
+					if (isLoader()) {
+						loadCart(entityMinecart);
+					} else {
+						unloadCart(entityMinecart);
+					}
 				}
+				setSendCart(true);
 			}
+			setSendCart(false);
 		}
+	}
+
+	public int getRedstonePower(ForgeDirection facing) {
+		Block block = worldObj.getBlock(facing.offsetX, facing.offsetY, facing.offsetZ);
+		if(block instanceof BlockRailBase && isSendCart()) {
+			return 16;
+		}
+		return 0;
 	}
 
 	@Override
@@ -99,6 +114,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 		super.readFromNBT(tagCompound);
 		energyStorage.readFromNBT(tagCompound);
 		setCapacitor(Capacitors.values()[tagCompound.getShort("capacitorType")]);
+		setSendCart(tagCompound.getBoolean("sendCart"));
 	}
 
 	@Override
@@ -106,6 +122,7 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 		super.writeToNBT(tagCompound);
 		energyStorage.writeToNBT(tagCompound);
 		tagCompound.setShort("capacitorType", (short) capacitorType.ordinal());
+		tagCompound.setBoolean("sendCart", isSendCart());
 	}
 
 	//EIO
@@ -153,6 +170,23 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	private int receiveEnergyFromCart(int amountToReceive, boolean simulate) {
 		return energyStorage.receiveEnergy(amountToReceive, simulate);
+	}
+
+	private boolean doesCartMatchFilter(EntityMinecart entityMinecart) {
+		if(getStackInSlot(1) == null && getStackInSlot(2) == null) {
+			if(entityMinecart instanceof IMinecart) {
+				boolean cartMatches = false;
+				if(getStackInSlot(1) != null) {
+					cartMatches = ((IMinecart) entityMinecart).doesCartMatchFilter(getStackInSlot(1), entityMinecart);
+				}
+				if(cartMatches == false) {
+					cartMatches = ((IMinecart) entityMinecart).doesCartMatchFilter(getStackInSlot(2), entityMinecart);
+				}
+				return cartMatches;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public ForgeDirection getFacing() {
@@ -344,6 +378,15 @@ public class TileEntityRFLoader extends TileEntity implements IInventory, Openab
 
 	public void setInventory(ItemStack[] inventory) {
 		this.inventory = inventory;
+	}
+
+	public boolean isSendCart() {
+		return sendCart;
+	}
+
+	public void setSendCart(boolean sendCart) {
+		this.sendCart = sendCart;
+		markDirty();
 	}
 }
 

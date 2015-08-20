@@ -92,6 +92,16 @@ public class BlockRFLoader extends BlockContainer {
 		}
 	}
 
+	@Override
+	public int isProvidingWeakPower(IBlockAccess world, int i, int j, int k, int side) {
+		TileEntity tile = world.getTileEntity(i, j, k);
+		if (tile instanceof TileEntityRFLoader) {
+			System.out.println(((TileEntityRFLoader) tile).getRedstonePower(ForgeDirection.getOrientation(side)));
+			return ((TileEntityRFLoader) tile).getRedstonePower(ForgeDirection.getOrientation(side));
+		}
+		return 0;
+	}
+
 	public TileEntityRFLoader getTileEntity(IBlockAccess world, int x, int y, int z, int metadata) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityRFLoader) {
